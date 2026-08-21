@@ -347,3 +347,9 @@
 - [x] Review existing hero transition timing and animation behaviour.
 - [x] Apply a smooth shared fade to hero copy and image changes.
 - [x] Verify the fade at desktop and mobile sizes, then save the update.
+
+# Mobile Hero Image Simplification
+
+- [x] Hide hero-slider photography at the mobile breakpoint.
+- [x] Rebalance mobile hero copy, actions, trust marks, and controls after removing the image.
+- [x] Verify the mobile and desktop hero layouts, then save the update.
