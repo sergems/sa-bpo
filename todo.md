@@ -468,6 +468,6 @@
 
 # GitHub Repository Export
 
-- [ ] Prepare the current project for GitHub export without committing managed secrets or generated artifacts.
-- [ ] Create a new private repository named `sa-bpo` and push the project source.
-- [ ] Verify the remote repository and provide its link.
+- [x] Prepare the current project for GitHub export without committing managed secrets or generated artifacts.
+- [x] Create a new private repository named `sa-bpo` and push the project source.
+- [x] Verify the remote repository and provide its link.
