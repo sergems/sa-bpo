@@ -88,3 +88,6 @@ Use the supplied lockup as the primary brand mark. In digital contexts, pair it 
 - Preserve the logo and mock-up’s black header, people-first hero, and South African color language.
 - Use an off-white canvas and deep ink to prevent the full palette from becoming visually noisy.
 - Keep the experience premium and operationally credible; avoid generic “tech startup” gradients, excessive rounded cards, and stock-photo sameness.
+- **Updated-content rule:** Carry the revised SA-BPO messages visibly through the homepage: company values, performance pillars, operational proof, Durban North context, and the purpose-built work environment must read as a connected narrative, rather than isolated informational blocks.
+- **Signal hierarchy rule:** Signal Green is the primary field for operating confidence; royal blue frames performance data; golden yellow signifies momentum and invitations; red is reserved for recognition and decisive emphasis.
+- **Operating-network rule:** Every major section carries a meaningful visible connection—numbered rails, nodes, operating standards, or volume-to-outcome pathways—so the Human Circuit motif represents the way people, process, and outcomes connect.
