@@ -51,3 +51,8 @@
 
 - [x] Separate the location label, trust marks, and hero footer into a clean premium layout.
 - [x] Verify the refined information hierarchy at desktop and mobile breakpoints, then save the update.
+
+# Hero Trust-Row Visibility Fix
+
+- [x] Correct the hero height and trust-mark placement so the complete row remains visible.
+- [x] Verify the complete trust-mark row at constrained preview and standard desktop sizes, then save the correction.
