@@ -432,3 +432,9 @@
 
 - [x] Reduce the footer compliance graphic width by 50% at desktop and mobile breakpoints.
 - [x] Verify the smaller responsive footer graphic and save the update.
+
+# Footer Compliance Image Replacement
+
+- [x] Upload the supplied footer compliance image to managed website storage.
+- [x] Replace the current footer image source while retaining reduced desktop and mobile sizing.
+- [x] Verify the replacement image in both responsive footers, then save the update.
