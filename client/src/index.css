@@ -193,7 +193,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 .section-top h2,.location-content h2,.calculator-section h2,.contact-section h2,.our-home-story h2,.our-home-benefits h3{font-size:clamp(2.3rem,2.95vw,3.55rem);line-height:.94}@media(max-width:720px){.section-top h2,.location-content h2,.calculator-section h2,.contact-section h2,.our-home-story h2,.our-home-benefits h3{font-size:clamp(2.25rem,10vw,3.1rem);line-height:.94}}
 
 /* Human Circuit footer asset: the supplied BPO capability graphic sits below the right-aligned footer menu. */
-.footer-right{display:grid;justify-items:end;gap:18px}.footer-bpo-graphic{display:block;width:min(98px,100%);height:auto;opacity:.94}@media(max-width:720px){.footer-right{justify-items:start;margin-top:35px}.footer-bpo-graphic{width:min(94px,100%)}}
+.footer-right{display:grid;justify-items:end;gap:18px}.footer-bpo-graphic{display:block;width:min(49px,100%);height:auto;opacity:.94}@media(max-width:720px){.footer-right{justify-items:start;margin-top:35px}.footer-bpo-graphic{width:min(47px,100%)}}
 
 /* Human Circuit footer navigation: the policy route reads like the rest of the practical footer menu. */
 .footer-nav a{padding:0;color:rgba(255,255,255,.7);font-size:.7rem;text-decoration:none}.footer-nav a:hover{color:#fff}

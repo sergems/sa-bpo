@@ -427,3 +427,8 @@
 - [x] Align the Trusted delivery strip to the left on mobile.
 - [x] Keep the slider controls on the right without affecting desktop positioning.
 - [x] Verify the mobile hero bottom row across both stories, then save the update.
+
+# Footer Compliance Graphic Reduction
+
+- [x] Reduce the footer compliance graphic width by 50% at desktop and mobile breakpoints.
+- [x] Verify the smaller responsive footer graphic and save the update.
