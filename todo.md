@@ -67,3 +67,8 @@
 
 - [x] Reduce the culture-section introduction height and headline scale while preserving hierarchy and clarity.
 - [x] Verify the compact introduction at desktop and mobile breakpoints, then save the update.
+
+# Compact Performance Mode
+
+- [x] Reduce the performance-mode heading, selector, and feature-panel footprint while preserving interaction.
+- [x] Verify the compact performance mode at desktop and mobile breakpoints, then save the update.

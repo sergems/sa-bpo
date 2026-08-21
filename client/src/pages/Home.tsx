@@ -82,7 +82,7 @@ const locationContent = {
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [cultureMode, setCultureMode] = useState<CultureMode>("values");
+  const [cultureMode, setCultureMode] = useState<CultureMode>(() => new URLSearchParams(window.location.search).get("culture") === "performance" ? "performance" : "values");
   const [activeValueIndex, setActiveValueIndex] = useState(0);
   const [activeService, setActiveService] = useState("cx");
   const [activeProof, setActiveProof] = useState(0);
