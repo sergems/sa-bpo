@@ -160,3 +160,9 @@
 - [x] Inspect the reported trust-row blur and identify site-wide soft text-rendering causes.
 - [x] Apply sharp font-loading, compositing, and text-rendering rules across all site text.
 - [x] Verify crisp text across the hero, interactive controls, and responsive layouts, then save the update.
+
+# Hero Slider Text Alignment
+
+- [x] Inspect all hero slides for headline scale and lower-content position differences.
+- [x] Increase the Connected Capability headline by 25% and establish shared text-zone dimensions.
+- [x] Verify fixed trust and control placement across every hero slide at desktop and mobile sizes.
