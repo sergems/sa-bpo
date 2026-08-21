@@ -166,3 +166,9 @@
 - [x] Inspect all hero slides for headline scale and lower-content position differences.
 - [x] Increase the Connected Capability headline by 25% and establish shared text-zone dimensions.
 - [x] Verify fixed trust and control placement across every hero slide at desktop and mobile sizes.
+
+# Clean Hero Image Backgrounds
+
+- [x] Identify and remove the coloured fields behind every hero-slide image.
+- [x] Preserve clean photography and readable text composition without slide-specific image backgrounds.
+- [x] Verify the updated hero imagery at desktop and mobile sizes, then save the update.
