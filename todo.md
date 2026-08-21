@@ -257,3 +257,9 @@
 - [x] Review the current proof-list hover behaviour and retain the existing proof descriptions.
 - [x] Add a smooth hover response to the confidence list items.
 - [x] Remove the heavy label weight and verify crisp confidence-list typography, then save the update.
+
+# Confidence Panel Height Alignment
+
+- [x] Inspect the list and detail panel height constraints.
+- [x] Match the blue detail panel height to the full ten-item list footprint.
+- [x] Verify the compact proof explorer at desktop and mobile sizes, then save the update.

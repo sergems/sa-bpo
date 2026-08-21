@@ -162,5 +162,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 
 /* Human Circuit proof type: regular-weight labels stay clean and sharply legible inside the dense signal list. */
 .proof-list strong{font-weight:400;letter-spacing:.005em;line-height:1.3;text-rendering:optimizeLegibility}.proof-list button.is-active strong{font-weight:400}@media(max-width:720px){.proof-list strong{font-size:.67rem;line-height:1.24}}
+
+/* Human Circuit proof geometry: the selected blue detail panel follows the ten-signal list height, leaving no inert lower field. */
+@media(min-width:721px){.proof-panel{min-height:0}}
 /* Human Circuit culture rhythm: both mode summaries hold four planned lines, preserving a stable console position. */
 .culture-intro-description{min-height:6.4em}.culture-intro-description span{display:block;white-space:nowrap}@media(max-width:720px){.culture-intro-description{min-height:6.4em!important;font-size:clamp(.68rem,3.7vw,.88rem)!important;line-height:1.6!important}.culture-intro-description span{white-space:nowrap}}
