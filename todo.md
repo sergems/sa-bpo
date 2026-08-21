@@ -251,3 +251,9 @@
 - [x] Review the current proof explorer data and layout capacity.
 - [x] Replace its proof list with the ten approved elements from the supplied reference.
 - [x] Verify the complete interactive proof explorer at desktop and mobile sizes, then save the update.
+
+# Confidence List Hover and Copy Refinement
+
+- [x] Review the current proof-list hover behaviour and retain the existing proof descriptions.
+- [x] Add a smooth hover response to the confidence list items.
+- [x] Remove the heavy label weight and verify crisp confidence-list typography, then save the update.
