@@ -114,7 +114,6 @@ export default function Home() {
           <button onClick={() => goTo("about")}>About SA-BPO</button>
           <button onClick={() => goTo("services")}>Capabilities</button>
           <button onClick={() => goTo("confidence")}>Why SA-BPO</button>
-          <button onClick={() => goTo("location")}>Durban North</button>
           <button className="nav-calculator" onClick={() => setShowCalculator(true)}>BPO calculator <ArrowDownRight size={15} /></button>
         </nav>
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation">{menuOpen ? <X /> : <Menu />}</button>

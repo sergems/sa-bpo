@@ -41,3 +41,8 @@
 - [x] Add a client-trust and industry-compliance strip beneath the primary hero CTA.
 - [x] Route the primary hero CTA smoothly to the BPO calculator section.
 - [x] Replace the current hero image with a professional team-photography placeholder and validate responsiveness.
+
+# Navigation Simplification
+
+- [x] Remove Durban North from the navigation menu while preserving its on-page section.
+- [x] Verify the simplified navigation and save the update.
