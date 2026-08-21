@@ -151,7 +151,10 @@ export default function Home() {
     return Number.isInteger(selected) && selected >= 0 && selected <= 3 ? selected : 0;
   });
   const [activeService, setActiveService] = useState("cx");
-  const [activeProof, setActiveProof] = useState(0);
+  const [activeProof, setActiveProof] = useState(() => {
+    const requested = Number(new URLSearchParams(window.location.search).get("proof"));
+    return Number.isInteger(requested) && requested >= 0 && requested < proofPoints.length ? requested : 0;
+  });
   const [activeHomeTile, setActiveHomeTile] = useState<"story" | "benefits">(() => new URLSearchParams(window.location.search).get("homeView") === "benefits" ? "benefits" : "story");
   const [locationMode, setLocationMode] = useState<LocationMode>(() => new URLSearchParams(window.location.search).get("location") === "home" ? "home" : "durban");
   const [showCalculator, setShowCalculator] = useState(() => new URLSearchParams(window.location.search).get("calculator") === "open");

@@ -221,3 +221,9 @@
 - [x] Identify the gap between Why SA-BPO and Our location and the current section height constraints.
 - [x] Remove the excess gap and reduce the location section by approximately 20%.
 - [x] Verify the compact section join and responsive content layout, then save the update.
+
+# Proof Panel Path Spacing
+
+- [x] Inspect the proof-panel description and signal-path collision.
+- [x] Increase the lower content safety space and reposition the signal path.
+- [x] Verify the corrected proof-panel spacing at desktop and mobile sizes, then save the update.
