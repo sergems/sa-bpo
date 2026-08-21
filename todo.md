@@ -10,3 +10,8 @@
 - [x] Consolidate the homepage into fewer, higher-value sections without losing the approved SA-BPO content.
 - [x] Add interaction patterns that make services, proof points, and location information explorable on demand.
 - [x] Verify the compact desktop and mobile layout, interactions, and production build before delivery.
+
+# Calculator Layout Fix
+
+- [x] Identify and correct calculator overflow or fitting issues across responsive viewports.
+- [x] Verify the calculator trigger band and modal at desktop and mobile sizes, then save the fix.
