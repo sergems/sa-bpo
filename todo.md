@@ -443,3 +443,9 @@
 
 - [x] Reduce the supplied footer compliance image by a further 60% at desktop and mobile breakpoints.
 - [x] Verify the smaller footer image and save the update.
+
+# Mobile Footer Centering and One-Line Navigation
+
+- [x] Center the footer brand, menu, compliance image, and copyright on mobile.
+- [x] Keep the footer menu on one horizontal line at mobile widths.
+- [x] Verify the mobile footer and unchanged desktop layout, then save the update.

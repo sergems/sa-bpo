@@ -232,3 +232,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 
 /* Human Circuit mobile hero bottom row: Trusted delivery anchors left while carousel controls stay right. */
 @media(max-width:720px){.hero-trust{justify-content:start;text-align:left}.hero-trust .trust-caption{justify-self:start}.hero-slider-controls{right:20px;left:auto}}
+
+
+/* Human Circuit mobile footer: centered brand, compliance mark, copyright, and one-line navigation. */
+@media(max-width:720px){.site-footer{text-align:center}.site-footer>div:first-child{display:grid;justify-items:center}.site-footer .footer-right{justify-items:center;margin-top:28px}.site-footer .footer-nav{display:flex;flex-wrap:nowrap;justify-content:center;align-items:center;gap:clamp(7px,2.4vw,12px);margin-top:0}.site-footer .footer-nav button,.site-footer .footer-nav a{flex:0 0 auto;white-space:nowrap;font-size:clamp(.46rem,2vw,.58rem)}.site-footer .footer-bpo-graphic{margin-inline:auto}.site-footer small{margin-top:30px;text-align:center}}
