@@ -20,3 +20,8 @@
 
 - [x] Make the calculator modal fit within constrained viewport heights while keeping its results and action accessible.
 - [x] Verify the complete modal at desktop and mobile viewport heights, then save the repair.
+
+# Original Logo Restoration
+
+- [x] Remove altered logo styling and restore the original supplied SA-BPO logo in every visible placement.
+- [x] Verify the corrected original logo treatment in the header and footer, then save the update.
