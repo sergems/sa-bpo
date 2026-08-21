@@ -223,3 +223,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 
 /* Human Circuit mobile culture console: a full-width active story is followed by four compact selector rows. */
 @media(max-width:720px){.value-console{grid-template-columns:1fr;gap:12px}.value-display{order:1;width:100%}.value-selector{order:2;grid-template-columns:1fr;grid-template-rows:repeat(4,auto);min-height:0}.value-select{min-height:48px;padding:9px 12px}.value-select:nth-child(odd){border-right:0}.value-select:nth-last-child(-n+2){border-bottom:1px solid rgba(255,255,255,.16)}.value-select:last-child{border-bottom:0}.value-select:hover,.value-select.is-active{padding-left:12px}}
+
+/* Human Circuit mobile confidence layout: the active delivery detail leads, followed by the full compact proof grid. */
+@media(max-width:720px){.proof-explorer{display:flex;flex-direction:column}.proof-panel{order:1;width:100%}.proof-list{order:2;width:100%}}

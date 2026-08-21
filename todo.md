@@ -410,3 +410,9 @@
 - [x] Make the active culture panel span the full mobile width above all selectors.
 - [x] Stack all four compact selector rows beneath the panel, matching the supplied drawing.
 - [x] Verify the mobile stack and unchanged desktop console, then save the update.
+
+# Mobile Confidence Panel-First Layout
+
+- [x] Place the selected confidence detail panel above all ten proof elements on mobile.
+- [x] Retain the compact ten-item proof grid beneath the panel and preserve proof selection.
+- [x] Verify the reordered mobile confidence section and unchanged desktop layout, then save the update.
