@@ -154,3 +154,9 @@
 - [x] Identify the spacing and positioning causing the culture-card text and actions to overlap.
 - [x] Rebuild the card’s content spacing so titles, narratives, and actions remain separate.
 - [x] Verify the clean responsive layout at desktop and mobile breakpoints, then save the update.
+
+# Crisp Typography Repair
+
+- [x] Inspect the reported trust-row blur and identify site-wide soft text-rendering causes.
+- [x] Apply sharp font-loading, compositing, and text-rendering rules across all site text.
+- [x] Verify crisp text across the hero, interactive controls, and responsive layouts, then save the update.
