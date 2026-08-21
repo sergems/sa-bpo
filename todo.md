@@ -323,3 +323,9 @@
 - [x] Identify the stable hero layout immediately before the latest height reduction.
 - [x] Restore the prior compact hero image and slider heights.
 - [x] Verify the restored desktop and mobile hero layouts, then save the update.
+
+# Hero Composition Refinement
+
+- [x] Audit the unused left-column space and current hero headline scale.
+- [x] Increase the hero headline by 20% and redistribute content spacing without increasing slider height.
+- [x] Verify the balanced desktop and mobile hero compositions, then save the update.
