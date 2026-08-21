@@ -227,3 +227,9 @@
 - [x] Inspect the proof-panel description and signal-path collision.
 - [x] Increase the lower content safety space and reposition the signal path.
 - [x] Verify the corrected proof-panel spacing at desktop and mobile sizes, then save the update.
+
+# Hover-Activated About SA-BPO Selectors
+
+- [x] Inspect existing values and performance selector event handling.
+- [x] Activate selector content on hover while preserving click and keyboard selection.
+- [x] Verify hover interaction and mobile behaviour, then save the update.
