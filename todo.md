@@ -353,3 +353,9 @@
 - [x] Hide hero-slider photography at the mobile breakpoint.
 - [x] Rebalance mobile hero copy, actions, trust marks, and controls after removing the image.
 - [x] Verify the mobile and desktop hero layouts, then save the update.
+
+# Mobile Hero Header Clearance
+
+- [x] Move the mobile hero content below the fixed header without clipping the eyebrow label.
+- [x] Preserve clear spacing for the CTA, trust strip, and carousel controls.
+- [x] Verify the repaired hero at mobile viewports, then save the update.
