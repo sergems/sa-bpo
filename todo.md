@@ -269,3 +269,9 @@
 - [x] Inspect the blue detail-card heading and spacing constraints.
 - [x] Reduce its heading scale by 25% and tighten the card height.
 - [x] Verify the compact result at desktop and mobile sizes, then save the update.
+
+# Connected Capability Removal
+
+- [x] Identify all Connected capability navigation, hero, and section references.
+- [x] Remove the Connected capability experience while preserving clear homepage routes.
+- [x] Verify the simplified desktop and mobile layouts, then save the update.

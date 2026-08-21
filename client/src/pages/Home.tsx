@@ -7,7 +7,6 @@ import {
   ArrowUpRight,
   BadgeCheck,
   Check,
-  ChevronRight,
   CircleDotDashed,
   Headphones,
   HeartHandshake,
@@ -47,12 +46,6 @@ const cultureContent = {
     ],
   },
 };
-
-const services = [
-  { id: "cx", nav: "Customer experience", title: "Conversations that sound like your brand.", copy: "Multi-channel customer care delivered by people who understand the context, the customer, and the standard.", points: ["Inbound and outbound support", "Voice, email, and chat", "Quality monitoring and coaching"], tone: "green" },
-  { id: "sales", nav: "Customer engagement", title: "Make every good conversation go further.", copy: "Give commercial teams more time and qualified momentum with follow-up that remains personal and purposeful.", points: ["Lead qualification", "Appointment setting", "Retention support"], tone: "blue" },
-  { id: "backoffice", nav: "Technical & back office", title: "Make the work behind the work flow.", copy: "Accurate operational support that gives your team capacity to focus on its highest-value work.", points: ["Data and administration", "Order and claims processing", "Reporting support"], tone: "yellow" },
-];
 
 const proofPoints = [
   { label: "24/7 service via Voice / Email / Chat", detail: "Always-on channel readiness for customer conversations across voice, email, and chat.", metric: "24/7", icon: Headphones },
@@ -119,20 +112,6 @@ const heroSlides = [
     tone: "people",
   },
   {
-    id: "capability",
-    eyebrow: "Connected capability",
-    title: <>Every customer <em>moment,</em><br />working as one.</>,
-    copy: "Bring customer care, engagement, and critical back-office operations into one dependable delivery model.",
-    primary: "Explore capabilities",
-    primaryTarget: "services",
-    secondary: "Build a BPO model",
-    secondaryTarget: "calculator",
-    trust: ["Voice, email & chat", "KPI-led delivery", "Quality assurance"],
-    visual: "/manus-storage/sabpo-hero-operations-collaboration_c67eb921.png",
-    alt: "SA-BPO operations specialists collaborating in a modern delivery hub",
-    tone: "capability",
-  },
-  {
     id: "global",
     eyebrow: "South Africa / global delivery",
     title: <>Local insight.<br /><em>Global</em><br />expectation.</>,
@@ -155,7 +134,6 @@ export default function Home() {
     const selected = Number(new URLSearchParams(window.location.search).get("pillar"));
     return Number.isInteger(selected) && selected >= 0 && selected <= 3 ? selected : 0;
   });
-  const [activeService, setActiveService] = useState("cx");
   const [activeProof, setActiveProof] = useState(() => {
     const requested = Number(new URLSearchParams(window.location.search).get("proof"));
     return Number.isInteger(requested) && requested >= 0 && requested < proofPoints.length ? requested : 0;
@@ -190,7 +168,6 @@ export default function Home() {
   const activeCulture = cultureContent[cultureMode];
   const activeValue = activeCulture.cards[activeValueIndex] ?? activeCulture.cards[0];
   const ActiveValueIcon = activeValue.icon;
-  const selectedService = services.find((service) => service.id === activeService) ?? services[0];
   const selectedLocation = locationContent[locationMode];
   const activeHero = heroSlides[activeHeroSlide];
   const ActiveProofIcon = proofPoints[activeProof].icon;
@@ -209,7 +186,6 @@ export default function Home() {
         <button className="brand-lockup" onClick={() => goTo("top")} aria-label="SA-BPO home"><img src="/manus-storage/sabpo-logo-original_3f02dc80.png" alt="SA-BPO" /></button>
         <nav className={`primary-nav ${menuOpen ? "primary-nav--open" : ""}`}>
           <button onClick={() => goTo("about")}>About SA-BPO</button>
-          <button onClick={() => goTo("services")}>Capabilities</button>
           <button onClick={() => goTo("confidence")}>Why SA-BPO</button>
           <a className="nav-join" href="https://referral.recruitment.sa-bpo.net" target="_blank" rel="noreferrer">Join Our Team <ArrowUpRight size={14} /></a>
           <button className="nav-calculator" onClick={() => setShowCalculator(true)}>BPO calculator <ArrowDownRight size={15} /></button>
@@ -229,16 +205,11 @@ export default function Home() {
         <div className="culture-intro"><div className="index-label">01 <span>About SA-BPO</span></div><div><p className="eyebrow">The operating culture</p><h2>{activeCulture.title}</h2></div><p className="culture-intro-description">{activeCulture.description}</p></div>
         <div className="culture-mode" role="tablist" aria-label="SA-BPO culture content"><button className={cultureMode === "values" ? "is-active" : ""} onClick={() => { setCultureMode("values"); setActiveValueIndex(0); }} onMouseEnter={() => { setCultureMode("values"); setActiveValueIndex(0); }} onFocus={() => { setCultureMode("values"); setActiveValueIndex(0); }} role="tab" aria-selected={cultureMode === "values"}><span>01</span> Our values</button><button className={cultureMode === "performance" ? "is-active" : ""} onClick={() => { setCultureMode("performance"); setActiveValueIndex(0); }} onMouseEnter={() => { setCultureMode("performance"); setActiveValueIndex(0); }} onFocus={() => { setCultureMode("performance"); setActiveValueIndex(0); }} role="tab" aria-selected={cultureMode === "performance"}><span>02</span> Performance</button></div>
         <div className="value-console"><div className="value-selector" role="tablist" aria-label="Select a SA-BPO value">{activeCulture.cards.map((item, index) => { const Icon = item.icon; return <button key={item.title} className={`value-select value-select--${item.tone} ${activeValueIndex === index ? "is-active" : ""}`} onClick={() => setActiveValueIndex(index)} onMouseEnter={() => setActiveValueIndex(index)} onFocus={() => setActiveValueIndex(index)} role="tab" aria-selected={activeValueIndex === index}><span className="value-number">0{index + 1}</span><span className="value-select-name">{item.title}</span><Icon size={18} /><ArrowRight size={16} /></button>; })}</div><article key={`${cultureMode}-${activeValue.title}`} className={`value-display value-display--${activeValue.tone}`}><div className="value-display-top"><span>SA-BPO / {cultureMode === "values" ? "Core value" : "Performance pillar"}</span><span>0{activeValueIndex + 1} / 04</span></div><div className="value-display-copy"><div className="value-display-icon"><ActiveValueIcon size={34} /></div><h3>{activeValue.title}</h3><p>{activeValue.copy}</p></div><button className="value-details" onClick={() => setShowStatementDetails(true)}>View details <ArrowUpRight size={14} /></button><button className="value-next" onClick={() => setActiveValueIndex((activeValueIndex + 1) % activeCulture.cards.length)}>Next pillar <ArrowRight size={15} /></button><div className="value-display-path"><i /><span /><i /><span /><i /></div><div className="value-display-word">{activeValue.title}</div></article></div>
-        <div className="culture-promise"><span className="promise-dot" /><p><strong>People → Process → Outcome.</strong> Every SA-BPO value is designed to improve the experience behind your brand.</p><button onClick={() => goTo("services")}>See capability in action <ArrowRight size={16} /></button></div>
-      </section>
-
-      <section id="services" className="services-section section-pad">
-        <div className="section-top section-top--compact"><div className="index-label">02 <span>Capabilities</span></div><div><p className="eyebrow eyebrow--green">Connected capability</p><h2>One team for the moments<br /><span>that move business.</span></h2></div></div>
-        <div className="service-explorer"><div className="service-tabs" role="tablist" aria-label="SA-BPO capabilities">{services.map((service, index) => <button key={service.id} className={`service-tab ${activeService === service.id ? "is-active" : ""}`} onClick={() => setActiveService(service.id)} role="tab" aria-selected={activeService === service.id}><span>0{index + 1}</span><strong>{service.nav}</strong><ChevronRight size={18} /></button>)}</div><article key={selectedService.id} className={`service-stage service-stage--${selectedService.tone}`}><div className="stage-copy"><span className="stage-label">Live capability / {selectedService.nav}</span><h3>{selectedService.title}</h3><p>{selectedService.copy}</p><ul>{selectedService.points.map((point) => <li key={point}><Check size={15} />{point}</li>)}</ul><button className="text-button text-button--dark" onClick={() => goTo("contact")}>Map this work with us <ArrowRight size={16} /></button></div><div className="stage-image"><img src="/manus-storage/sabpo-operations_50372ac6.png" alt="SA-BPO operations specialist" /><span><Headphones size={16} /> Human-led delivery</span></div></article></div>
+        <div className="culture-promise"><span className="promise-dot" /><p><strong>People → Process → Outcome.</strong> Every SA-BPO value is designed to improve the experience behind your brand.</p><button onClick={() => goTo("confidence")}>See the proof <ArrowRight size={16} /></button></div>
       </section>
 
       <section id="confidence" className="confidence-section section-pad">
-        <div className="section-top section-top--on-dark"><div className="index-label">03 <span>Why SA-BPO</span></div><div><p className="eyebrow">Partner with confidence</p><h2>Proof you can<br /><em>explore.</em></h2></div><p className="section-description">Select a standard to see how it supports the people, process, and outcome behind your operation.</p></div>
+        <div className="section-top section-top--on-dark"><div className="index-label">02 <span>Why SA-BPO</span></div><div><p className="eyebrow">Partner with confidence</p><h2>Proof you can<br /><em>explore.</em></h2></div><p className="section-description">Select a standard to see how it supports the people, process, and outcome behind your operation.</p></div>
         <div className="proof-explorer"><div className="proof-list">{proofPoints.map((proof, index) => <button key={proof.label} className={activeProof === index ? "is-active" : ""} onClick={() => setActiveProof(index)}><span>{String(index + 1).padStart(2, "0")}</span><strong>{proof.label}</strong><ArrowRight size={16} /></button>)}</div><article key={activeProof} className="proof-panel"><div className="proof-metric">{proofPoints[activeProof].metric}</div><ActiveProofIcon size={27} /><h3>{proofPoints[activeProof].label}</h3><p>{proofPoints[activeProof].detail}</p><div className="proof-path"><i /><span /><i /><span /><i /></div></article></div>
         <div className="confidence-footer"><span>24/7 Voice / Email / Chat</span><span>KPI driven service</span><span>UK / US / AUS office standards</span></div>
       </section>
@@ -250,7 +221,7 @@ export default function Home() {
       <section id="calculator" className="calculator-section"><div className="calculator-heading"><p className="eyebrow">A practical starting point</p><h2>Map the work.<br /><em>See the signal.</em></h2></div><div className="calculator-path"><span><b>01</b> Volume</span><i>→</i><span><b>02</b> People</span><i>→</i><span><b>03</b> Outcome</span></div><div className="calculator-action"><p>Shape an indicative operating model from the work, people, and coverage you need.</p><button className="button button--yellow" onClick={() => setShowCalculator(true)}>Open BPO calculator <ArrowDownRight size={17} /></button></div></section>
 
       <section id="our-home" className="our-home-section">
-        <div className="our-home-heading"><div className="index-label">04 <span>Inside SA-BPO</span></div><p className="eyebrow eyebrow--green">A home for better work</p><div className="our-home-switch" role="tablist" aria-label="Explore the SA-BPO home"><button className={activeHomeTile === "story" ? "is-active" : ""} onClick={() => setActiveHomeTile("story")} role="tab" aria-selected={activeHomeTile === "story"}><span>01</span> Our home</button><button className={activeHomeTile === "benefits" ? "is-active" : ""} onClick={() => setActiveHomeTile("benefits")} role="tab" aria-selected={activeHomeTile === "benefits"}><span>02</span> Benefits</button></div></div>
+        <div className="our-home-heading"><div className="index-label">03 <span>Inside SA-BPO</span></div><p className="eyebrow eyebrow--green">A home for better work</p><div className="our-home-switch" role="tablist" aria-label="Explore the SA-BPO home"><button className={activeHomeTile === "story" ? "is-active" : ""} onClick={() => setActiveHomeTile("story")} role="tab" aria-selected={activeHomeTile === "story"}><span>01</span> Our home</button><button className={activeHomeTile === "benefits" ? "is-active" : ""} onClick={() => setActiveHomeTile("benefits")} role="tab" aria-selected={activeHomeTile === "benefits"}><span>02</span> Benefits</button></div></div>
         <div className={`our-home-mosaic our-home-mosaic--${activeHomeTile}`}>
           <article className="our-home-story"><p className="our-home-kicker">Durban North / SA-BPO</p><h2>{ourHomeExperience.story.title}</h2><p>{ourHomeExperience.story.copy}</p><button className="our-home-tile-action" onClick={() => setActiveHomeTile("benefits")}>See the benefits <ArrowRight size={16} /></button></article>
           <button className="our-home-media our-home-media--reception" onClick={() => setActiveHomeTile("story")} aria-label="Show Our Home story"><img src={ourHomeExperience.story.visual} alt={ourHomeExperience.story.alt} /><span><HeartHandshake size={16} /> {ourHomeExperience.story.label}</span></button>
@@ -261,7 +232,7 @@ export default function Home() {
 
       <section id="contact" className="contact-section section-pad"><div className="index-label">04 <span>Start here</span></div><div><p className="eyebrow eyebrow--dark">Let’s make the next conversation count</p><h2>Tell us what<br /><span>needs to move.</span></h2><p>Whether you are scaling support, simplifying operations, or looking for a people-first partner, we are ready to listen.</p><a href="mailto:hello@sa-bpo.com">hello@sa-bpo.com <ArrowUpRight size={20} /></a></div><aside><Sparkles size={19} /><strong>Start with a clearer model.</strong><p>Use the BPO calculator to frame the conversation around your operation.</p><button className="text-button text-button--dark" onClick={() => setShowCalculator(true)}>Build a first view <ArrowRight size={16} /></button></aside></section>
 
-      <footer className="site-footer"><div><img src="/manus-storage/sabpo-logo-original_3f02dc80.png" alt="SA-BPO" /><p>Our people speak for your brand.</p></div><div className="footer-nav"><button onClick={() => goTo("about")}>About SA-BPO</button><button onClick={() => goTo("services")}>Capabilities</button><button onClick={() => goTo("confidence")}>Why SA-BPO</button><button onClick={() => goTo("top")}>Back to top</button></div><small>© 2026 SA-BPO. South Africa / Global conversations.</small></footer>
+      <footer className="site-footer"><div><img src="/manus-storage/sabpo-logo-original_3f02dc80.png" alt="SA-BPO" /><p>Our people speak for your brand.</p></div><div className="footer-nav"><button onClick={() => goTo("about")}>About SA-BPO</button><button onClick={() => goTo("confidence")}>Why SA-BPO</button><button onClick={() => goTo("top")}>Back to top</button></div><small>© 2026 SA-BPO. South Africa / Global conversations.</small></footer>
 
       {showCalculator && <div className="modal-backdrop" onClick={() => setShowCalculator(false)}><div className="calculator-modal" onClick={(event) => event.stopPropagation()}><button className="modal-close" onClick={() => setShowCalculator(false)} aria-label="Close calculator"><X /></button><div className="calculator-modal-body"><p className="modal-kicker"><Sparkles size={15} /> BPO calculator</p><h2 className="calculator-modal-title">Shape the first<br /><em>conversation.</em></h2><p>Use the inputs to create a simple coverage signal. A full operating model is always tailored with you.</p><label>Specialists <output>{agents}</output><input type="range" min="2" max="40" value={agents} onChange={(event) => setAgents(Number(event.target.value))} /></label><label>Hours per specialist / month <output>{hours}</output><input type="range" min="80" max="220" step="10" value={hours} onChange={(event) => setHours(Number(event.target.value))} /></label><div className="coverage-output"><span>Indicative specialist hours</span><strong>{coverageHours.toLocaleString()}</strong><small>Coverage signal across voice, email, and chat.</small></div></div><div className="calculator-modal-action"><button className="button button--green button--full" onClick={() => { setShowCalculator(false); goTo("contact"); }}>Use this as a starting point <ArrowRight size={16} /></button></div></div></div>}
       {showStatementDetails && <div className="modal-backdrop" onClick={() => setShowStatementDetails(false)}><article className={`statement-dialog statement-dialog--${activeValue.tone}`} onClick={(event) => event.stopPropagation()}><button className="modal-close statement-close" onClick={() => setShowStatementDetails(false)} aria-label="Close statement details"><X /></button><p className="statement-kicker">SA-BPO / {cultureMode === "values" ? "Core value" : "Performance pillar"}</p><div className="statement-icon"><ActiveValueIcon size={30} /></div><h2>{activeValue.title}</h2><p>{activeValue.copy}</p><div className="statement-context"><span>Why it matters</span><p>{activeCulture.description}</p></div><button className="statement-dismiss" onClick={() => setShowStatementDetails(false)}>Close details <X size={15} /></button></article></div>}
