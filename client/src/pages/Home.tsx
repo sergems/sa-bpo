@@ -66,7 +66,7 @@ const locationContent = {
   durban: {
     tab: "Durban North",
     title: <>Durban<br /><em>North.</em></>,
-    text: "A connected coastal hub with community energy, excellent access, and the space for people to do their best work.",
+    text: "Durban North is known for being the heart and soul of Durban with its Identity being forged over many decades. The benefits are here for all to see and experience. An affluent, family orientated coastal suburb with a strong sense of community pride. It functions as a well established residential and commercial hub to all of Durban, close to major beaches and nature reserves. A destination our Employees get to call home.",
     points: ["Major transport access", "Community culture", "Cost-effective employee amenities"],
     visual: "/manus-storage/sabpo-south-africa-network_6d22fb2c.png",
     alt: "South African collaboration and operations",
