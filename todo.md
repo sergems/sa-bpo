@@ -202,3 +202,9 @@
 - [x] Inspect the expanded location section for excess height and spacing.
 - [x] Reduce the section scale and spacing while preserving readable benefits content.
 - [x] Verify the compacted location section at desktop and mobile sizes, then save the update.
+
+# Location Tab Text Alignment
+
+- [x] Inspect the updated Durban North paragraph and Our home benefit list for alignment issues.
+- [x] Refine text widths, headings, list markers, and vertical spacing across both tabs.
+- [x] Verify polished text alignment at desktop and mobile sizes, then save the update.
