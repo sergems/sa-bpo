@@ -30,3 +30,8 @@
 
 - [x] Remove the added white background fields around the transparent original logo.
 - [x] Verify the transparent logo presentation in header and footer, then save the correction.
+
+# Homepage Banner Cleanup
+
+- [x] Remove visual clutter from the hero and establish a cleaner headline, imagery, and brand-accent hierarchy.
+- [x] Verify the refined desktop and mobile hero banner, then save the update.
