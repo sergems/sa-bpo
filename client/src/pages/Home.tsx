@@ -27,7 +27,7 @@ const cultureContent = {
   values: {
     eyebrow: "SA-BPO fundamentals",
     title: <>Values that <span>matter.</span></>,
-    description: "We build a service culture around the people doing the work—because that is where every customer experience begins.",
+    description: "We build a service culture around the people doing the work because it is where every customer experience begins.",
     cards: [
       { title: "Rewards", copy: "Working in a rewarding environment is key to success. At SA-BPO, we recognise and reward our employees for all variants of success, including performance improvements and initiative.", tone: "red", icon: Trophy },
       { title: "Compassion", copy: "Genuine human qualities start from within. We bring compassion to the forefront of all we do, always delivering with honesty and empathy so that every customer experience is enhanced.", tone: "green", icon: HeartHandshake },
