@@ -78,3 +78,8 @@
 - [x] Replace abbreviated culture copy with the supplied approved values and performance narratives.
 - [x] Enhance the interactive visual storytelling using the approved red, green, yellow, and blue progression.
 - [x] Verify the narrative-rich experience at desktop and mobile breakpoints, then save the update.
+
+# Narrative Discoverability Improvement
+
+- [x] Make the approved values and performance narratives visibly discoverable in the default culture view.
+- [x] Verify the default culture view exposes the full narrative content clearly at desktop and mobile sizes.
