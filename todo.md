@@ -62,3 +62,8 @@
 - [x] Replace the static values-card grid with a vibrant, interaction-led values experience.
 - [x] Preserve access to the performance content while giving the values section a cleaner premium composition.
 - [x] Verify the redesigned values experience at desktop and mobile breakpoints, then save the update.
+
+# Compact Culture Introduction
+
+- [x] Reduce the culture-section introduction height and headline scale while preserving hierarchy and clarity.
+- [x] Verify the compact introduction at desktop and mobile breakpoints, then save the update.
