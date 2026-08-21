@@ -80,6 +80,51 @@ const locationContent = {
   },
 };
 
+const heroSlides = [
+  {
+    id: "people",
+    eyebrow: "People-powered operations",
+    title: <>Our people<br /><em>speak for</em><br />your brand.</>,
+    copy: "The conversations behind your growth, delivered with local fluency, global standards, and enterprise discipline.",
+    primary: "Map your BPO model",
+    primaryTarget: "calculator",
+    secondary: "Explore SA-BPO",
+    secondaryTarget: "about",
+    trust: ["Secure & resilient", "QA-led service", "UK / US / AUS aligned"],
+    visual: "/manus-storage/sabpo-professional-team-placeholder_316baddb.png",
+    alt: "Professional SA-BPO team placeholder",
+    tone: "people",
+  },
+  {
+    id: "capability",
+    eyebrow: "Connected capability",
+    title: <>Every customer<br /><em>moment,</em><br />working as one.</>,
+    copy: "Bring customer care, engagement, and critical back-office operations into one dependable delivery model.",
+    primary: "Explore capabilities",
+    primaryTarget: "services",
+    secondary: "Build a BPO model",
+    secondaryTarget: "calculator",
+    trust: ["Voice, email & chat", "KPI-led delivery", "Quality assurance"],
+    visual: "/manus-storage/sabpo-operations_50372ac6.png",
+    alt: "SA-BPO operations specialist",
+    tone: "capability",
+  },
+  {
+    id: "global",
+    eyebrow: "South Africa / global delivery",
+    title: <>Local insight.<br /><em>Global</em><br />expectation.</>,
+    copy: "A Durban North operation designed for the standards, resilience, and human connection your customers expect.",
+    primary: "Why SA-BPO",
+    primaryTarget: "confidence",
+    secondary: "See our location",
+    secondaryTarget: "location",
+    trust: ["24/7 service ready", "Global office standards", "Human-led delivery"],
+    visual: "/manus-storage/sabpo-south-africa-network_6d22fb2c.png",
+    alt: "South African collaboration and operations",
+    tone: "global",
+  },
+];
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cultureMode, setCultureMode] = useState<CultureMode>(() => new URLSearchParams(window.location.search).get("culture") === "performance" ? "performance" : "values");
@@ -95,6 +140,12 @@ export default function Home() {
   const [agents, setAgents] = useState(8);
   const [hours, setHours] = useState(160);
   const [scrolled, setScrolled] = useState(false);
+  const [activeHeroSlide, setActiveHeroSlide] = useState(() => {
+    const requestedSlide = new URLSearchParams(window.location.search).get("hero");
+    const index = heroSlides.findIndex((slide) => slide.id === requestedSlide);
+    return index >= 0 ? index : 0;
+  });
+  const [heroPaused, setHeroPaused] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -102,15 +153,27 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (heroPaused || reducedMotion) return;
+    const sliderTimer = window.setInterval(() => setActiveHeroSlide((slide) => (slide + 1) % heroSlides.length), 6500);
+    return () => window.clearInterval(sliderTimer);
+  }, [heroPaused]);
+
   const activeCulture = cultureContent[cultureMode];
   const activeValue = activeCulture.cards[activeValueIndex] ?? activeCulture.cards[0];
   const ActiveValueIcon = activeValue.icon;
   const selectedService = services.find((service) => service.id === activeService) ?? services[0];
   const selectedLocation = locationContent[locationMode];
+  const activeHero = heroSlides[activeHeroSlide];
   const coverageHours = useMemo(() => agents * hours, [agents, hours]);
   const goTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMenuOpen(false);
+  };
+  const changeHeroSlide = (direction: 1 | -1) => {
+    setActiveHeroSlide((slide) => (slide + direction + heroSlides.length) % heroSlides.length);
+    setHeroPaused(true);
   };
 
   return (
@@ -126,10 +189,11 @@ export default function Home() {
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation">{menuOpen ? <X /> : <Menu />}</button>
       </header>
 
-      <section id="top" className="hero-section">
-        <div className="hero-rail"><span /><span /><span /><span /><span /></div><div className="hero-field" />
-        <div className="hero-copy"><p className="eyebrow"><i /> People-powered operations</p><h1>Our people<br /><em>speak for</em><br />your brand.</h1><p>The conversations behind your growth, delivered with local fluency, global standards, and enterprise discipline.</p><div className="hero-actions"><button className="button button--green" onClick={() => goTo("calculator")}>Map your BPO model <ArrowRight size={17} /></button><button className="text-button" onClick={() => goTo("about")}>Explore SA-BPO <ArrowDownRight size={16} /></button></div><div className="hero-trust" aria-label="Client trust and operational standards"><span className="trust-caption">Trusted delivery</span><span><ShieldCheck size={14} /> Secure & resilient</span><span><BadgeCheck size={14} /> QA-led service</span><span><CircleDotDashed size={14} /> UK / US / AUS aligned</span></div></div>
-        <div className="hero-image"><div className="hero-orbit hero-orbit--a" /><div className="hero-orbit hero-orbit--b" /><img src="/manus-storage/sabpo-professional-team-placeholder_316baddb.png" alt="Professional SA-BPO team placeholder" /><div className="hero-badge"><span>01</span><b>Human signal</b></div></div>
+      <section id="top" className={`hero-section hero-section--${activeHero.tone}`} role="region" aria-roledescription="carousel" aria-label="SA-BPO introduction" onMouseEnter={() => setHeroPaused(true)} onMouseLeave={() => setHeroPaused(false)}>
+        <div className="hero-rail"><span /><span /><span /><span /><span /></div><div className={`hero-field hero-field--${activeHero.tone}`} />
+        <div key={activeHero.id} className="hero-copy"><p className="eyebrow"><i /> {activeHero.eyebrow}</p><h1>{activeHero.title}</h1><p>{activeHero.copy}</p><div className="hero-actions"><button className="button button--green" onClick={() => goTo(activeHero.primaryTarget)}>{activeHero.primary} <ArrowRight size={17} /></button><button className="text-button" onClick={() => goTo(activeHero.secondaryTarget)}>{activeHero.secondary} <ArrowDownRight size={16} /></button></div><div className="hero-trust" aria-label="Client trust and operational standards"><span className="trust-caption">Trusted delivery</span>{activeHero.trust.map((item, index) => <span key={item}>{index === 0 ? <ShieldCheck size={14} /> : index === 1 ? <BadgeCheck size={14} /> : <CircleDotDashed size={14} />}{item}</span>)}</div></div>
+        <div key={`${activeHero.id}-visual`} className="hero-image"><div className="hero-orbit hero-orbit--a" /><div className="hero-orbit hero-orbit--b" /><img src={activeHero.visual} alt={activeHero.alt} /><div className="hero-badge"><span>0{activeHeroSlide + 1}</span><b>Human signal</b></div></div>
+        <div className="hero-slider-controls" aria-label="Hero slide controls"><button className="hero-arrow hero-arrow--previous" onClick={() => changeHeroSlide(-1)} aria-label="Previous slide"><ArrowRight size={16} /></button><div className="hero-pagination">{heroSlides.map((slide, index) => <button key={slide.id} className={activeHeroSlide === index ? "is-active" : ""} onClick={() => { setActiveHeroSlide(index); setHeroPaused(true); }} aria-label={`Show slide ${index + 1}: ${slide.eyebrow}`} aria-current={activeHeroSlide === index ? "true" : undefined}><span /></button>)}</div><button className="hero-pause" onClick={() => setHeroPaused(!heroPaused)} aria-label={heroPaused ? "Resume slider" : "Pause slider"}>{heroPaused ? "Play" : "Pause"}</button><button className="hero-arrow" onClick={() => changeHeroSlide(1)} aria-label="Next slide"><ArrowRight size={16} /></button></div>
       </section>
 
       <section id="about" className="culture-section section-pad">

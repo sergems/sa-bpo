@@ -114,3 +114,8 @@
 
 - [x] Add refined motion for page entry, selector changes, service panels, and interactive controls.
 - [x] Preserve reduced-motion accessibility and verify animation behavior across desktop and mobile.
+
+# Interactive Hero Slider
+
+- [x] Replace the single hero with branded slider content, accessible controls, and automatic progression.
+- [x] Verify hero slide transitions, manual controls, and responsive presentation at desktop and mobile sizes.
