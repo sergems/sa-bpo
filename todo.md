@@ -15,3 +15,8 @@
 
 - [x] Identify and correct calculator overflow or fitting issues across responsive viewports.
 - [x] Verify the calculator trigger band and modal at desktop and mobile sizes, then save the fix.
+
+# Calculator Modal Viewport Fix
+
+- [x] Make the calculator modal fit within constrained viewport heights while keeping its results and action accessible.
+- [x] Verify the complete modal at desktop and mobile viewport heights, then save the repair.
