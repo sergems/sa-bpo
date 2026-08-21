@@ -99,7 +99,7 @@ const heroSlides = [
   {
     id: "capability",
     eyebrow: "Connected capability",
-    title: <>Every customer<br /><em>moment,</em><br />working as one.</>,
+    title: <>Every customer <em>moment,</em><br />working as one.</>,
     copy: "Bring customer care, engagement, and critical back-office operations into one dependable delivery model.",
     primary: "Explore capabilities",
     primaryTarget: "services",
