@@ -317,3 +317,9 @@
 - [x] Audit hero headline scale and vertical geometry against standard section headings.
 - [x] Reduce hero headline scale and compact the slider height without clipping content.
 - [x] Verify both hero stories and controls at desktop and mobile sizes, then save the update.
+
+# Hero Layout Restoration
+
+- [x] Identify the stable hero layout immediately before the latest height reduction.
+- [x] Restore the prior compact hero image and slider heights.
+- [x] Verify the restored desktop and mobile hero layouts, then save the update.
