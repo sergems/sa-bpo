@@ -377,3 +377,9 @@
 - [x] Apply the five supplied compact labels to proof items 01, 03, 04, 05, and 08 on mobile only.
 - [x] Tighten all ten mobile proof-list cells while retaining a clear two-column sequence.
 - [x] Verify the compact mobile grid and unchanged desktop proof list, then save the update.
+
+# Mobile Proof-Label Visibility Repair
+
+- [x] Restore visible label text in each compact mobile proof-list cell.
+- [x] Retain the requested five mobile-only label replacements and compact grid sizing.
+- [x] Verify all ten mobile labels and the unchanged desktop list, then save the repair.
