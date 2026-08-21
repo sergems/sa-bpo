@@ -130,8 +130,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 /* Human Circuit hero media: clean documentary imagery sits directly against the ink field, without slide-colour blocks behind it. */
 .hero-field{display:none}
 
-/* Human Circuit slider transition: copy and photography mount together and fade as one slide, with no delayed image movement. */
-.hero-copy{animation:hero-slide-fade .42s cubic-bezier(.23,1,.32,1) both}.hero-image{animation:hero-slide-fade .42s cubic-bezier(.23,1,.32,1) both}@keyframes hero-slide-fade{from{opacity:0}to{opacity:1}}
+/* Human Circuit slider transition: copy and photography fade in together with a calm, continuous editorial dissolve. */
+.hero-copy,.hero-image{will-change:opacity;animation:hero-slide-fade .62s cubic-bezier(.22,1,.36,1) both}@keyframes hero-slide-fade{0%{opacity:0}55%{opacity:.78}100%{opacity:1}}
 
 /* Human Circuit location compactness: the fuller benefits content remains legible without expanding the section into a second feature block. */
 .location-media{min-height:390px}.location-content{padding:clamp(38px,4.4vw,56px) clamp(24px,5vw,72px)}.location-toggle{margin-bottom:24px}.location-content h2{margin-bottom:14px;font-size:clamp(2.3rem,4.2vw,4.05rem)}.location-content ul{gap:6px;margin:15px 0;padding:10px 0;font-size:.71rem;line-height:1.35}.location-content li{align-items:flex-start;line-height:1.35}.location-content li svg{flex:0 0 auto;margin-top:2px}@media(max-width:720px){.location-media{min-height:270px}.location-content{padding:36px 20px}.location-toggle{margin-bottom:20px}.location-content h2{margin-bottom:12px;font-size:clamp(2.15rem,10.2vw,3.1rem)}.location-content ul{gap:5px;margin:12px 0;padding:8px 0;font-size:.68rem;line-height:1.3}.location-content li{line-height:1.3}}

@@ -341,3 +341,9 @@
 - [x] Review the shared hero content gaps and trusted-delivery block position.
 - [x] Add breathing room between hero elements and move trusted delivery lower.
 - [x] Verify both hero stories at desktop and mobile sizes, then save the update.
+
+# Hero Slider Fade Transition
+
+- [x] Review existing hero transition timing and animation behaviour.
+- [x] Apply a smooth shared fade to hero copy and image changes.
+- [x] Verify the fade at desktop and mobile sizes, then save the update.
