@@ -172,3 +172,15 @@
 - [x] Identify and remove the coloured fields behind every hero-slide image.
 - [x] Preserve clean photography and readable text composition without slide-specific image backgrounds.
 - [x] Verify the updated hero imagery at desktop and mobile sizes, then save the update.
+
+# Exact SA-BPO Brand Palette
+
+- [x] Audit every green, blue, gold, and red colour value used throughout the website.
+- [x] Restore surface colour changes after the palette request was narrowed to text-only accents.
+- [x] Verify the corrected text-only palette across desktop and mobile views.
+
+# Text-Only Brand Accent Correction
+
+- [x] Identify and remove the broad colour overrides applied to non-text surfaces.
+- [x] Restore prior surface colours and retain approved values only for text accents.
+- [x] Verify the corrected text-only palette at desktop and mobile sizes, then save the update.
