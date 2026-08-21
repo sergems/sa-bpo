@@ -383,3 +383,8 @@
 - [x] Restore visible label text in each compact mobile proof-list cell.
 - [x] Retain the requested five mobile-only label replacements and compact grid sizing.
 - [x] Verify all ten mobile labels and the unchanged desktop list, then save the repair.
+
+# Mobile Proof-Label Color
+
+- [x] Change compact mobile proof labels to white while retaining gold item numbers.
+- [x] Verify the mobile proof-grid contrast and unchanged desktop presentation, then save the update.
