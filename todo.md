@@ -196,3 +196,9 @@
 - [x] Transcribe and verify the supplied Durban North BPO benefits heading and bullet points.
 - [x] Replace the existing Our home tab heading and list with the approved content.
 - [x] Verify the revised Our home tab at desktop and mobile sizes, then save the update.
+
+# Compact Our Home Location Section
+
+- [x] Inspect the expanded location section for excess height and spacing.
+- [x] Reduce the section scale and spacing while preserving readable benefits content.
+- [x] Verify the compacted location section at desktop and mobile sizes, then save the update.
