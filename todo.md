@@ -359,3 +359,9 @@
 - [x] Move the mobile hero content below the fixed header without clipping the eyebrow label.
 - [x] Preserve clear spacing for the CTA, trust strip, and carousel controls.
 - [x] Verify the repaired hero at mobile viewports, then save the update.
+
+# Desktop Hero Header Clearance
+
+- [x] Move desktop hero content below the fixed header so the eyebrow remains visible.
+- [x] Preserve the existing desktop hero hierarchy, imagery, and control positions.
+- [x] Verify both desktop stories and the mobile hero, then save the update.

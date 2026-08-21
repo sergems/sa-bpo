@@ -205,3 +205,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 
 /* Human Circuit mobile hero: an image-free editorial reading path keeps the story, actions, and slider controls unmistakably clear. */
 @media(max-width:720px){.hero-image{display:none}.hero-field{top:56%;background:linear-gradient(145deg,rgba(4,115,61,.76),rgba(4,115,61,.24));opacity:1}.hero-section::after{background:linear-gradient(180deg,var(--ink) 0%,var(--ink) 52%,rgba(12,12,11,.92) 73%,rgba(12,12,11,.5) 100%)}.hero-section{min-height:560px;height:min(74svh,620px)}.hero-copy{top:max(102px,13svh);height:438px}.hero-slider-controls{right:20px;bottom:16px}}
+
+/* Human Circuit desktop hero: a header-safe text origin protects the service eyebrow at every preview height. */
+@media(min-width:721px){.hero-copy{top:max(102px,15vh)}}
