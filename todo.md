@@ -88,3 +88,8 @@
 
 - [x] Apply the supplied red, green, yellow, and blue sequence consistently across every interactive culture element.
 - [x] Verify values and performance colour states at desktop and mobile sizes, then save the update.
+
+# Narrative Label Removal
+
+- [x] Remove the “Interactive Narrative Board” label and guidance throughout the culture section.
+- [x] Verify the simplified values and performance views, then save the update.
