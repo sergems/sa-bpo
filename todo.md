@@ -109,3 +109,8 @@
 - [x] Reduce the culture heading to a concise single-line lead-in.
 - [x] Add a functional View details action for selected values and performance statements.
 - [x] Verify the compact heading and detail action at desktop and mobile breakpoints, then save the update.
+
+# Motion System
+
+- [x] Add refined motion for page entry, selector changes, service panels, and interactive controls.
+- [x] Preserve reduced-motion accessibility and verify animation behavior across desktop and mobile.
