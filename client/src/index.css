@@ -176,6 +176,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 .section-top h2,.location-content h2,.calculator-section h2,.contact-section h2,.our-home-story h2,.our-home-benefits h3{font-size:clamp(2.3rem,2.95vw,3.55rem);line-height:.94}@media(max-width:720px){.section-top h2,.location-content h2,.calculator-section h2,.contact-section h2,.our-home-story h2,.our-home-benefits h3{font-size:clamp(2.25rem,10vw,3.1rem);line-height:.94}}
 
 /* Human Circuit footer asset: the supplied BPO capability graphic sits below the right-aligned footer menu. */
-.footer-right{display:grid;justify-items:end;gap:18px}.footer-bpo-graphic{display:block;width:min(205px,100%);height:auto;opacity:.94}@media(max-width:720px){.footer-right{justify-items:start;margin-top:35px}.footer-bpo-graphic{width:min(195px,100%)}}
+.footer-right{display:grid;justify-items:end;gap:18px}.footer-bpo-graphic{display:block;width:min(164px,100%);height:auto;opacity:.94}@media(max-width:720px){.footer-right{justify-items:start;margin-top:35px}.footer-bpo-graphic{width:min(156px,100%)}}
 /* Human Circuit culture rhythm: both mode summaries hold four planned lines, preserving a stable console position. */
 .culture-intro-description{min-height:6.4em}.culture-intro-description span{display:block;white-space:nowrap}@media(max-width:720px){.culture-intro-description{min-height:6.4em!important;font-size:clamp(.68rem,3.7vw,.88rem)!important;line-height:1.6!important}.culture-intro-description span{white-space:nowrap}}
