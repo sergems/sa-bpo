@@ -208,3 +208,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 
 /* Human Circuit desktop hero: a header-safe text origin protects the service eyebrow at every preview height. */
 @media(min-width:721px){.hero-copy{top:max(102px,15vh)}}
+
+/* Human Circuit mobile hero: centered story copy creates a focused, image-free editorial stage. */
+@media(max-width:720px){.hero-copy{text-align:center}.hero-copy .eyebrow{justify-content:center}.hero-copy>p:not(.eyebrow){margin-right:auto;margin-left:auto}.hero-actions{right:0;justify-content:center;gap:12px}.hero-actions .button{width:clamp(170px,49vw,192px)}.hero-actions .text-button{width:124px;justify-content:center}.hero-trust{justify-content:center;text-align:center}.hero-trust .trust-caption{justify-self:center}}

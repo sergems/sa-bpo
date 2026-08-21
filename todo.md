@@ -365,3 +365,9 @@
 - [x] Move desktop hero content below the fixed header so the eyebrow remains visible.
 - [x] Preserve the existing desktop hero hierarchy, imagery, and control positions.
 - [x] Verify both desktop stories and the mobile hero, then save the update.
+
+# Mobile Hero Text Centering
+
+- [x] Center the mobile hero eyebrow, headline, description, and CTA group.
+- [x] Keep the mobile trust strip and slider controls clear and usable.
+- [x] Verify centered mobile stories and unchanged desktop alignment, then save the update.
