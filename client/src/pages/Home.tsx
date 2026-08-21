@@ -91,8 +91,8 @@ const heroSlides = [
     secondary: "Explore SA-BPO",
     secondaryTarget: "about",
     trust: ["Secure & resilient", "QA-led service", "UK / US / AUS aligned"],
-    visual: "/manus-storage/sabpo-professional-team-placeholder_316baddb.png",
-    alt: "Professional SA-BPO team placeholder",
+    visual: "/manus-storage/sabpo-hero-people-contact-centre_d4a7d59d.png",
+    alt: "SA-BPO customer service team working together in a modern contact centre",
     tone: "people",
   },
   {
@@ -105,8 +105,8 @@ const heroSlides = [
     secondary: "Build a BPO model",
     secondaryTarget: "calculator",
     trust: ["Voice, email & chat", "KPI-led delivery", "Quality assurance"],
-    visual: "/manus-storage/sabpo-operations_50372ac6.png",
-    alt: "SA-BPO operations specialist",
+    visual: "/manus-storage/sabpo-hero-operations-collaboration_c67eb921.png",
+    alt: "SA-BPO operations specialists collaborating in a modern delivery hub",
     tone: "capability",
   },
   {
@@ -119,8 +119,8 @@ const heroSlides = [
     secondary: "See our location",
     secondaryTarget: "location",
     trust: ["24/7 service ready", "Global office standards", "Human-led delivery"],
-    visual: "/manus-storage/sabpo-south-africa-network_6d22fb2c.png",
-    alt: "South African collaboration and operations",
+    visual: "/manus-storage/sabpo-hero-global-delivery_7c01e769.png",
+    alt: "SA-BPO client services team collaborating in a Durban delivery office",
     tone: "global",
   },
 ];

@@ -129,3 +129,10 @@
 
 - [x] Apply slide-specific overlays, masks, and colour grading so hero images blend with their brand fields.
 - [x] Verify all blended hero slides at desktop and mobile sizes, then save the update.
+
+# Clean BPO Hero Imagery
+
+- [x] Remove the current hero image overlays, masks, vignettes, and colour grading.
+- [x] Generate three new BPO-appropriate images for people, operations, and global delivery.
+- [x] Integrate the new images with clean, text-safe slider styling.
+- [x] Verify every slider image at desktop and mobile breakpoints, then save the update.
