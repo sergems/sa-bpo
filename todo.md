@@ -416,3 +416,8 @@
 - [x] Place the selected confidence detail panel above all ten proof elements on mobile.
 - [x] Retain the compact ten-item proof grid beneath the panel and preserve proof selection.
 - [x] Verify the reordered mobile confidence section and unchanged desktop layout, then save the update.
+
+# Mobile Culture-Promise Paragraph Break
+
+- [x] Move the culture-promise explanatory sentence to a new paragraph on mobile.
+- [x] Preserve the existing single-line desktop presentation and verify the responsive layout.

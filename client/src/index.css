@@ -226,3 +226,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 
 /* Human Circuit mobile confidence layout: the active delivery detail leads, followed by the full compact proof grid. */
 @media(max-width:720px){.proof-explorer{display:flex;flex-direction:column}.proof-panel{order:1;width:100%}.proof-list{order:2;width:100%}}
+
+/* Human Circuit culture promise: the explanatory sentence becomes its own mobile paragraph while desktop stays inline. */
+.culture-promise-detail{display:inline;margin-left:.28em}@media(max-width:720px){.culture-promise-detail{display:block;margin-top:6px;margin-left:0}}
