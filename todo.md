@@ -460,3 +460,8 @@
 - [x] Upload the newly supplied footer image to managed website storage.
 - [x] Add this image to the footer instead of all previous versions.
 - [x] Verify the new image in desktop and mobile footers, then save the update.
+
+# Native Footer Image Rendering
+
+- [x] Remove footer image width overrides so the supplied asset renders at native 1:1 dimensions.
+- [x] Verify sharpness and footer alignment on desktop and mobile, then save the update.
