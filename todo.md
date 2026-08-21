@@ -148,3 +148,9 @@
 - [x] Audit navigation, listings, labels, buttons, and supporting UI for non-uniform typography.
 - [x] Apply the regular-text font consistently while keeping the display font for major headings only.
 - [x] Verify the unified type system at desktop and mobile breakpoints, then save the update.
+
+# Operating Culture Card Layout Repair
+
+- [x] Identify the spacing and positioning causing the culture-card text and actions to overlap.
+- [x] Rebuild the card’s content spacing so titles, narratives, and actions remain separate.
+- [x] Verify the clean responsive layout at desktop and mobile breakpoints, then save the update.
