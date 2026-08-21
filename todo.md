@@ -35,3 +35,9 @@
 
 - [x] Remove visual clutter from the hero and establish a cleaner headline, imagery, and brand-accent hierarchy.
 - [x] Verify the refined desktop and mobile hero banner, then save the update.
+
+# Hero Trust and CTA Upgrade
+
+- [x] Add a client-trust and industry-compliance strip beneath the primary hero CTA.
+- [x] Route the primary hero CTA smoothly to the BPO calculator section.
+- [x] Replace the current hero image with a professional team-photography placeholder and validate responsiveness.
