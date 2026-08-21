@@ -173,7 +173,6 @@ export default function Home() {
   };
   const changeHeroSlide = (direction: 1 | -1) => {
     setActiveHeroSlide((slide) => (slide + direction + heroSlides.length) % heroSlides.length);
-    setHeroPaused(true);
   };
 
   return (
@@ -189,11 +188,11 @@ export default function Home() {
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation">{menuOpen ? <X /> : <Menu />}</button>
       </header>
 
-      <section id="top" className={`hero-section hero-section--${activeHero.tone}`} role="region" aria-roledescription="carousel" aria-label="SA-BPO introduction" onMouseEnter={() => setHeroPaused(true)} onMouseLeave={() => setHeroPaused(false)}>
+      <section id="top" className={`hero-section hero-section--${activeHero.tone}`} role="region" aria-roledescription="carousel" aria-label="SA-BPO introduction">
         <div className="hero-rail"><span /><span /><span /><span /><span /></div><div className={`hero-field hero-field--${activeHero.tone}`} />
         <div key={activeHero.id} className="hero-copy"><p className="eyebrow"><i /> {activeHero.eyebrow}</p><h1>{activeHero.title}</h1><p>{activeHero.copy}</p><div className="hero-actions"><button className="button button--green" onClick={() => goTo(activeHero.primaryTarget)}>{activeHero.primary} <ArrowRight size={17} /></button><button className="text-button" onClick={() => goTo(activeHero.secondaryTarget)}>{activeHero.secondary} <ArrowDownRight size={16} /></button></div><div className="hero-trust" aria-label="Client trust and operational standards"><span className="trust-caption">Trusted delivery</span>{activeHero.trust.map((item, index) => <span key={item}>{index === 0 ? <ShieldCheck size={14} /> : index === 1 ? <BadgeCheck size={14} /> : <CircleDotDashed size={14} />}{item}</span>)}</div></div>
         <div key={`${activeHero.id}-visual`} className="hero-image"><div className="hero-orbit hero-orbit--a" /><div className="hero-orbit hero-orbit--b" /><img src={activeHero.visual} alt={activeHero.alt} /><div className="hero-badge"><span>0{activeHeroSlide + 1}</span><b>Human signal</b></div></div>
-        <div className="hero-slider-controls" aria-label="Hero slide controls"><button className="hero-arrow hero-arrow--previous" onClick={() => changeHeroSlide(-1)} aria-label="Previous slide"><ArrowRight size={16} /></button><div className="hero-pagination">{heroSlides.map((slide, index) => <button key={slide.id} className={activeHeroSlide === index ? "is-active" : ""} onClick={() => { setActiveHeroSlide(index); setHeroPaused(true); }} aria-label={`Show slide ${index + 1}: ${slide.eyebrow}`} aria-current={activeHeroSlide === index ? "true" : undefined}><span /></button>)}</div><button className="hero-pause" onClick={() => setHeroPaused(!heroPaused)} aria-label={heroPaused ? "Resume slider" : "Pause slider"}>{heroPaused ? "Play" : "Pause"}</button><button className="hero-arrow" onClick={() => changeHeroSlide(1)} aria-label="Next slide"><ArrowRight size={16} /></button></div>
+        <div className="hero-slider-controls" aria-label="Hero slide controls"><button className="hero-arrow hero-arrow--previous" onClick={() => changeHeroSlide(-1)} aria-label="Previous slide"><ArrowRight size={16} /></button><div className="hero-pagination">{heroSlides.map((slide, index) => <button key={slide.id} className={activeHeroSlide === index ? "is-active" : ""} onClick={() => setActiveHeroSlide(index)} aria-label={`Show slide ${index + 1}: ${slide.eyebrow}`} aria-current={activeHeroSlide === index ? "true" : undefined}><span /></button>)}</div><button className="hero-pause" onClick={() => setHeroPaused(!heroPaused)} aria-label={heroPaused ? "Resume slider" : "Pause slider"}>{heroPaused ? "Play" : "Pause"}</button><button className="hero-arrow" onClick={() => changeHeroSlide(1)} aria-label="Next slide"><ArrowRight size={16} /></button></div>
       </section>
 
       <section id="about" className="culture-section section-pad">

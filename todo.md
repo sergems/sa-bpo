@@ -119,3 +119,8 @@
 
 - [x] Replace the single hero with branded slider content, accessible controls, and automatic progression.
 - [x] Verify hero slide transitions, manual controls, and responsive presentation at desktop and mobile sizes.
+
+# Hero Slider Autoplay
+
+- [x] Restore automatic slide progression by removing unintended pause behavior.
+- [x] Verify autoplay and deliberate pause control, then save the update.
