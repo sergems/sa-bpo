@@ -239,3 +239,9 @@
 - [x] Prepare the supplied Moses Mabhida Stadium photograph for website storage.
 - [x] Replace the Durban North location visual with the supplied landmark image.
 - [x] Verify the new image presentation at desktop and mobile sizes, then save the update.
+
+# Culture Description Line Stability
+
+- [x] Inspect the values and performance description layout at responsive breakpoints.
+- [x] Reserve a matching four-line description area for both culture modes.
+- [x] Verify mode switching stays visually stable at desktop and mobile sizes, then save the update.
