@@ -465,3 +465,9 @@
 
 - [x] Remove footer image width overrides so the supplied asset renders at native 1:1 dimensions.
 - [x] Verify sharpness and footer alignment on desktop and mobile, then save the update.
+
+# GitHub Repository Export
+
+- [ ] Prepare the current project for GitHub export without committing managed secrets or generated artifacts.
+- [ ] Create a new private repository named `sa-bpo` and push the project source.
+- [ ] Verify the remote repository and provide its link.
