@@ -103,3 +103,9 @@
 
 - [x] Reduce selector tile and active-panel height while preserving readable approved narratives.
 - [x] Verify the shorter interactive culture area at desktop and mobile breakpoints, then save the update.
+
+# Culture Heading and Details Action
+
+- [x] Reduce the culture heading to a concise single-line lead-in.
+- [x] Add a functional View details action for selected values and performance statements.
+- [x] Verify the compact heading and detail action at desktop and mobile breakpoints, then save the update.
