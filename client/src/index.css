@@ -217,3 +217,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 
 /* Human Circuit mobile proof-label color: labels must override the gold number selector while proof indices keep their signal accent. */
 @media(max-width:720px){.proof-list .proof-label-mobile{color:#fff!important}}
+
+/* Human Circuit desktop proof-label color: full-size labels use white while the delivery index remains gold. */
+@media(min-width:721px){.proof-list .proof-label-desktop{color:#fff}}

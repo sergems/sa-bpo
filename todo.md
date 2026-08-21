@@ -393,3 +393,8 @@
 
 - [x] Override inherited gold color on the mobile proof-label span without affecting item numbers.
 - [x] Verify all labels are white and all item numbers remain gold, then save the correction.
+
+# Desktop Proof-Label Color
+
+- [x] Set full desktop proof-list labels to white while retaining gold item numbers.
+- [x] Verify desktop and mobile proof-list hierarchy, then save the update.
