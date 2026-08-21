@@ -449,3 +449,8 @@
 - [x] Center the footer brand, menu, compliance image, and copyright on mobile.
 - [x] Keep the footer menu on one horizontal line at mobile widths.
 - [x] Verify the mobile footer and unchanged desktop layout, then save the update.
+
+# Footer Compliance Image Removal
+
+- [x] Remove the compliance image from the footer on desktop and mobile.
+- [x] Preserve footer centering and the one-line mobile menu, then verify and save the update.
