@@ -64,14 +64,14 @@ const ourHomeExperience = {
   story: {
     title: <>Our <em>Home.</em></>,
     copy: "Making a break from the norm we decided to set up our BPO centre in the heart of Durban North. Just under 10 minutes from the busy Umhlanga and Gateway hubs and less than 25km from King Shaka International Airport, located in the heart of all things Durban. SA-BPO breaking the traditions of the norm to create a better environment for one and all.",
-    visual: "/manus-storage/sabpo-our-home-reception_e2dafeb7.png",
+    visual: "/assets/sabpo-our-home-reception.png",
     alt: "SA-BPO reception team welcoming visitors at the Durban North workplace",
     label: "Welcome to SA-BPO",
   },
   benefits: {
     title: <>The Benefits of<br /><em>SA-BPO’s Home.</em></>,
     points: ["Spacious modern working environment", "State of the art network solutions and redundancy", "Daily Grind - In House fresh coffee stations", "Daily Fix - On-site snack stations", "Relaxation zones and break-out rooms", "Luxurious Amenities", "Wellness Zone"],
-    visual: "/manus-storage/sabpo-our-home-operations_7ae1f553.png",
+    visual: "/assets/sabpo-our-home-operations.png",
     alt: "SA-BPO specialists at work in the Durban North contact centre",
     label: "A live operating environment",
   },
@@ -83,7 +83,7 @@ const locationContent = {
     title: <>Durban<br /><em>North.</em></>,
     text: "Durban North is known for being the heart and soul of Durban with its Identity being forged over many decades. The benefits are here for all to see and experience. An affluent, family orientated coastal suburb with a strong sense of community pride. It functions as a well established residential and commercial hub to all of Durban, close to major beaches and nature reserves. A destination our Employees get to call home.",
     points: ["Major transport access", "Community culture", "Cost-effective employee amenities"],
-    visual: "/manus-storage/moses-mabhida-stadium-durban_0a607aba.jpg",
+    visual: "/assets/moses-mabhida-stadium-durban.jpg",
     alt: "Moses Mabhida Stadium in Durban at dusk",
   },
   home: {
@@ -91,7 +91,7 @@ const locationContent = {
     title: <>The Benefits of our<br /><em>BPO in Durban North</em></>,
     text: "",
     points: ["Community culture embraced by all at SA BPO.", "Excellent location for all major transport networks.", "Cost effective retail solutions for our employees.", "Away from the Central Hubs of the Industry allowing for a more creative approach to the BPO space for both ourselves and our employees.", "Sun, Sea, Sand and all the trappings of a prime destination but at community driven costs and prices."],
-    visual: "/manus-storage/sabpo-operations_50372ac6.png",
+    visual: "/assets/sabpo-operations.png",
     alt: "SA-BPO workplace and operations specialist",
   },
 };
@@ -107,7 +107,7 @@ const heroSlides = [
     secondary: "Explore SA-BPO",
     secondaryTarget: "about",
     trust: ["Secure & resilient", "QA-led service", "UK / US / AUS aligned"],
-    visual: "/manus-storage/sabpo-hero-people-contact-centre_d4a7d59d.png",
+    visual: "/assets/sabpo-hero-people-contact-centre.png",
     alt: "SA-BPO customer service team working together in a modern contact centre",
     tone: "people",
   },
@@ -121,7 +121,7 @@ const heroSlides = [
     secondary: "See the proof",
     secondaryTarget: "confidence",
     trust: ["People-first culture", "Supported teams", "Better conversations"],
-    visual: "/manus-storage/sabpo-hero-global-delivery_7c01e769.png",
+    visual: "/assets/sabpo-hero-global-delivery.png",
     alt: "SA-BPO customer service team collaborating in a people-led operating environment",
     tone: "people",
   },
@@ -183,7 +183,7 @@ export default function Home() {
   return (
     <main className="site-shell">
       <header className={`site-header ${scrolled ? "site-header--scrolled" : ""}`}>
-        <button className="brand-lockup" onClick={() => goTo("top")} aria-label="SA-BPO home"><img src="/manus-storage/sabpo-logo-original_3f02dc80.png" alt="SA-BPO" /></button>
+        <button className="brand-lockup" onClick={() => goTo("top")} aria-label="SA-BPO home"><img src="/assets/sabpo-logo-original.png" alt="SA-BPO" /></button>
         <nav className={`primary-nav ${menuOpen ? "primary-nav--open" : ""}`}>
           <button onClick={() => goTo("about")}>About SA-BPO</button>
           <button onClick={() => goTo("confidence")}>Why SA-BPO</button>
@@ -230,7 +230,7 @@ export default function Home() {
 
       <section id="contact" className="contact-section section-pad"><div className="index-label">04 <span>Start here</span></div><div><p className="eyebrow eyebrow--dark">Let’s make the next conversation count</p><h2>Tell us what<br /><span>needs to move.</span></h2><p>Whether you are scaling support, simplifying operations, or looking for a people-first partner, we are ready to listen.</p><a href="mailto:hello@sa-bpo.com">hello@sa-bpo.com <ArrowUpRight size={20} /></a></div><aside><Sparkles size={19} /><strong>Start with a clearer model.</strong><p>Use the BPO calculator to frame the conversation around your operation.</p><button className="text-button text-button--dark" onClick={() => setShowCalculator(true)}>Build a first view <ArrowRight size={16} /></button></aside></section>
 
-      <footer className="site-footer"><div><img src="/manus-storage/sabpo-logo-original_3f02dc80.png" alt="SA-BPO" /><p>Our people speak for your brand.</p></div><div className="footer-right"><div className="footer-nav"><button onClick={() => goTo("about")}>About SA-BPO</button><button onClick={() => goTo("confidence")}>Why SA-BPO</button><a href="/privacy-policy">Privacy Policy</a><button onClick={() => goTo("top")}>Back to top</button></div><img className="footer-bpo-graphic" src="/manus-storage/footer-compliance-latest_567da447.png" alt="SA-BPO compliance and quality accreditations" /></div><small>© 2026 SA-BPO. South Africa / Global conversations.</small></footer>
+      <footer className="site-footer"><div><img src="/assets/sabpo-logo-original.png" alt="SA-BPO" /><p>Our people speak for your brand.</p></div><div className="footer-right"><div className="footer-nav"><button onClick={() => goTo("about")}>About SA-BPO</button><button onClick={() => goTo("confidence")}>Why SA-BPO</button><a href="/privacy-policy">Privacy Policy</a><button onClick={() => goTo("top")}>Back to top</button></div><img className="footer-bpo-graphic" src="/assets/footer-compliance-latest.png" alt="SA-BPO compliance and quality accreditations" /></div><small>© 2026 SA-BPO. South Africa / Global conversations.</small></footer>
 
       {showCalculator && <div className="modal-backdrop" onClick={() => setShowCalculator(false)}><div className="calculator-modal" onClick={(event) => event.stopPropagation()}><button className="modal-close" onClick={() => setShowCalculator(false)} aria-label="Close calculator"><X /></button><div className="calculator-modal-body"><p className="modal-kicker"><Sparkles size={15} /> BPO calculator</p><h2 className="calculator-modal-title">Shape the first<br /><em>conversation.</em></h2><p>Use the inputs to create a simple coverage signal. A full operating model is always tailored with you.</p><label>Specialists <output>{agents}</output><input type="range" min="2" max="40" value={agents} onChange={(event) => setAgents(Number(event.target.value))} /></label><label>Hours per specialist / month <output>{hours}</output><input type="range" min="80" max="220" step="10" value={hours} onChange={(event) => setHours(Number(event.target.value))} /></label><div className="coverage-output"><span>Indicative specialist hours</span><strong>{coverageHours.toLocaleString()}</strong><small>Coverage signal across voice, email, and chat.</small></div></div><div className="calculator-modal-action"><button className="button button--green button--full" onClick={() => { setShowCalculator(false); goTo("contact"); }}>Use this as a starting point <ArrowRight size={16} /></button></div></div></div>}
       {showStatementDetails && <div className="modal-backdrop" onClick={() => setShowStatementDetails(false)}><article className={`statement-dialog statement-dialog--${activeValue.tone}`} onClick={(event) => event.stopPropagation()}><button className="modal-close statement-close" onClick={() => setShowStatementDetails(false)} aria-label="Close statement details"><X /></button><p className="statement-kicker">SA-BPO / {cultureMode === "values" ? "Core value" : "Performance pillar"}</p><div className="statement-icon"><ActiveValueIcon size={30} /></div><h2>{activeValue.title}</h2><p>{activeValue.copy}</p><div className="statement-context"><span>Why it matters</span><p>{activeCulture.description}</p></div><button className="statement-dismiss" onClick={() => setShowStatementDetails(false)}>Close details <X size={15} /></button></article></div>}

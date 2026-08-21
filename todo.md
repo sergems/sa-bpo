@@ -471,3 +471,9 @@
 - [x] Prepare the current project for GitHub export without committing managed secrets or generated artifacts.
 - [x] Create a new private repository named `sa-bpo` and push the project source.
 - [x] Verify the remote repository and provide its link.
+
+# Cloudflare Image Asset Deployment Repair
+
+- [x] Audit all Manus-managed image references and identify the source assets needed by the site.
+- [x] Copy deployable image assets into the project and replace managed-storage references.
+- [x] Verify the production build and push the Cloudflare-compatible asset fix to GitHub.

@@ -32,7 +32,7 @@ export default function PrivacyPolicy() {
   return (
     <main className="privacy-page">
       <header className="privacy-header">
-        <a className="privacy-brand" href="/" aria-label="SA-BPO home"><img src="/manus-storage/sabpo-logo-original_3f02dc80.png" alt="SA-BPO" /></a>
+        <a className="privacy-brand" href="/" aria-label="SA-BPO home"><img src="/assets/sabpo-logo-original.png" alt="SA-BPO" /></a>
         <a className="privacy-home-link" href="/"><ArrowLeft size={16} /> Back to home</a>
       </header>
 
