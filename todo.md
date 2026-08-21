@@ -299,3 +299,9 @@
 - [x] Reduce the footer BPO graphic by a further 40%.
 - [x] Create a responsive Privacy Policy page and link it from the footer menu.
 - [x] Verify the privacy page, footer link, and graphic placement at desktop and mobile sizes, then save the update.
+
+# Calculator Section Removal
+
+- [x] Identify calculator-section content and dependent homepage routes.
+- [x] Remove the A practical starting point section while preserving working calculator access.
+- [x] Verify the simplified homepage at desktop and mobile sizes, then save the update.
