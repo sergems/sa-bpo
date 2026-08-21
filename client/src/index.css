@@ -130,6 +130,9 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 /* Human Circuit hero media: clean documentary imagery sits directly against the ink field, without slide-colour blocks behind it. */
 .hero-field{display:none}
 
+/* Human Circuit slider transition: copy and photography mount together and fade as one slide, with no delayed image movement. */
+.hero-copy{animation:hero-slide-fade .42s cubic-bezier(.23,1,.32,1) both}.hero-image{animation:hero-slide-fade .42s cubic-bezier(.23,1,.32,1) both}@keyframes hero-slide-fade{from{opacity:0}to{opacity:1}}
+
 /* Exact SA-BPO palette: text accents use Green #04733D, Blue #1A459D, Gold #FDB713, and Red #E21E25; all surfaces retain their established colours. */
 .hero-copy h1 em,.culture-intro h2 span{color:#04733d}.hero-section--capability h1 em{color:#1a459d}.hero-section--global h1 em{color:#fdb713}.primary-nav>button:nth-child(1):hover{color:#1a459d}.primary-nav>button:nth-child(2):hover{color:#e21e25}.primary-nav>button:nth-child(3):hover{color:#04733d}.primary-nav>:nth-child(4):hover{color:#fdb713}.narrative-guide--green p b,.narrative-guide--green>span{color:#04733d}.narrative-guide--blue p b,.narrative-guide--blue>span{color:#1a459d}.narrative-guide--yellow p b,.narrative-guide--yellow>span{color:#fdb713}.narrative-guide--red p b,.narrative-guide--red>span{color:#e21e25}
 

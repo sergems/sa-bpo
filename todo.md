@@ -184,3 +184,9 @@
 - [x] Identify and remove the broad colour overrides applied to non-text surfaces.
 - [x] Restore prior surface colours and retain approved values only for text accents.
 - [x] Verify the corrected text-only palette at desktop and mobile sizes, then save the update.
+
+# Synchronized Hero Fade Transition
+
+- [x] Inspect the current hero image and content animation timing.
+- [x] Replace the delayed image effect with a unified text-and-image fade transition.
+- [x] Verify the fade effect across all hero slides at desktop and mobile sizes, then save the update.
