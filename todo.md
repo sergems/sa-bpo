@@ -441,5 +441,5 @@
 
 # Further Footer Compliance Graphic Reduction
 
-- [ ] Reduce the supplied footer compliance image by a further 60% at desktop and mobile breakpoints.
-- [ ] Verify the smaller footer image and save the update.
+- [x] Reduce the supplied footer compliance image by a further 60% at desktop and mobile breakpoints.
+- [x] Verify the smaller footer image and save the update.
