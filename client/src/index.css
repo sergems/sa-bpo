@@ -186,6 +186,9 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 /* Human Circuit slide lock: shared text, action, trust, media, and control zones keep every story in the same place. */
 @media(min-width:721px){.hero-copy{height:455px;grid-template-rows:auto minmax(8.45rem,auto) minmax(4.8rem,auto) auto auto}.hero-copy h1{min-height:2.82em}.hero-actions{margin-top:0}.hero-trust{margin-top:18px}.hero-actions .button{width:193px;justify-content:center}.hero-actions .text-button{width:132px}.hero-image{top:auto;bottom:0}.hero-slider-controls{bottom:22px}}@media(max-width:720px){.hero-copy h1{min-height:2.82em}.hero-actions .button{width:192px;justify-content:center}.hero-actions .text-button{width:132px}.hero-slider-controls{bottom:16px}}
 
+/* Human Circuit hero breathing room: actions separate from copy and Trusted delivery sits lower as a final service signal. */
+@media(min-width:721px){.hero-copy{height:478px;grid-template-rows:auto minmax(8.45rem,auto) minmax(5.15rem,auto) auto auto}.hero-actions{margin-top:10px}.hero-trust{margin-top:27px}}@media(max-width:720px){.hero-copy{height:438px}.hero-actions{bottom:104px}.hero-trust{bottom:0}}
+
 /* Human Circuit section hierarchy: every non-slider section title uses the operating-culture “Values that matter” scale. */
 .section-top h2,.location-content h2,.calculator-section h2,.contact-section h2,.our-home-story h2,.our-home-benefits h3{font-size:clamp(2.3rem,2.95vw,3.55rem);line-height:.94}@media(max-width:720px){.section-top h2,.location-content h2,.calculator-section h2,.contact-section h2,.our-home-story h2,.our-home-benefits h3{font-size:clamp(2.25rem,10vw,3.1rem);line-height:.94}}
 

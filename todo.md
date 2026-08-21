@@ -335,3 +335,9 @@
 - [x] Audit slide-specific copy, action, trust, image, and control positions.
 - [x] Lock all hero elements to shared desktop and mobile coordinates.
 - [x] Verify positional consistency between both hero stories, then save the update.
+
+# Hero Spacing and Trusted Delivery Position
+
+- [x] Review the shared hero content gaps and trusted-delivery block position.
+- [x] Add breathing room between hero elements and move trusted delivery lower.
+- [x] Verify both hero stories at desktop and mobile sizes, then save the update.
