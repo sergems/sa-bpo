@@ -329,3 +329,9 @@
 - [x] Audit the unused left-column space and current hero headline scale.
 - [x] Increase the hero headline by 20% and redistribute content spacing without increasing slider height.
 - [x] Verify the balanced desktop and mobile hero compositions, then save the update.
+
+# Cross-Slide Hero Alignment
+
+- [x] Audit slide-specific copy, action, trust, image, and control positions.
+- [x] Lock all hero elements to shared desktop and mobile coordinates.
+- [x] Verify positional consistency between both hero stories, then save the update.
