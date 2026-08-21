@@ -83,6 +83,7 @@ const locationContent = {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cultureMode, setCultureMode] = useState<CultureMode>("values");
+  const [activeValueIndex, setActiveValueIndex] = useState(0);
   const [activeService, setActiveService] = useState("cx");
   const [activeProof, setActiveProof] = useState(0);
   const [locationMode, setLocationMode] = useState<LocationMode>("durban");
@@ -98,6 +99,8 @@ export default function Home() {
   }, []);
 
   const activeCulture = cultureContent[cultureMode];
+  const activeValue = activeCulture.cards[activeValueIndex] ?? activeCulture.cards[0];
+  const ActiveValueIcon = activeValue.icon;
   const selectedService = services.find((service) => service.id === activeService) ?? services[0];
   const selectedLocation = locationContent[locationMode];
   const coverageHours = useMemo(() => agents * hours, [agents, hours]);
@@ -126,11 +129,11 @@ export default function Home() {
       </section>
 
       <section id="about" className="culture-section section-pad">
-        <div className="section-top"><div className="index-label">01 <span>About SA-BPO</span></div><div><p className="eyebrow eyebrow--green">The operating culture</p><h2>{activeCulture.title}</h2></div><p className="section-description">{activeCulture.description}</p></div>
-        <div className="mode-switch" role="tablist" aria-label="SA-BPO culture content"><button className={cultureMode === "values" ? "is-active" : ""} onClick={() => setCultureMode("values")} role="tab" aria-selected={cultureMode === "values"}>Our values</button><button className={cultureMode === "performance" ? "is-active" : ""} onClick={() => setCultureMode("performance")} role="tab" aria-selected={cultureMode === "performance"}>Performance</button><div className="mode-line"><i /><span /><i /></div></div>
-        <div className="culture-cards">{activeCulture.cards.map((item, index) => { const Icon = item.icon; return <article key={item.title} className={`culture-card culture-card--${item.tone}`}><div><span>0{index + 1}</span><Icon size={22} /></div><h3>{item.title}</h3><p>{item.copy}</p></article>; })}</div>
-        <div className="operating-circuit" aria-label="SA-BPO operating network"><span><b>People</b><small>Values in action</small></span><i>→</i><span><b>Process</b><small>Visible delivery</small></span><i>→</i><span><b>Outcome</b><small>Customer confidence</small></span></div>
-        <div className="compact-strip"><strong>Why <span>SA-BPO</span></strong><p>We partner with clients to manage, deliver, and excel in key business functions—productively, efficiently, and effectively.</p></div>
+        <div className="culture-orbit culture-orbit--one" /><div className="culture-orbit culture-orbit--two" />
+        <div className="culture-intro"><div className="index-label">01 <span>About SA-BPO</span></div><div><p className="eyebrow">The operating culture</p><h2>{activeCulture.title}</h2></div><p>{activeCulture.description}</p></div>
+        <div className="culture-mode" role="tablist" aria-label="SA-BPO culture content"><button className={cultureMode === "values" ? "is-active" : ""} onClick={() => { setCultureMode("values"); setActiveValueIndex(0); }} role="tab" aria-selected={cultureMode === "values"}><span>01</span> Our values</button><button className={cultureMode === "performance" ? "is-active" : ""} onClick={() => { setCultureMode("performance"); setActiveValueIndex(0); }} role="tab" aria-selected={cultureMode === "performance"}><span>02</span> Performance</button></div>
+        <div className="value-console"><div className="value-selector" role="tablist" aria-label="Select a SA-BPO value">{activeCulture.cards.map((item, index) => { const Icon = item.icon; return <button key={item.title} className={`value-select value-select--${item.tone} ${activeValueIndex === index ? "is-active" : ""}`} onClick={() => setActiveValueIndex(index)} role="tab" aria-selected={activeValueIndex === index}><span className="value-number">0{index + 1}</span><span className="value-select-name">{item.title}</span><Icon size={18} /><ArrowRight size={16} /></button>; })}</div><article className={`value-display value-display--${activeValue.tone}`}><div className="value-display-top"><span>SA-BPO / {cultureMode === "values" ? "Core value" : "Performance pillar"}</span><span>0{activeValueIndex + 1} / 04</span></div><div className="value-display-copy"><div className="value-display-icon"><ActiveValueIcon size={34} /></div><h3>{activeValue.title}</h3><p>{activeValue.copy}</p></div><div className="value-display-path"><i /><span /><i /><span /><i /></div><div className="value-display-word">{activeValue.title}</div></article></div>
+        <div className="culture-promise"><span className="promise-dot" /><p><strong>People → Process → Outcome.</strong> Every SA-BPO value is designed to improve the experience behind your brand.</p><button onClick={() => goTo("services")}>See capability in action <ArrowRight size={16} /></button></div>
       </section>
 
       <section id="services" className="services-section section-pad">

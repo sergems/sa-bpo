@@ -56,3 +56,9 @@
 
 - [x] Correct the hero height and trust-mark placement so the complete row remains visible.
 - [x] Verify the complete trust-mark row at constrained preview and standard desktop sizes, then save the correction.
+
+# Interactive Values Experience Redesign
+
+- [x] Replace the static values-card grid with a vibrant, interaction-led values experience.
+- [x] Preserve access to the performance content while giving the values section a cleaner premium composition.
+- [x] Verify the redesigned values experience at desktop and mobile breakpoints, then save the update.
