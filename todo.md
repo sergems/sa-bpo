@@ -421,3 +421,9 @@
 
 - [x] Move the culture-promise explanatory sentence to a new paragraph on mobile.
 - [x] Preserve the existing single-line desktop presentation and verify the responsive layout.
+
+# Mobile Hero Trust and Controls Alignment
+
+- [x] Align the Trusted delivery strip to the left on mobile.
+- [x] Keep the slider controls on the right without affecting desktop positioning.
+- [x] Verify the mobile hero bottom row across both stories, then save the update.

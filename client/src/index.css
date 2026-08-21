@@ -229,3 +229,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 
 /* Human Circuit culture promise: the explanatory sentence becomes its own mobile paragraph while desktop stays inline. */
 .culture-promise-detail{display:inline;margin-left:.28em}@media(max-width:720px){.culture-promise-detail{display:block;margin-top:6px;margin-left:0}}
+
+/* Human Circuit mobile hero bottom row: Trusted delivery anchors left while carousel controls stay right. */
+@media(max-width:720px){.hero-trust{justify-content:start;text-align:left}.hero-trust .trust-caption{justify-self:start}.hero-slider-controls{right:20px;left:auto}}
