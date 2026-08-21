@@ -95,3 +95,7 @@
 /* Human Circuit hero media: unfiltered documentary photography, with no added mask, overlay, or colour grading. */
 .hero-image img{filter:none;mask-image:none}
 @media(max-width:720px){.hero-image{opacity:1}.hero-trust{position:relative;z-index:4;width:calc(100% + 40px);margin-left:-20px;padding-right:20px;padding-left:20px;background:var(--ink)}}
+
+/* Human Circuit navigation: practical people-first routes use crisp text links, with yellow as the invitation signal. */
+.primary-nav .nav-join{display:inline-flex;align-items:center;gap:7px;padding:0;background:none;color:#fff;cursor:pointer;font-size:.72rem;font-weight:800;text-decoration:none;transition:color .18s ease,transform .16s cubic-bezier(.23,1,.32,1)}.primary-nav .nav-join:hover{color:var(--yellow);transform:translateY(-1px)}
+@media(max-width:720px){.primary-nav .nav-join{padding:14px 0;border-bottom:1px solid rgba(255,255,255,.13);text-align:left}}

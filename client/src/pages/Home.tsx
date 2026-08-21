@@ -1,4 +1,5 @@
 /* Human Circuit compact edition: a concise people + process + outcome journey with content revealed through deliberate interaction. */
+/* Human Circuit page: people-first editorial navigation with clear, practical routes. */
 import { useEffect, useMemo, useState } from "react";
 import {
   ArrowDownRight,
@@ -183,6 +184,7 @@ export default function Home() {
           <button onClick={() => goTo("about")}>About SA-BPO</button>
           <button onClick={() => goTo("services")}>Capabilities</button>
           <button onClick={() => goTo("confidence")}>Why SA-BPO</button>
+          <a className="nav-join" href="https://referral.recruitment.sa-bpo.net" target="_blank" rel="noreferrer">Join Our Team <ArrowUpRight size={14} /></a>
           <button className="nav-calculator" onClick={() => setShowCalculator(true)}>BPO calculator <ArrowDownRight size={15} /></button>
         </nav>
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation">{menuOpen ? <X /> : <Menu />}</button>
