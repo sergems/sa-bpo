@@ -105,3 +105,6 @@
 
 /* Human Circuit typography: Poppins carries calm, rounded regular text; Space Grotesk remains reserved for display hierarchy. */
 body{font-family:"Poppins",sans-serif;font-size:16px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}.hero-copy>p:not(.eyebrow),.culture-intro>p,.section-description,.value-display p,.culture-promise p,.stage-copy p,.proof-panel p,.location-content>p:not(.eyebrow),.calculator-action p,.contact-section>div:nth-child(2)>p:not(.eyebrow),.calculator-modal>p{font-size:clamp(.95rem,1.05vw,1rem);line-height:1.6}
+
+/* Human Circuit interface type: all functional text shares the same rounded Poppins voice; Space Grotesk remains only for display headlines and data emphasis. */
+.site-header,.primary-nav,.footer-nav,.index-label,.index-label span,.eyebrow,.hero-trust,.mode-switch button,.culture-mode button,.value-select,.service-tab,.proof-list button,.location-toggle button,.calculator-path,.calculator-modal label,.coverage-output,.confidence-footer,.modal-kicker,.statement-kicker,.statement-context span{font-family:"Poppins",sans-serif}.site-header button,.site-header a,.footer-nav button,.footer-nav a,.service-tab strong,.proof-list strong,.value-select-name,.calculator-path b,.calculator-modal output,.coverage-output strong,.contact-section a,.contact-section aside strong{font-family:"Poppins",sans-serif}

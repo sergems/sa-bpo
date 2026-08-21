@@ -142,3 +142,9 @@
 - [x] Analyse the supplied clean rounded-text reference and select a compatible web font.
 - [x] Apply the selected font and matching regular-text scale throughout the website.
 - [x] Verify legibility across desktop and mobile breakpoints, then save the update.
+
+# Interface Typography Unification
+
+- [x] Audit navigation, listings, labels, buttons, and supporting UI for non-uniform typography.
+- [x] Apply the regular-text font consistently while keeping the display font for major headings only.
+- [x] Verify the unified type system at desktop and mobile breakpoints, then save the update.
