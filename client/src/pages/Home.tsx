@@ -62,6 +62,23 @@ const proofPoints = [
   { label: "Quality assurance", detail: "Clear checks and conversations that protect the experience your customers receive.", metric: "QA" },
 ];
 
+const ourHomeExperience = {
+  story: {
+    title: <>Our <em>Home.</em></>,
+    copy: "Making a break from the norm we decided to set up our BPO centre in the heart of Durban North. Just under 10 minutes from the busy Umhlanga and Gateway hubs and less than 25km from King Shaka International Airport, located in the heart of all things Durban. SA-BPO breaking the traditions of the norm to create a better environment for one and all.",
+    visual: "/manus-storage/sabpo-our-home-reception_e2dafeb7.png",
+    alt: "SA-BPO reception team welcoming visitors at the Durban North workplace",
+    label: "Welcome to SA-BPO",
+  },
+  benefits: {
+    title: <>The Benefits of<br /><em>SA-BPO’s Home.</em></>,
+    points: ["Spacious modern working environment", "State of the art network solutions and redundancy", "Daily Grind - In House fresh coffee stations", "Daily Fix - On-site snack stations", "Relaxation zones and break-out rooms", "Luxurious Amenities", "Wellness Zone"],
+    visual: "/manus-storage/sabpo-our-home-operations_7ae1f553.png",
+    alt: "SA-BPO specialists at work in the Durban North contact centre",
+    label: "A live operating environment",
+  },
+};
+
 const locationContent = {
   durban: {
     tab: "Durban North",
@@ -135,6 +152,7 @@ export default function Home() {
   });
   const [activeService, setActiveService] = useState("cx");
   const [activeProof, setActiveProof] = useState(0);
+  const [activeHomeTile, setActiveHomeTile] = useState<"story" | "benefits">(() => new URLSearchParams(window.location.search).get("homeView") === "benefits" ? "benefits" : "story");
   const [locationMode, setLocationMode] = useState<LocationMode>(() => new URLSearchParams(window.location.search).get("location") === "home" ? "home" : "durban");
   const [showCalculator, setShowCalculator] = useState(() => new URLSearchParams(window.location.search).get("calculator") === "open");
   const [showStatementDetails, setShowStatementDetails] = useState(() => new URLSearchParams(window.location.search).get("statement") === "details");
@@ -221,6 +239,16 @@ export default function Home() {
       </section>
 
       <section id="calculator" className="calculator-section"><div className="calculator-heading"><p className="eyebrow">A practical starting point</p><h2>Map the work.<br /><em>See the signal.</em></h2></div><div className="calculator-path"><span><b>01</b> Volume</span><i>→</i><span><b>02</b> People</span><i>→</i><span><b>03</b> Outcome</span></div><div className="calculator-action"><p>Shape an indicative operating model from the work, people, and coverage you need.</p><button className="button button--yellow" onClick={() => setShowCalculator(true)}>Open BPO calculator <ArrowDownRight size={17} /></button></div></section>
+
+      <section id="our-home" className="our-home-section">
+        <div className="our-home-heading"><div className="index-label">04 <span>Inside SA-BPO</span></div><p className="eyebrow eyebrow--green">A home for better work</p><div className="our-home-switch" role="tablist" aria-label="Explore the SA-BPO home"><button className={activeHomeTile === "story" ? "is-active" : ""} onClick={() => setActiveHomeTile("story")} role="tab" aria-selected={activeHomeTile === "story"}><span>01</span> Our home</button><button className={activeHomeTile === "benefits" ? "is-active" : ""} onClick={() => setActiveHomeTile("benefits")} role="tab" aria-selected={activeHomeTile === "benefits"}><span>02</span> Benefits</button></div></div>
+        <div className={`our-home-mosaic our-home-mosaic--${activeHomeTile}`}>
+          <article className="our-home-story"><p className="our-home-kicker">Durban North / SA-BPO</p><h2>{ourHomeExperience.story.title}</h2><p>{ourHomeExperience.story.copy}</p><button className="our-home-tile-action" onClick={() => setActiveHomeTile("benefits")}>See the benefits <ArrowRight size={16} /></button></article>
+          <button className="our-home-media our-home-media--reception" onClick={() => setActiveHomeTile("story")} aria-label="Show Our Home story"><img src={ourHomeExperience.story.visual} alt={ourHomeExperience.story.alt} /><span><HeartHandshake size={16} /> {ourHomeExperience.story.label}</span></button>
+          <button className="our-home-media our-home-media--operations" onClick={() => setActiveHomeTile("benefits")} aria-label="Show Our Home benefits"><img src={ourHomeExperience.benefits.visual} alt={ourHomeExperience.benefits.alt} /><span><Headphones size={16} /> {ourHomeExperience.benefits.label}</span></button>
+          <article className="our-home-benefits"><p className="our-home-kicker">Built around people</p><h3>{ourHomeExperience.benefits.title}</h3><ul>{ourHomeExperience.benefits.points.map((point) => <li key={point}><Check size={15} />{point}</li>)}</ul><button className="our-home-tile-action" onClick={() => setActiveHomeTile("story")}>Read our story <ArrowRight size={16} /></button></article>
+        </div>
+      </section>
 
       <section id="contact" className="contact-section section-pad"><div className="index-label">04 <span>Start here</span></div><div><p className="eyebrow eyebrow--dark">Let’s make the next conversation count</p><h2>Tell us what<br /><span>needs to move.</span></h2><p>Whether you are scaling support, simplifying operations, or looking for a people-first partner, we are ready to listen.</p><a href="mailto:hello@sa-bpo.com">hello@sa-bpo.com <ArrowUpRight size={20} /></a></div><aside><Sparkles size={19} /><strong>Start with a clearer model.</strong><p>Use the BPO calculator to frame the conversation around your operation.</p><button className="text-button text-button--dark" onClick={() => setShowCalculator(true)}>Build a first view <ArrowRight size={16} /></button></aside></section>
 

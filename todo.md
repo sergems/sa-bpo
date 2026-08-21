@@ -208,3 +208,10 @@
 - [x] Inspect the updated Durban North paragraph and Our home benefit list for alignment issues.
 - [x] Refine text widths, headings, list markers, and vertical spacing across both tabs.
 - [x] Verify polished text alignment at desktop and mobile sizes, then save the update.
+
+# Interactive Our Home Section
+
+- [x] Transcribe the supplied Our Home copy and benefits list exactly.
+- [x] Prepare an interactive content model and comparable workplace imagery.
+- [x] Build the Our Home section before Start here with responsive interaction states.
+- [x] Verify the section at desktop and mobile sizes, then save the update.
