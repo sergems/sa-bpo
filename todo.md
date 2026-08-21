@@ -371,3 +371,9 @@
 - [x] Center the mobile hero eyebrow, headline, description, and CTA group.
 - [x] Keep the mobile trust strip and slider controls clear and usable.
 - [x] Verify centered mobile stories and unchanged desktop alignment, then save the update.
+
+# Mobile Proof-List Compaction
+
+- [x] Apply the five supplied compact labels to proof items 01, 03, 04, 05, and 08 on mobile only.
+- [x] Tighten all ten mobile proof-list cells while retaining a clear two-column sequence.
+- [x] Verify the compact mobile grid and unchanged desktop proof list, then save the update.
