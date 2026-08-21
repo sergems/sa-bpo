@@ -190,3 +190,9 @@
 - [x] Inspect the current hero image and content animation timing.
 - [x] Replace the delayed image effect with a unified text-and-image fade transition.
 - [x] Verify the fade effect across all hero slides at desktop and mobile sizes, then save the update.
+
+# Our Home Location Content
+
+- [x] Transcribe and verify the supplied Durban North BPO benefits heading and bullet points.
+- [x] Replace the existing Our home tab heading and list with the approved content.
+- [x] Verify the revised Our home tab at desktop and mobile sizes, then save the update.

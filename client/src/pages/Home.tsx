@@ -73,9 +73,9 @@ const locationContent = {
   },
   home: {
     tab: "Our home",
-    title: <>A better place<br /><em>to do the work.</em></>,
-    text: "Our purpose-built centre in Durban North brings people, infrastructure, and workplace wellbeing into one dependable operating environment.",
-    points: ["Modern workspace & network resilience", "Coffee, snack, and break-out spaces", "Wellness zone and people-first amenities"],
+    title: <>The Benefits of our<br /><em>BPO in Durban North</em></>,
+    text: "",
+    points: ["Community culture embraced by all at SA BPO.", "Excellent location for all major transport networks.", "Cost effective retail solutions for our employees.", "Away from the Central Hubs of the Industry allowing for a more creative approach to the BPO space for both ourselves and our employees.", "Sun, Sea, Sand and all the trappings of a prime destination but at community driven costs and prices."],
     visual: "/manus-storage/sabpo-operations_50372ac6.png",
     alt: "SA-BPO workplace and operations specialist",
   },
@@ -135,7 +135,7 @@ export default function Home() {
   });
   const [activeService, setActiveService] = useState("cx");
   const [activeProof, setActiveProof] = useState(0);
-  const [locationMode, setLocationMode] = useState<LocationMode>("durban");
+  const [locationMode, setLocationMode] = useState<LocationMode>(() => new URLSearchParams(window.location.search).get("location") === "home" ? "home" : "durban");
   const [showCalculator, setShowCalculator] = useState(() => new URLSearchParams(window.location.search).get("calculator") === "open");
   const [showStatementDetails, setShowStatementDetails] = useState(() => new URLSearchParams(window.location.search).get("statement") === "details");
   const [agents, setAgents] = useState(8);
@@ -217,7 +217,7 @@ export default function Home() {
       </section>
 
       <section id="location" className="location-section">
-        <div className="location-media"><img src={selectedLocation.visual} alt={selectedLocation.alt} /><div className="media-node"><MapPin size={16} /><span>Durban North</span></div></div><div key={locationMode} className="location-content"><div className="location-toggle"><button className={locationMode === "durban" ? "is-active" : ""} onClick={() => setLocationMode("durban")}>Durban North</button><button className={locationMode === "home" ? "is-active" : ""} onClick={() => setLocationMode("home")}>Our home</button></div><p className="eyebrow">Our location</p><h2>{selectedLocation.title}</h2><p>{selectedLocation.text}</p><ul>{selectedLocation.points.map((point) => <li key={point}><Check size={15} />{point}</li>)}</ul><button className="text-button" onClick={() => goTo("contact")}>Talk to the local team <ArrowRight size={16} /></button></div>
+        <div className="location-media"><img src={selectedLocation.visual} alt={selectedLocation.alt} /><div className="media-node"><MapPin size={16} /><span>Durban North</span></div></div><div key={locationMode} className="location-content"><div className="location-toggle"><button className={locationMode === "durban" ? "is-active" : ""} onClick={() => setLocationMode("durban")}>Durban North</button><button className={locationMode === "home" ? "is-active" : ""} onClick={() => setLocationMode("home")}>Our home</button></div><p className="eyebrow">Our location</p><h2>{selectedLocation.title}</h2>{selectedLocation.text ? <p>{selectedLocation.text}</p> : null}<ul>{selectedLocation.points.map((point) => <li key={point}><Check size={15} />{point}</li>)}</ul><button className="text-button" onClick={() => goTo("contact")}>Talk to the local team <ArrowRight size={16} /></button></div>
       </section>
 
       <section id="calculator" className="calculator-section"><div className="calculator-heading"><p className="eyebrow">A practical starting point</p><h2>Map the work.<br /><em>See the signal.</em></h2></div><div className="calculator-path"><span><b>01</b> Volume</span><i>→</i><span><b>02</b> People</span><i>→</i><span><b>03</b> Outcome</span></div><div className="calculator-action"><p>Shape an indicative operating model from the work, people, and coverage you need.</p><button className="button button--yellow" onClick={() => setShowCalculator(true)}>Open BPO calculator <ArrowDownRight size={17} /></button></div></section>
