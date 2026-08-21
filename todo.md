@@ -98,3 +98,8 @@
 
 - [x] Reduce the capabilities heading scale and spacing so the service explorer appears sooner.
 - [x] Verify the compact capabilities introduction at desktop and mobile breakpoints, then save the update.
+
+# Lower-Height Culture Interaction
+
+- [x] Reduce selector tile and active-panel height while preserving readable approved narratives.
+- [x] Verify the shorter interactive culture area at desktop and mobile breakpoints, then save the update.
