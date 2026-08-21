@@ -281,3 +281,9 @@
 - [x] Review the remaining hero copy and documentary team imagery options.
 - [x] Replace the global-delivery slide with a people-led service-culture story.
 - [x] Verify both hero stories at desktop and mobile sizes, then save the update.
+
+# Non-Slider Section Heading Scale
+
+- [x] Audit all non-slider section heading scales against the operating-culture heading.
+- [x] Apply the Values that matter heading scale across the remaining sections.
+- [x] Verify the unified desktop and mobile hierarchy, then save the update.
