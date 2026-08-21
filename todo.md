@@ -454,3 +454,9 @@
 
 - [x] Remove the compliance image from the footer on desktop and mobile.
 - [x] Preserve footer centering and the one-line mobile menu, then verify and save the update.
+
+# New Footer Compliance Image
+
+- [x] Upload the newly supplied footer image to managed website storage.
+- [x] Add this image to the footer instead of all previous versions.
+- [x] Verify the new image in desktop and mobile footers, then save the update.
