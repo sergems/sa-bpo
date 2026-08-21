@@ -311,3 +311,9 @@
 - [x] Restore the desktop navigation to its original right-aligned position.
 - [x] Move the SA-BPO logo closer to the desktop navigation.
 - [x] Verify the corrected header at desktop and mobile sizes, then save the update.
+
+# Hero Slider Compaction
+
+- [x] Audit hero headline scale and vertical geometry against standard section headings.
+- [x] Reduce hero headline scale and compact the slider height without clipping content.
+- [x] Verify both hero stories and controls at desktop and mobile sizes, then save the update.
