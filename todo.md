@@ -215,3 +215,9 @@
 - [x] Prepare an interactive content model and comparable workplace imagery.
 - [x] Build the Our Home section before Start here with responsive interaction states.
 - [x] Verify the section at desktop and mobile sizes, then save the update.
+
+# Location Section Height Reduction
+
+- [x] Identify the gap between Why SA-BPO and Our location and the current section height constraints.
+- [x] Remove the excess gap and reduce the location section by approximately 20%.
+- [x] Verify the compact section join and responsive content layout, then save the update.
