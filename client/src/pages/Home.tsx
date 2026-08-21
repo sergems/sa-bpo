@@ -28,10 +28,10 @@ const cultureContent = {
     title: <>Values that make the<br /><span>work matter.</span></>,
     description: "We build a service culture around the people doing the work—because that is where every customer experience begins.",
     cards: [
-      { title: "Rewards", copy: "We recognise performance improvements and the initiative behind them.", tone: "yellow", icon: Trophy },
-      { title: "Compassion", copy: "We lead every interaction with honesty, empathy, and care.", tone: "green", icon: HeartHandshake },
-      { title: "Recognition", copy: "We value every SA-BPO member and the culture of shared success.", tone: "red", icon: BadgeCheck },
-      { title: "Care", copy: "A caring environment strengthens customer and employee experiences.", tone: "blue", icon: CircleDotDashed },
+      { title: "Rewards", copy: "Working in a rewarding environment is key to success. At SA-BPO, we recognise and reward our employees for all variants of success, including performance improvements and initiative.", tone: "red", icon: Trophy },
+      { title: "Compassion", copy: "Genuine human qualities start from within. We bring compassion to the forefront of all we do, always delivering with honesty and empathy so that every customer experience is enhanced.", tone: "green", icon: HeartHandshake },
+      { title: "Recognition", copy: "We recognise and value every SA-BPO member and encourage a culture of equality as our dedicated advisors and support team collaborate to achieve all-round success.", tone: "yellow", icon: BadgeCheck },
+      { title: "Care", copy: "A caring environment creates a culture that reflects on both customer and employee experiences. We encourage every SA-BPO employee to lead with care in day-to-day interactions.", tone: "blue", icon: CircleDotDashed },
     ],
   },
   performance: {
@@ -39,10 +39,10 @@ const cultureContent = {
     title: <>Performance you can see.<br /><span>Results you can trust.</span></>,
     description: "Experience, productivity, motivation, and environment are built into the SA-BPO operating model.",
     cards: [
-      { title: "Experience", copy: "Decades of BPO insight from a management team shaped in South Africa.", tone: "red", icon: BadgeCheck },
-      { title: "Productivity", copy: "Robust infrastructure and clear ways of working help people excel.", tone: "green", icon: CircleDotDashed },
-      { title: "Motivation", copy: "A fair, rewarding performance environment keeps customer experience in focus.", tone: "yellow", icon: Trophy },
-      { title: "Environment", copy: "A modern workplace supports professional focus and personal wellness.", tone: "blue", icon: UsersRound },
+      { title: "Experience", copy: "SA-BPO is led by a highly experienced management team, including pioneers of the BPO industry in South Africa. Their combined experience helps create a destination that delivers both customer and employee excellence.", tone: "red", icon: BadgeCheck },
+      { title: "Productivity", copy: "We have created a unique and fitting environment for all employees, allowing them to deliver and exceed in their best working environments, backed by world-class infrastructure and robust fail-safes.", tone: "green", icon: CircleDotDashed },
+      { title: "Motivation", copy: "Using our decades of experience, we have created a fair and rewarding performance environment that focuses on customer experience and recognises success through rewarding remuneration packages.", tone: "yellow", icon: Trophy },
+      { title: "Environment", copy: "A modern, spacious working environment caters for professional focus and personal wellness—an operational home our employees are proud to call their own in the heart of Durban North.", tone: "blue", icon: UsersRound },
     ],
   },
 };
@@ -132,7 +132,7 @@ export default function Home() {
         <div className="culture-orbit culture-orbit--one" /><div className="culture-orbit culture-orbit--two" />
         <div className="culture-intro"><div className="index-label">01 <span>About SA-BPO</span></div><div><p className="eyebrow">The operating culture</p><h2>{activeCulture.title}</h2></div><p>{activeCulture.description}</p></div>
         <div className="culture-mode" role="tablist" aria-label="SA-BPO culture content"><button className={cultureMode === "values" ? "is-active" : ""} onClick={() => { setCultureMode("values"); setActiveValueIndex(0); }} role="tab" aria-selected={cultureMode === "values"}><span>01</span> Our values</button><button className={cultureMode === "performance" ? "is-active" : ""} onClick={() => { setCultureMode("performance"); setActiveValueIndex(0); }} role="tab" aria-selected={cultureMode === "performance"}><span>02</span> Performance</button></div>
-        <div className="value-console"><div className="value-selector" role="tablist" aria-label="Select a SA-BPO value">{activeCulture.cards.map((item, index) => { const Icon = item.icon; return <button key={item.title} className={`value-select value-select--${item.tone} ${activeValueIndex === index ? "is-active" : ""}`} onClick={() => setActiveValueIndex(index)} role="tab" aria-selected={activeValueIndex === index}><span className="value-number">0{index + 1}</span><span className="value-select-name">{item.title}</span><Icon size={18} /><ArrowRight size={16} /></button>; })}</div><article className={`value-display value-display--${activeValue.tone}`}><div className="value-display-top"><span>SA-BPO / {cultureMode === "values" ? "Core value" : "Performance pillar"}</span><span>0{activeValueIndex + 1} / 04</span></div><div className="value-display-copy"><div className="value-display-icon"><ActiveValueIcon size={34} /></div><h3>{activeValue.title}</h3><p>{activeValue.copy}</p></div><div className="value-display-path"><i /><span /><i /><span /><i /></div><div className="value-display-word">{activeValue.title}</div></article></div>
+        <div className="value-console"><div className="value-selector" role="tablist" aria-label="Select a SA-BPO value">{activeCulture.cards.map((item, index) => { const Icon = item.icon; return <button key={item.title} className={`value-select value-select--${item.tone} ${activeValueIndex === index ? "is-active" : ""}`} onClick={() => setActiveValueIndex(index)} role="tab" aria-selected={activeValueIndex === index}><span className="value-number">0{index + 1}</span><span className="value-select-name">{item.title}</span><Icon size={18} /><ArrowRight size={16} /></button>; })}</div><article key={`${cultureMode}-${activeValue.title}`} className={`value-display value-display--${activeValue.tone}`}><div className="value-display-top"><span>SA-BPO / {cultureMode === "values" ? "Core value" : "Performance pillar"}</span><span>0{activeValueIndex + 1} / 04</span></div><div className="value-display-copy"><div className="value-display-icon"><ActiveValueIcon size={34} /></div><h3>{activeValue.title}</h3><p>{activeValue.copy}</p></div><button className="value-next" onClick={() => setActiveValueIndex((activeValueIndex + 1) % activeCulture.cards.length)}>Next pillar <ArrowRight size={15} /></button><div className="value-display-path"><i /><span /><i /><span /><i /></div><div className="value-display-word">{activeValue.title}</div></article></div>
         <div className="culture-promise"><span className="promise-dot" /><p><strong>People → Process → Outcome.</strong> Every SA-BPO value is designed to improve the experience behind your brand.</p><button onClick={() => goTo("services")}>See capability in action <ArrowRight size={16} /></button></div>
       </section>
 

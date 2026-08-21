@@ -72,3 +72,9 @@
 
 - [x] Reduce the performance-mode heading, selector, and feature-panel footprint while preserving interaction.
 - [x] Verify the compact performance mode at desktop and mobile breakpoints, then save the update.
+
+# Approved Values and Performance Narratives
+
+- [x] Replace abbreviated culture copy with the supplied approved values and performance narratives.
+- [x] Enhance the interactive visual storytelling using the approved red, green, yellow, and blue progression.
+- [x] Verify the narrative-rich experience at desktop and mobile breakpoints, then save the update.
