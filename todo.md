@@ -287,3 +287,9 @@
 - [x] Audit all non-slider section heading scales against the operating-culture heading.
 - [x] Apply the Values that matter heading scale across the remaining sections.
 - [x] Verify the unified desktop and mobile hierarchy, then save the update.
+
+# Footer BPO Graphic
+
+- [x] Retrieve the supplied BPO graphic and upload it for website use.
+- [x] Display the graphic beneath the footer menu on the right side.
+- [x] Verify footer placement at desktop and mobile sizes, then save the update.
