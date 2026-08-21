@@ -275,3 +275,9 @@
 - [x] Identify all Connected capability navigation, hero, and section references.
 - [x] Remove the Connected capability experience while preserving clear homepage routes.
 - [x] Verify the simplified desktop and mobile layouts, then save the update.
+
+# Second People-Led Hero Story
+
+- [x] Review the remaining hero copy and documentary team imagery options.
+- [x] Replace the global-delivery slide with a people-led service-culture story.
+- [x] Verify both hero stories at desktop and mobile sizes, then save the update.
