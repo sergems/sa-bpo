@@ -293,3 +293,9 @@
 - [x] Retrieve the supplied BPO graphic and upload it for website use.
 - [x] Display the graphic beneath the footer menu on the right side.
 - [x] Verify footer placement at desktop and mobile sizes, then save the update.
+
+# Footer Graphic Resize and Privacy Policy
+
+- [x] Reduce the footer BPO graphic by a further 40%.
+- [x] Create a responsive Privacy Policy page and link it from the footer menu.
+- [x] Verify the privacy page, footer link, and graphic placement at desktop and mobile sizes, then save the update.
