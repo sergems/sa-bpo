@@ -83,3 +83,8 @@
 
 - [x] Make the approved values and performance narratives visibly discoverable in the default culture view.
 - [x] Verify the default culture view exposes the full narrative content clearly at desktop and mobile sizes.
+
+# Reference Colour Alignment
+
+- [x] Apply the supplied red, green, yellow, and blue sequence consistently across every interactive culture element.
+- [x] Verify values and performance colour states at desktop and mobile sizes, then save the update.

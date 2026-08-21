@@ -83,7 +83,10 @@ const locationContent = {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cultureMode, setCultureMode] = useState<CultureMode>(() => new URLSearchParams(window.location.search).get("culture") === "performance" ? "performance" : "values");
-  const [activeValueIndex, setActiveValueIndex] = useState(0);
+  const [activeValueIndex, setActiveValueIndex] = useState(() => {
+    const selected = Number(new URLSearchParams(window.location.search).get("pillar"));
+    return Number.isInteger(selected) && selected >= 0 && selected <= 3 ? selected : 0;
+  });
   const [activeService, setActiveService] = useState("cx");
   const [activeProof, setActiveProof] = useState(0);
   const [locationMode, setLocationMode] = useState<LocationMode>("durban");
@@ -132,7 +135,7 @@ export default function Home() {
         <div className="culture-orbit culture-orbit--one" /><div className="culture-orbit culture-orbit--two" />
         <div className="culture-intro"><div className="index-label">01 <span>About SA-BPO</span></div><div><p className="eyebrow">The operating culture</p><h2>{activeCulture.title}</h2></div><p>{activeCulture.description}</p></div>
         <div className="culture-mode" role="tablist" aria-label="SA-BPO culture content"><button className={cultureMode === "values" ? "is-active" : ""} onClick={() => { setCultureMode("values"); setActiveValueIndex(0); }} role="tab" aria-selected={cultureMode === "values"}><span>01</span> Our values</button><button className={cultureMode === "performance" ? "is-active" : ""} onClick={() => { setCultureMode("performance"); setActiveValueIndex(0); }} role="tab" aria-selected={cultureMode === "performance"}><span>02</span> Performance</button></div>
-        <div className="narrative-guide"><span>Interactive narrative board</span><p>Select a pillar to read the <strong>full approved statement</strong>. Now showing: <b>{activeValue.title}</b></p><small>{String(activeValueIndex + 1).padStart(2, "0")} / 04</small></div>
+        <div className={`narrative-guide narrative-guide--${activeValue.tone}`}><span>Interactive narrative board</span><p>Select a pillar to read the <strong>full approved statement</strong>. Now showing: <b>{activeValue.title}</b></p><small>{String(activeValueIndex + 1).padStart(2, "0")} / 04</small></div>
         <div className="value-console"><div className="value-selector" role="tablist" aria-label="Select a SA-BPO value">{activeCulture.cards.map((item, index) => { const Icon = item.icon; return <button key={item.title} className={`value-select value-select--${item.tone} ${activeValueIndex === index ? "is-active" : ""}`} onClick={() => setActiveValueIndex(index)} role="tab" aria-selected={activeValueIndex === index}><span className="value-number">0{index + 1}</span><span className="value-select-name">{item.title}</span><Icon size={18} /><ArrowRight size={16} /></button>; })}</div><article key={`${cultureMode}-${activeValue.title}`} className={`value-display value-display--${activeValue.tone}`}><div className="value-display-top"><span>SA-BPO / {cultureMode === "values" ? "Core value" : "Performance pillar"} <b>• Full approved statement</b></span><span>0{activeValueIndex + 1} / 04</span></div><div className="value-display-copy"><div className="value-display-icon"><ActiveValueIcon size={34} /></div><h3>{activeValue.title}</h3><p>{activeValue.copy}</p></div><button className="value-next" onClick={() => setActiveValueIndex((activeValueIndex + 1) % activeCulture.cards.length)}>Next pillar <ArrowRight size={15} /></button><div className="value-display-path"><i /><span /><i /><span /><i /></div><div className="value-display-word">{activeValue.title}</div></article></div>
         <div className="culture-promise"><span className="promise-dot" /><p><strong>People → Process → Outcome.</strong> Every SA-BPO value is designed to improve the experience behind your brand.</p><button onClick={() => goTo("services")}>See capability in action <ArrowRight size={16} /></button></div>
       </section>
