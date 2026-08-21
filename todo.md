@@ -398,3 +398,9 @@
 
 - [x] Set full desktop proof-list labels to white while retaining gold item numbers.
 - [x] Verify desktop and mobile proof-list hierarchy, then save the update.
+
+# Mobile Culture Console Reordering
+
+- [x] Place the active culture output panel above the four selector elements on mobile.
+- [x] Keep the four selectors compact beneath the output panel and preserve all interactions.
+- [x] Verify the reordered mobile console and unchanged desktop console, then save the update.

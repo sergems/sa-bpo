@@ -220,3 +220,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 
 /* Human Circuit desktop proof-label color: full-size labels use white while the delivery index remains gold. */
 @media(min-width:721px){.proof-list .proof-label-desktop{color:#fff}}
+
+/* Human Circuit mobile culture console: the active story leads, followed by a compact two-by-two selector set. */
+@media(max-width:720px){.value-console{gap:12px}.value-display{order:1}.value-selector{order:2;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;min-height:0}.value-select{min-height:52px;padding:10px 9px}.value-select:hover,.value-select.is-active{padding-left:9px}}
