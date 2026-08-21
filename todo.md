@@ -136,3 +136,9 @@
 - [x] Generate three new BPO-appropriate images for people, operations, and global delivery.
 - [x] Integrate the new images with clean, text-safe slider styling.
 - [x] Verify every slider image at desktop and mobile breakpoints, then save the update.
+
+# Regular Text Typography Refinement
+
+- [x] Analyse the supplied clean rounded-text reference and select a compatible web font.
+- [x] Apply the selected font and matching regular-text scale throughout the website.
+- [x] Verify legibility across desktop and mobile breakpoints, then save the update.
