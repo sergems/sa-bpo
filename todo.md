@@ -233,3 +233,9 @@
 - [x] Inspect existing values and performance selector event handling.
 - [x] Activate selector content on hover while preserving click and keyboard selection.
 - [x] Verify hover interaction and mobile behaviour, then save the update.
+
+# Durban North Landmark Image
+
+- [x] Prepare the supplied Moses Mabhida Stadium photograph for website storage.
+- [x] Replace the Durban North location visual with the supplied landmark image.
+- [x] Verify the new image presentation at desktop and mobile sizes, then save the update.
