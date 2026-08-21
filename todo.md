@@ -124,3 +124,8 @@
 
 - [x] Restore automatic slide progression by removing unintended pause behavior.
 - [x] Verify autoplay and deliberate pause control, then save the update.
+
+# Hero Image Blending
+
+- [x] Apply slide-specific overlays, masks, and colour grading so hero images blend with their brand fields.
+- [x] Verify all blended hero slides at desktop and mobile sizes, then save the update.
