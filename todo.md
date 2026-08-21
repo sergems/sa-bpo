@@ -263,3 +263,9 @@
 - [x] Inspect the list and detail panel height constraints.
 - [x] Match the blue detail panel height to the full ten-item list footprint.
 - [x] Verify the compact proof explorer at desktop and mobile sizes, then save the update.
+
+# Selected Proof Card Compaction
+
+- [x] Inspect the blue detail-card heading and spacing constraints.
+- [x] Reduce its heading scale by 25% and tighten the card height.
+- [x] Verify the compact result at desktop and mobile sizes, then save the update.

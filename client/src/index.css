@@ -165,5 +165,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 
 /* Human Circuit proof geometry: the selected blue detail panel follows the ten-signal list height, leaving no inert lower field. */
 @media(min-width:721px){.proof-panel{min-height:0}}
+
+/* Human Circuit selected proof card: smaller signal and detail headings create a tighter, content-led blue panel. */
+.proof-panel{padding:21px}.proof-metric{font-size:clamp(2.1rem,3.75vw,3.75rem)}.proof-panel svg{margin-top:8px}.proof-panel h3{margin:9px 0 6px;font-size:clamp(1.0125rem,1.575vw,1.5rem)}.proof-path{padding-top:15px}@media(max-width:720px){.proof-panel{padding:18px}.proof-metric{font-size:2.1rem}.proof-panel h3{font-size:1.065rem}.proof-path{padding-top:13px}}
 /* Human Circuit culture rhythm: both mode summaries hold four planned lines, preserving a stable console position. */
 .culture-intro-description{min-height:6.4em}.culture-intro-description span{display:block;white-space:nowrap}@media(max-width:720px){.culture-intro-description{min-height:6.4em!important;font-size:clamp(.68rem,3.7vw,.88rem)!important;line-height:1.6!important}.culture-intro-description span{white-space:nowrap}}
