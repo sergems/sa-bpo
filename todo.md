@@ -25,3 +25,8 @@
 
 - [x] Remove altered logo styling and restore the original supplied SA-BPO logo in every visible placement.
 - [x] Verify the corrected original logo treatment in the header and footer, then save the update.
+
+# Transparent Logo Correction
+
+- [x] Remove the added white background fields around the transparent original logo.
+- [x] Verify the transparent logo presentation in header and footer, then save the correction.
