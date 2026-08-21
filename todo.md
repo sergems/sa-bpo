@@ -93,3 +93,8 @@
 
 - [x] Remove the “Interactive Narrative Board” label and guidance throughout the culture section.
 - [x] Verify the simplified values and performance views, then save the update.
+
+# Compact Capabilities Introduction
+
+- [x] Reduce the capabilities heading scale and spacing so the service explorer appears sooner.
+- [x] Verify the compact capabilities introduction at desktop and mobile breakpoints, then save the update.
