@@ -171,6 +171,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 
 /* Human Circuit simplified navigation: remaining routes retain the SA-BPO blue, green, yellow, and red signal sequence. */
 @media(hover:hover) and (prefers-reduced-motion:no-preference){.primary-nav>button:nth-child(1)::after{background:#1A459D}.primary-nav>button:nth-child(2)::after{background:#04733D}.primary-nav>:nth-child(3)::after{background:#FDB713}.primary-nav>button:nth-child(4)::after{background:#E21E25}.primary-nav>button:nth-child(1):hover{color:#1A459D}.primary-nav>button:nth-child(2):hover{color:#04733D}.primary-nav>:nth-child(3):hover{color:#FDB713}.primary-nav>button:nth-child(4):hover{background:#FDB713;box-shadow:0 10px 18px rgba(253,183,19,.2)}}
+.primary-nav .nav-calculator::after{content:none!important;display:none!important}
 
 /* Human Circuit section hierarchy: every non-slider section title uses the operating-culture “Values that matter” scale. */
 .section-top h2,.location-content h2,.calculator-section h2,.contact-section h2,.our-home-story h2,.our-home-benefits h3{font-size:clamp(2.3rem,2.95vw,3.55rem);line-height:.94}@media(max-width:720px){.section-top h2,.location-content h2,.calculator-section h2,.contact-section h2,.our-home-story h2,.our-home-benefits h3{font-size:clamp(2.25rem,10vw,3.1rem);line-height:.94}}
