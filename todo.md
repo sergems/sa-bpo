@@ -404,3 +404,9 @@
 - [x] Place the active culture output panel above the four selector elements on mobile.
 - [x] Keep the four selectors compact beneath the output panel and preserve all interactions.
 - [x] Verify the reordered mobile console and unchanged desktop console, then save the update.
+
+# Mobile Culture Full-Width Stack
+
+- [x] Make the active culture panel span the full mobile width above all selectors.
+- [x] Stack all four compact selector rows beneath the panel, matching the supplied drawing.
+- [x] Verify the mobile stack and unchanged desktop console, then save the update.
