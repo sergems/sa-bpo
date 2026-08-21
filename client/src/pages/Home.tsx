@@ -55,11 +55,16 @@ const services = [
 ];
 
 const proofPoints = [
-  { label: "24/7 service", detail: "Voice, email, and chat service readiness for the customer moments that cannot wait.", metric: "24/7" },
-  { label: "KPI-led delivery", detail: "A visible performance signal that keeps delivery, coaching, and outcomes connected.", metric: "KPI" },
-  { label: "Secure & resilient", detail: "A systems-led operating environment built for stability, continuity, and confidence.", metric: "SLA" },
-  { label: "Global standards", detail: "Office and service standards aligned to UK, US, and AUS environments.", metric: "UK/US/AUS" },
-  { label: "Quality assurance", detail: "Clear checks and conversations that protect the experience your customers receive.", metric: "QA" },
+  { label: "24/7 service via Voice / Email / Chat", detail: "Always-on channel readiness for customer conversations across voice, email, and chat.", metric: "24/7", icon: Headphones },
+  { label: "KPI driven service", detail: "Visible measures keep service delivery, coaching, and business outcomes connected.", metric: "KPI", icon: CircleDotDashed },
+  { label: "Outstanding customer support & delivery", detail: "Human support teams work to protect every customer moment with practical operational discipline.", metric: "CX", icon: HeartHandshake },
+  { label: "UK / US / AUS in-house office standards", detail: "Our operational environment is designed around the office and service expectations of UK, US, and AUS partners.", metric: "UK/US/AUS", icon: MapPin },
+  { label: "Most combined experience in SA", detail: "Experienced leadership and specialist teams bring a deep combined understanding of South African BPO delivery.", metric: "SA", icon: UsersRound },
+  { label: "Security & resilience", detail: "Resilient systems, clear controls, and reliable operating practices provide confidence when service matters most.", metric: "SECURE", icon: ShieldCheck },
+  { label: "Face-to-face consultations", detail: "Direct working sessions create clarity, maintain momentum, and keep the operation closely aligned with your team.", metric: "F2F", icon: UsersRound },
+  { label: "A rewarding & progressive culture", detail: "A people-first environment recognises performance and supports the growth behind sustained delivery.", metric: "CULTURE", icon: Trophy },
+  { label: "Onboarding excellence", detail: "Structured implementation turns a new partnership into a focused, well-prepared operating team.", metric: "ONBOARD", icon: Sparkles },
+  { label: "Quality assurance", detail: "Clear checks, feedback, and coaching protect the experience your customers receive.", metric: "QA", icon: BadgeCheck },
 ];
 
 const ourHomeExperience = {
@@ -188,6 +193,7 @@ export default function Home() {
   const selectedService = services.find((service) => service.id === activeService) ?? services[0];
   const selectedLocation = locationContent[locationMode];
   const activeHero = heroSlides[activeHeroSlide];
+  const ActiveProofIcon = proofPoints[activeProof].icon;
   const coverageHours = useMemo(() => agents * hours, [agents, hours]);
   const goTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -233,8 +239,8 @@ export default function Home() {
 
       <section id="confidence" className="confidence-section section-pad">
         <div className="section-top section-top--on-dark"><div className="index-label">03 <span>Why SA-BPO</span></div><div><p className="eyebrow">Partner with confidence</p><h2>Proof you can<br /><em>explore.</em></h2></div><p className="section-description">Select a standard to see how it supports the people, process, and outcome behind your operation.</p></div>
-        <div className="proof-explorer"><div className="proof-list">{proofPoints.map((proof, index) => <button key={proof.label} className={activeProof === index ? "is-active" : ""} onClick={() => setActiveProof(index)}><span>{String(index + 1).padStart(2, "0")}</span><strong>{proof.label}</strong><ArrowRight size={16} /></button>)}</div><article key={activeProof} className="proof-panel"><div className="proof-metric">{proofPoints[activeProof].metric}</div><ShieldCheck size={27} /><h3>{proofPoints[activeProof].label}</h3><p>{proofPoints[activeProof].detail}</p><div className="proof-path"><i /><span /><i /><span /><i /></div></article></div>
-        <div className="confidence-footer"><span>UK / US / AUS office standards</span><span>KPI-led delivery</span><span>Quality assurance</span></div>
+        <div className="proof-explorer"><div className="proof-list">{proofPoints.map((proof, index) => <button key={proof.label} className={activeProof === index ? "is-active" : ""} onClick={() => setActiveProof(index)}><span>{String(index + 1).padStart(2, "0")}</span><strong>{proof.label}</strong><ArrowRight size={16} /></button>)}</div><article key={activeProof} className="proof-panel"><div className="proof-metric">{proofPoints[activeProof].metric}</div><ActiveProofIcon size={27} /><h3>{proofPoints[activeProof].label}</h3><p>{proofPoints[activeProof].detail}</p><div className="proof-path"><i /><span /><i /><span /><i /></div></article></div>
+        <div className="confidence-footer"><span>24/7 Voice / Email / Chat</span><span>KPI driven service</span><span>UK / US / AUS office standards</span></div>
       </section>
 
       <section id="location" className="location-section">

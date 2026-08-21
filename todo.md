@@ -245,3 +245,9 @@
 - [x] Inspect the values and performance description layout at responsive breakpoints.
 - [x] Reserve a matching four-line description area for both culture modes.
 - [x] Verify mode switching stays visually stable at desktop and mobile sizes, then save the update.
+
+# Partner with Confidence Proof Elements
+
+- [x] Review the current proof explorer data and layout capacity.
+- [x] Replace its proof list with the ten approved elements from the supplied reference.
+- [x] Verify the complete interactive proof explorer at desktop and mobile sizes, then save the update.
