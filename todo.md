@@ -46,3 +46,8 @@
 
 - [x] Remove Durban North from the navigation menu while preserving its on-page section.
 - [x] Verify the simplified navigation and save the update.
+
+# Hero Information Hierarchy Refinement
+
+- [x] Separate the location label, trust marks, and hero footer into a clean premium layout.
+- [x] Verify the refined information hierarchy at desktop and mobile breakpoints, then save the update.

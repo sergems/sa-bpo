@@ -123,7 +123,6 @@ export default function Home() {
         <div className="hero-rail"><span /><span /><span /><span /><span /></div><div className="hero-field" />
         <div className="hero-copy"><p className="eyebrow"><i /> People-powered operations</p><h1>Our people<br /><em>speak for</em><br />your brand.</h1><p>The conversations behind your growth, delivered with local fluency, global standards, and enterprise discipline.</p><div className="hero-actions"><button className="button button--green" onClick={() => goTo("calculator")}>Map your BPO model <ArrowRight size={17} /></button><button className="text-button" onClick={() => goTo("about")}>Explore SA-BPO <ArrowDownRight size={16} /></button></div><div className="hero-trust" aria-label="Client trust and operational standards"><span className="trust-caption">Trusted delivery</span><span><ShieldCheck size={14} /> Secure & resilient</span><span><BadgeCheck size={14} /> QA-led service</span><span><CircleDotDashed size={14} /> UK / US / AUS aligned</span></div></div>
         <div className="hero-image"><div className="hero-orbit hero-orbit--a" /><div className="hero-orbit hero-orbit--b" /><img src="/manus-storage/sabpo-professional-team-placeholder_316baddb.png" alt="Professional SA-BPO team placeholder" /><div className="hero-badge"><span>01</span><b>Human signal</b></div></div>
-        <div className="hero-footer"><span>Durban North / South Africa</span><span>People + process + outcome</span></div>
       </section>
 
       <section id="about" className="culture-section section-pad">
