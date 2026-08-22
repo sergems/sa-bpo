@@ -22,6 +22,7 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
+    target: "es2020",
   },
 
   server: {
