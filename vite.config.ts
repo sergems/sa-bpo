@@ -1,4 +1,5 @@
 import tailwindcss from "@tailwindcss/vite";
+import legacy from "@vitejs/plugin-legacy";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
 import { defineConfig } from "vite";
@@ -6,6 +7,9 @@ import { defineConfig } from "vite";
 export default defineConfig({
   plugins: [
     react(),
+    legacy({
+      targets: ["iOS >= 11", "Safari >= 11", "defaults", "not IE 11"],
+    }),
     tailwindcss(),
   ],
 
@@ -22,7 +26,6 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
-    target: "es2020",
   },
 
   server: {

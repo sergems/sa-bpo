@@ -915,3 +915,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 }
 /* Keep the established mobile stack flowing normally after the CTA row becomes a direct slide child. */
 @media(max-width:720px){.hero-slide__copy-wrap>.hero-actions{position:relative;right:auto;bottom:auto;left:auto;flex:0 0 auto;margin:0}}
+
+/* iOS Safari compatibility: prefer stable compositing over decorative masks when WebKit is rendering the mobile web view. */
+.site-header--scrolled,.site-header:not(.site-header--scrolled),.modal-backdrop,.culture-mode{-webkit-backdrop-filter:blur(10px)}
+.hero-slide,.hero-slide__media{-webkit-transform:translateZ(0);transform:translateZ(0);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+@supports (-webkit-touch-callout:none){
+  .hero-slide__media img{-webkit-mask-image:none!important;mask-image:none!important}
+  .hero-section,.hero-slides,.hero-slide{min-height:0}
+}
+@supports not (height:100svh){
+  @media(max-width:720px){.hero-section{height:100vh;min-height:635px}}
+}
