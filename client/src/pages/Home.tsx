@@ -29,6 +29,20 @@ import {
 
 type CultureMode = "values" | "performance";
 type LocationMode = "durban" | "home";
+type ServiceFocus = "outbound-sales" | "inbound-customer-service";
+type AdvisorTier = "tier-1" | "tier-2";
+
+// Provisional USD monthly rates per full-time advisor at a 160-hour baseline. Replace with approved commercial rates.
+const provisionalMonthlyRates: Record<ServiceFocus, Record<AdvisorTier, number>> = {
+  "outbound-sales": { "tier-1": 1450, "tier-2": 1850 },
+  "inbound-customer-service": { "tier-1": 1250, "tier-2": 1650 },
+};
+
+const formatEstimatedUsd = (value: number) => new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+}).format(value);
 
 const cultureContent = {
   values: {
@@ -150,8 +164,11 @@ export default function Home() {
   const [locationMode, setLocationMode] = useState<LocationMode>(() => new URLSearchParams(window.location.search).get("location") === "home" ? "home" : "durban");
   const [showCalculator, setShowCalculator] = useState(() => new URLSearchParams(window.location.search).get("calculator") === "open");
   const [showStatementDetails, setShowStatementDetails] = useState(() => new URLSearchParams(window.location.search).get("statement") === "details");
-  const [agents, setAgents] = useState(8);
+  const [trialAdvisors, setTrialAdvisors] = useState(2);
+  const [bauAdvisors, setBauAdvisors] = useState(8);
   const [hours, setHours] = useState(160);
+  const [serviceFocus, setServiceFocus] = useState<ServiceFocus[]>([]);
+  const [advisorTiers, setAdvisorTiers] = useState<AdvisorTier[]>([]);
   const [scrolled, setScrolled] = useState(false);
   const [activeHeroSlide, setActiveHeroSlide] = useState(() => {
     const requestedSlide = new URLSearchParams(window.location.search).get("hero");
@@ -186,10 +203,25 @@ export default function Home() {
   const selectedLocation = locationContent[locationMode];
   const activeHero = heroSlides[activeHeroSlide];
   const ActiveProofIcon = proofPoints[activeProof].icon;
-  const coverageHours = useMemo(() => agents * hours, [agents, hours]);
+  const trialCoverageHours = useMemo(() => trialAdvisors * hours, [trialAdvisors, hours]);
+  const bauCoverageHours = useMemo(() => bauAdvisors * hours, [bauAdvisors, hours]);
+  const provisionalRatePerAdvisor = useMemo(() => {
+    const selectedRates = serviceFocus.flatMap((service) => advisorTiers.map((tier) => provisionalMonthlyRates[service][tier]));
+    if (!selectedRates.length) return 0;
+    return Math.round(selectedRates.reduce((total, rate) => total + rate, 0) / selectedRates.length);
+  }, [serviceFocus, advisorTiers]);
+  const trialMonthlyEstimate = useMemo(() => Math.round(trialAdvisors * provisionalRatePerAdvisor * (hours / 160)), [trialAdvisors, hours, provisionalRatePerAdvisor]);
+  const bauMonthlyEstimate = useMemo(() => Math.round(bauAdvisors * provisionalRatePerAdvisor * (hours / 160)), [bauAdvisors, hours, provisionalRatePerAdvisor]);
+  const hasPricingSelection = serviceFocus.length > 0 && advisorTiers.length > 0;
   const goTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMenuOpen(false);
+  };
+  const toggleServiceFocus = (service: ServiceFocus) => {
+    setServiceFocus((selected) => selected.includes(service) ? selected.filter((item) => item !== service) : [...selected, service]);
+  };
+  const toggleAdvisorTier = (tier: AdvisorTier) => {
+    setAdvisorTiers((selected) => selected.includes(tier) ? selected.filter((item) => item !== tier) : [...selected, tier]);
   };
   const changeHeroSlide = (direction: 1 | -1) => {
     setActiveHeroSlide((slide) => (slide + direction + heroSlides.length) % heroSlides.length);
@@ -286,7 +318,7 @@ export default function Home() {
 
       <footer className="site-footer"><div><img src="/assets/sabpo-logo-original.png" alt="SA-BPO" /><p>Our people speak for your brand.</p></div><div className="footer-right"><div className="footer-nav"><button onClick={() => goTo("about")}>About SA-BPO</button><button onClick={() => goTo("confidence")}>Why SA-BPO</button><a href="/privacy-policy">Privacy Policy</a><button onClick={() => goTo("top")}>Back to top</button></div><img className="footer-bpo-graphic" src="/assets/footer-compliance-latest.png" alt="SA-BPO compliance and quality accreditations" /></div><small>© 2026 SA-BPO. South Africa / Global conversations.</small></footer>
 
-      {showCalculator && <div className="modal-backdrop" onClick={() => setShowCalculator(false)}><div className="calculator-modal" onClick={(event) => event.stopPropagation()}><button className="modal-close" onClick={() => setShowCalculator(false)} aria-label="Close calculator"><X /></button><div className="calculator-modal-body"><p className="modal-kicker"><Sparkles size={15} /> BPO calculator</p><h2 className="calculator-modal-title">Shape the first<br /><em>conversation.</em></h2><p>Use the inputs to create a simple coverage signal. A full operating model is always tailored with you.</p><label>Specialists <output>{agents}</output><input type="range" min="2" max="40" value={agents} onChange={(event) => setAgents(Number(event.target.value))} /></label><label>Hours per specialist / month <output>{hours}</output><input type="range" min="80" max="220" step="10" value={hours} onChange={(event) => setHours(Number(event.target.value))} /></label><div className="coverage-output"><span>Indicative specialist hours</span><strong>{coverageHours.toLocaleString()}</strong><small>Coverage signal across voice, email, and chat.</small></div></div><div className="calculator-modal-action"><button className="button button--green button--full" onClick={() => { setShowCalculator(false); goTo("contact"); }}>Use this as a starting point <ArrowRight size={16} /></button></div></div></div>}
+      {showCalculator && <div className="modal-backdrop" onClick={() => setShowCalculator(false)}><div className="calculator-modal" onClick={(event) => event.stopPropagation()}><button className="modal-close" onClick={() => setShowCalculator(false)} aria-label="Close calculator"><X /></button><div className="calculator-modal-body"><p className="modal-kicker"><Sparkles size={15} /> BPO calculator</p><h2 className="calculator-modal-title">Shape the first<br /><em>conversation.</em></h2><p>Use the inputs to create a simple coverage signal. A full operating model is always tailored with you.</p><fieldset className="calculator-fieldset"><legend>Service focus</legend><div className="calculator-checklist"><label className="calculator-check"><input type="checkbox" name="service-focus" value="outbound-sales" checked={serviceFocus.includes("outbound-sales")} onChange={() => toggleServiceFocus("outbound-sales")} /><span className="calculator-check__control" aria-hidden="true" /><span><strong>Outbound Sales</strong></span></label><label className="calculator-check"><input type="checkbox" name="service-focus" value="inbound-customer-service" checked={serviceFocus.includes("inbound-customer-service")} onChange={() => toggleServiceFocus("inbound-customer-service")} /><span className="calculator-check__control" aria-hidden="true" /><span><strong>Inbound CS</strong></span></label></div></fieldset><fieldset className="calculator-fieldset"><legend>Advisor tier</legend><div className="calculator-checklist"><label className="calculator-check"><input type="checkbox" name="advisor-tier" value="tier-1" checked={advisorTiers.includes("tier-1")} onChange={() => toggleAdvisorTier("tier-1")} /><span className="calculator-check__control" aria-hidden="true" /><span><strong>Tier 1 Advisor</strong><small>Basic, volume-based work.</small></span></label><label className="calculator-check"><input type="checkbox" name="advisor-tier" value="tier-2" checked={advisorTiers.includes("tier-2")} onChange={() => toggleAdvisorTier("tier-2")} /><span className="calculator-check__control" aria-hidden="true" /><span><strong>Tier 2 Advisor</strong><small>Complex complaints, cancellations, billing, and similar work.</small></span></label></div></fieldset><label>Number of advisors required for trial <output>{trialAdvisors}</output><input type="range" min="1" max="40" value={trialAdvisors} onChange={(event) => setTrialAdvisors(Number(event.target.value))} /></label><label>Number of advisors required for BAU <output>{bauAdvisors}</output><input type="range" min="1" max="40" value={bauAdvisors} onChange={(event) => setBauAdvisors(Number(event.target.value))} /></label><label>Hours per advisor / month <output>{hours}</output><input type="range" min="80" max="220" step="10" value={hours} onChange={(event) => setHours(Number(event.target.value))} /></label><div className="phase-output-grid"><div className="coverage-output"><span>Trial coverage hours</span><strong>{trialCoverageHours.toLocaleString()}</strong><small>Indicative monthly capacity for the trial team.</small></div><div className="coverage-output"><span>BAU coverage hours</span><strong>{bauCoverageHours.toLocaleString()}</strong><small>Indicative monthly capacity for the BAU team.</small></div></div><div className="pricing-output" aria-live="polite"><span>Provisional monthly phase estimates</span>{hasPricingSelection ? <div className="pricing-phase-grid"><div><b>Trial</b><strong>{formatEstimatedUsd(trialMonthlyEstimate)}</strong><small>{trialAdvisors} advisor{trialAdvisors === 1 ? "" : "s"} at the selected provisional rate.</small></div><div><b>BAU</b><strong>{formatEstimatedUsd(bauMonthlyEstimate)}</strong><small>{bauAdvisors} advisor{bauAdvisors === 1 ? "" : "s"} at the selected provisional rate.</small></div></div> : <><strong>—</strong><small>Select at least one service focus and one advisor tier to reveal phase estimates.</small></>}<p>{hasPricingSelection ? `${formatEstimatedUsd(provisionalRatePerAdvisor)} per advisor / month at a 160-hour baseline. Trial and BAU are shown as separate phases and should only be combined if their teams overlap.` : "Provisional USD estimate only. Commercial rates will be confirmed with your operating model."}</p></div><section className="calculator-inclusions" aria-labelledby="calculator-inclusions-title"><div className="calculator-inclusions__heading"><ShieldCheck size={17} aria-hidden="true" /><div><p id="calculator-inclusions-title">Provisional pricing includes</p><span>The provisional estimate includes the people, technology, and operational resilience below.</span></div></div><ul><li>Advisor salary, including competitive Durban rates and commissions</li><li>Dedicated Team Leader — automatically provisioned</li><li>Operations Manager — automatically provisioned</li><li>IT infrastructure and software</li><li>Dell systems</li><li>Microsoft</li><li>Telephony platform</li><li>Reporting suites, including Power BI</li><li>World-class facility and connectivity</li><li>Three links routed across Africa, designed to support 99.9% uptime</li><li>All Tier 1 carriers</li><li>Back-up power and water</li></ul></section></div><div className="calculator-modal-action"><button className="button button--green button--full" onClick={() => { setShowCalculator(false); goTo("contact"); }}>Use this as a starting point <ArrowRight size={16} /></button></div></div></div>}
       {showStatementDetails && <div className="modal-backdrop" onClick={() => setShowStatementDetails(false)}><article className={`statement-dialog statement-dialog--${activeValue.tone}`} onClick={(event) => event.stopPropagation()}><button className="modal-close statement-close" onClick={() => setShowStatementDetails(false)} aria-label="Close statement details"><X /></button><p className="statement-kicker">SA-BPO / {cultureMode === "values" ? "Core value" : "Performance pillar"}</p><div className="statement-icon"><ActiveValueIcon size={30} /></div><h2>{activeValue.title}</h2><p>{activeValue.copy}</p><div className="statement-context"><span>Why it matters</span><p>{activeCulture.description}</p></div><button className="statement-dismiss" onClick={() => setShowStatementDetails(false)}>Close details <X size={15} /></button></article></div>}
     </main>
   );
