@@ -45,7 +45,6 @@ export default function PrivacyPolicy() {
         <div className="privacy-layout">
           <aside className="privacy-aside"><strong>Last updated</strong><p>21 August 2026</p><p>This is a working website draft. Review it with qualified legal counsel before publication or reliance.</p></aside>
           <article className="privacy-article">
-            <p className="privacy-notice"><strong>Working draft — legal review recommended.</strong> This page explains SA-BPO’s intended approach to privacy in plain language. It should be reviewed and confirmed against SA-BPO’s final practices, contracts, and applicable privacy laws before publication.</p>
             {policySections.map((section, index) => <section className="privacy-section" key={section.title}><span className="privacy-section-number">0{index + 1}</span><div><h2>{section.title}</h2><p>{section.body}</p></div></section>)}
             <section className="privacy-contact"><p className="privacy-kicker">Questions or requests</p><h2>Talk to our team.</h2><p>For privacy questions or requests about personal information, contact SA-BPO at <a href="mailto:hello@sa-bpo.com">hello@sa-bpo.com</a>.</p></section>
           </article>
