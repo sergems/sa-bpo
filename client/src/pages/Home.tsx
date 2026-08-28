@@ -106,15 +106,15 @@ const locationContent = {
     text: "Durban North is known for being the heart and soul of Durban with its Identity being forged over many decades. The benefits are here for all to see and experience. An affluent, family orientated coastal suburb with a strong sense of community pride. It functions as a well established residential and commercial hub to all of Durban, close to major beaches and nature reserves. A destination our Employees get to call home.",
     points: ["Major transport access", "Community culture", "Cost-effective employee amenities"],
     visual: "/assets/moses-mabhida-stadium-durban.jpg",
-    alt: "Illustrated Durban pier at sunset with a plane overhead",
+    alt: "Moses Mabhida Stadium in Durban at dusk",
   },
   home: {
     tab: "Our home",
     title: <>The Benefits of our<br /><em>BPO in Durban North</em></>,
     text: "",
     points: ["Community culture embraced by all at SA BPO.", "Excellent location for all major transport networks.", "Cost effective retail solutions for our employees.", "Away from the Central Hubs of the Industry allowing for a more creative approach to the BPO space for both ourselves and our employees.", "Sun, Sea, Sand and all the trappings of a prime destination but at community driven costs and prices."],
-    visual: "/assets/wave-web.jpg",
-    alt: "Illustrated Durban wave with Moses Mabhida Stadium on the horizon",
+    visual: "/assets/sabpo-operations.png",
+    alt: "SA-BPO workplace and operations specialist",
   },
 };
 
