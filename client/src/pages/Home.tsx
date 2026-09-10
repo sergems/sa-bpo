@@ -115,7 +115,7 @@ const ourHomeExperience = {
   },
   benefits: {
     title: <>The Benefits of<br /><em>SA-BPO’s Home.</em></>,
-    points: ["Spacious modern working environment", "State of the art network solutions and redundancy", "Daily Grind - In House fresh coffee stations", "Daily Fix - On-site snack stations", "Relaxation zones and break-out rooms", "Luxurious Amenities", "Wellness Zone"],
+    points: ["Spacious modern working environment", "State of the art network solutions and redundancy", "Daily Grind - In House fresh coffee stations", "Sweet shelf", "Snack n Chat relaxation and break out zones", "Luxurious Amenities", "Construction Site", "Our in-house wellness zone", "Wellness Zone"],
     visual: "/assets/sabpo-our-home-contact-centre.jpg",
     alt: "SA-BPO customer service specialists working in the contact centre",
     label: "A live operating environment",
@@ -185,7 +185,6 @@ export default function Home() {
   });
   const [activeHomeTile, setActiveHomeTile] = useState<"story" | "benefits">(() => new URLSearchParams(window.location.search).get("homeView") === "benefits" ? "benefits" : "story");
   const [activeHomeSlide, setActiveHomeSlide] = useState(0);
-  const [homeSliderPaused, setHomeSliderPaused] = useState(false);
   const [locationMode, setLocationMode] = useState<LocationMode>(() => new URLSearchParams(window.location.search).get("location") === "home" ? "home" : "durban");
   const [showCalculator, setShowCalculator] = useState(() => new URLSearchParams(window.location.search).get("calculator") === "open");
   const [showStatementDetails, setShowStatementDetails] = useState(() => new URLSearchParams(window.location.search).get("statement") === "details");
@@ -224,14 +223,14 @@ export default function Home() {
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (homeSliderPaused || reducedMotion) return;
+    if (reducedMotion) return;
 
     const sliderTimer = window.setTimeout(() => {
       setActiveHomeSlide((slide) => (slide + 1) % ourHomeSliderSlides.length);
     }, 5600);
 
     return () => window.clearTimeout(sliderTimer);
-  }, [activeHomeSlide, homeSliderPaused]);
+  }, [activeHomeSlide]);
 
   const activeCulture = cultureContent[cultureMode];
   const activeValue = activeCulture.cards[activeValueIndex] ?? activeCulture.cards[0];
@@ -261,9 +260,6 @@ export default function Home() {
   };
   const changeHeroSlide = (direction: 1 | -1) => {
     setActiveHeroSlide((slide) => (slide + direction + heroSlides.length) % heroSlides.length);
-  };
-  const changeHomeSlide = (direction: 1 | -1) => {
-    setActiveHomeSlide((slide) => (slide + direction + ourHomeSliderSlides.length) % ourHomeSliderSlides.length);
   };
 
   return (
@@ -350,14 +346,6 @@ export default function Home() {
           <div className="our-home-media our-home-media--reception" aria-label="SA-BPO workplace image slider" role="region" aria-roledescription="carousel">
             <div className="our-home-slider">
               {ourHomeSliderSlides.map((slide, index) => <img key={slide.id} className={activeHomeSlide === index ? "is-active" : ""} src={slide.visual} alt={activeHomeSlide === index ? slide.alt : ""} aria-hidden={activeHomeSlide !== index} />)}
-              <div className="our-home-slider__shade" />
-              <div className="our-home-slider__meta"><span>0{activeHomeSlide + 1} / 0{ourHomeSliderSlides.length}</span><strong>{ourHomeSliderSlides[activeHomeSlide].label}</strong></div>
-              <div className="our-home-slider__controls" aria-label="Our Home image slider controls">
-                <button type="button" className="our-home-slider__arrow" onClick={() => changeHomeSlide(-1)} aria-label="Previous workplace image"><ChevronLeft size={16} /></button>
-                <div className="our-home-slider__dots">{ourHomeSliderSlides.map((slide, index) => <button type="button" key={slide.id} className={activeHomeSlide === index ? "is-active" : ""} onClick={() => setActiveHomeSlide(index)} aria-label={`Show workplace image ${index + 1}`} aria-current={activeHomeSlide === index ? "true" : undefined}><span /></button>)}</div>
-                <button type="button" className="our-home-slider__pause" onClick={() => setHomeSliderPaused((paused) => !paused)} aria-label={homeSliderPaused ? "Resume workplace image slider" : "Pause workplace image slider"}>{homeSliderPaused ? "Play" : "Pause"}</button>
-                <button type="button" className="our-home-slider__arrow" onClick={() => changeHomeSlide(1)} aria-label="Next workplace image"><ChevronRight size={16} /></button>
-              </div>
             </div>
           </div>
           <button className="our-home-media our-home-media--operations" onClick={() => setActiveHomeTile("benefits")} aria-label="Show Our Home benefits"><img src={ourHomeExperience.benefits.visual} alt={ourHomeExperience.benefits.alt} /><span><Headphones size={16} /> {ourHomeExperience.benefits.label}</span></button>
