@@ -17,7 +17,6 @@ import {
   Headset,
   HeartHandshake,
   LockKeyhole,
-  MapPin,
   Menu,
   MonitorCheck,
   PhoneCall,
@@ -103,6 +102,12 @@ const ourHomeSliderSlides = [
     alt: "SA-BPO facilities with private lockers and modern amenities",
     label: "Built for better work",
   },
+  {
+    id: "coffee",
+    visual: "/assets/sabpo-slider4.jpg",
+    alt: "Two SA-BPO colleagues sharing coffee beside the workplace coffee station",
+    label: "A workplace with character",
+  },
 ] as const;
 
 const ourHomeExperience = {
@@ -136,10 +141,28 @@ const locationContent = {
     title: <>The Benefits of our<br /><em>BPO in Durban North</em></>,
     text: "",
     points: ["Community culture embraced by all at SA BPO.", "Excellent location for all major transport networks.", "Cost effective retail solutions for our employees.", "Away from the Central Hubs of the Industry allowing for a more creative approach to the BPO space for both ourselves and our employees.", "Sun, Sea, Sand and all the trappings of a prime destination but at community driven costs and prices."],
+    visual: "/assets/sabpo-our-home-work.jpg",
+    alt: "SA-BPO workplace specialist working at a desk in the Durban North office",
+  },
+};
+
+const locationSliderSlides = [
+  {
+    id: "home-img",
+    visual: "/assets/moses-mabhida-stadium-durban.jpg",
+    alt: "Moses Mabhida Stadium in Durban at dusk",
+  },
+  {
+    id: "our-home",
     visual: "/assets/sabpo-operations.png",
     alt: "SA-BPO workplace and operations specialist",
   },
-};
+  {
+    id: "home-image2",
+    visual: "/assets/home-image2.jpg",
+    alt: "Lighthouse and palm trees along the Durban North coastline",
+  },
+] as const;
 
 const heroSlides = [
   {
@@ -213,6 +236,7 @@ export default function Home() {
   });
   const [activeHomeTile, setActiveHomeTile] = useState<"story" | "benefits">(() => new URLSearchParams(window.location.search).get("homeView") === "benefits" ? "benefits" : "story");
   const [activeHomeSlide, setActiveHomeSlide] = useState(0);
+  const [activeLocationSlide, setActiveLocationSlide] = useState(0);
   const [locationMode, setLocationMode] = useState<LocationMode>(() => new URLSearchParams(window.location.search).get("location") === "home" ? "home" : "durban");
   const [showCalculator, setShowCalculator] = useState(() => new URLSearchParams(window.location.search).get("calculator") === "open");
   const [showStatementDetails, setShowStatementDetails] = useState(() => new URLSearchParams(window.location.search).get("statement") === "details");
@@ -259,6 +283,17 @@ export default function Home() {
 
     return () => window.clearTimeout(sliderTimer);
   }, [activeHomeSlide]);
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) return;
+
+    const sliderTimer = window.setTimeout(() => {
+      setActiveLocationSlide((slide) => (slide + 1) % locationSliderSlides.length);
+    }, 5600);
+
+    return () => window.clearTimeout(sliderTimer);
+  }, [activeLocationSlide]);
 
   const activeCulture = cultureContent[cultureMode];
   const activeValue = activeCulture.cards[activeValueIndex] ?? activeCulture.cards[0];
@@ -364,7 +399,7 @@ export default function Home() {
       </section>
 
       <section id="location" className="location-section">
-        <div className="location-media"><img src={selectedLocation.visual} alt={selectedLocation.alt} /><div className="media-node"><MapPin size={16} /><span>Durban North</span></div></div><div key={locationMode} className={`location-content location-content--${locationMode}`}><div className="location-toggle"><button className={locationMode === "durban" ? "is-active" : ""} onClick={() => setLocationMode("durban")}>Durban North</button><button className={locationMode === "home" ? "is-active" : ""} onClick={() => setLocationMode("home")}>Our home</button></div><p className="eyebrow">Our location</p><h2>{selectedLocation.title}</h2>{selectedLocation.text ? <p>{selectedLocation.text}</p> : null}<ul>{selectedLocation.points.map((point) => <li key={point}><Check size={15} />{point}</li>)}</ul><button className="text-button" onClick={() => goTo("contact")}>Talk to the local team <ArrowRight size={16} /></button></div>
+        <div className="location-media" role="region" aria-roledescription="carousel" aria-label="Durban North location images"><div className="location-slider">{locationSliderSlides.map((slide, index) => <img key={slide.id} className={activeLocationSlide === index ? "is-active" : ""} src={slide.visual} alt={activeLocationSlide === index ? slide.alt : ""} aria-hidden={activeLocationSlide !== index} />)}</div></div><div key={locationMode} className={`location-content location-content--${locationMode}`}><div className="location-toggle"><button className={locationMode === "durban" ? "is-active" : ""} onClick={() => setLocationMode("durban")}>Durban North</button><button className={locationMode === "home" ? "is-active" : ""} onClick={() => setLocationMode("home")}>Our home</button></div><p className="eyebrow">Our location</p><h2>{selectedLocation.title}</h2>{selectedLocation.text ? <p>{selectedLocation.text}</p> : null}<ul>{selectedLocation.points.map((point) => <li key={point}><Check size={15} />{point}</li>)}</ul><button className="text-button" onClick={() => goTo("contact")}>Talk to the local team <ArrowRight size={16} /></button></div>
       </section>
 
       <section id="our-home" className="our-home-section">
