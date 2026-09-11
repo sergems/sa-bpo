@@ -280,6 +280,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 .hero-pagination button:hover::before{background:rgba(255,255,255,.8)}
 @keyframes hero-copy-enter{from{opacity:0;transform:translate3d(0,24px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
 @keyframes hero-image-enter{from{opacity:0;transform:scale(1.09)}to{opacity:1;transform:scale(1.035)}}
+@keyframes hero-image-enter-wide{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:scale(1)}}
 @keyframes hero-number-enter{from{opacity:0;transform:translate3d(18px,0,0)}to{opacity:1;transform:translate3d(0,0,0)}}
 @keyframes hero-progress{from{width:0}to{width:100%}}
 @media(max-width:720px){
@@ -715,16 +716,18 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 
 /* Supplied hero photography: preserve faces and group context within the wide full-bleed slider crop. */
 .hero-slide:nth-child(1) .hero-slide__media img{object-position:center 28%}
-.hero-slide:nth-child(2) .hero-slide__media img{object-position:center 24%}
-@media(max-width:720px){.hero-slide:nth-child(1) .hero-slide__media img{object-position:52% 26%}.hero-slide:nth-child(2) .hero-slide__media img{object-position:50% 22%}}
+.hero-slide:nth-child(2) .hero-slide__media img{object-position:center 24%;transform:scale(1)}
+.hero-slide:nth-child(3) .hero-slide__media img{object-position:center 48%}
+.hero-slide:nth-child(4) .hero-slide__media img{object-position:center 45%}
+ .hero-slide:nth-child(3) .hero-slide__media img,.hero-slide:nth-child(4) .hero-slide__media img{transform:scale(1)}
+.hero-slide:nth-child(2).is-active .hero-slide__media img,.hero-slide:nth-child(3).is-active .hero-slide__media img,.hero-slide:nth-child(4).is-active .hero-slide__media img{animation:hero-image-enter-wide 1.05s var(--ease-out) both}
+@media(max-width:720px){.hero-slide:nth-child(1) .hero-slide__media img{object-position:52% 26%}.hero-slide:nth-child(2) .hero-slide__media img{object-position:50% 22%;transform:scale(1)}.hero-slide:nth-child(3) .hero-slide__media img{object-position:50% 45%;transform:scale(1)}.hero-slide:nth-child(4) .hero-slide__media img{object-position:52% 43%;transform:scale(1)}}
 
 /* Second hero focal point: keep the team’s faces in the safe top portion of the wide crop. */
 .hero-slide:nth-child(2) .hero-slide__media img{object-position:center top}
 @media(max-width:720px){.hero-slide:nth-child(2) .hero-slide__media img{object-position:center 8%}}
 
-/* Second hero portrait clearance: lower the image within its overscan so full heads sit below the navigation edge. */
-.hero-slide:nth-child(2) .hero-slide__media img{transform:scale(1.02) translateY(4%)}
-@media(max-width:720px){.hero-slide:nth-child(2) .hero-slide__media img{transform:scale(1.01) translateY(2.5%)}}
+/* Keep the wider second banner image at natural scale so more of the supplied photography remains visible. */
 
 /* New second-slide workplace image: use a neutral centered crop rather than the former face-focused offset. */
 .hero-slide:nth-child(2) .hero-slide__media img{object-position:center center;transform:scale(1.02)}
@@ -950,3 +953,11 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
   .our-home-slider{min-height:0}
 }
 @media(prefers-reduced-motion:reduce){.our-home-slider img{transition:none;transform:none}}
+
+/* Final banner framing: reveal more of the supplied photography on slides 02–04. */
+.hero-slide:nth-child(2) .hero-slide__media img,.hero-slide:nth-child(3) .hero-slide__media img,.hero-slide:nth-child(4) .hero-slide__media img{object-position:center center;transform:scale(1)}
+.hero-slide:nth-child(2).is-active .hero-slide__media img,.hero-slide:nth-child(3).is-active .hero-slide__media img,.hero-slide:nth-child(4).is-active .hero-slide__media img{animation:hero-image-enter-wide 1.05s var(--ease-out) both}
+.hero-slide:nth-child(4) .hero-slide__media img{transform:translateX(6%) scale(1.02)}
+.hero-slide:nth-child(4).is-active .hero-slide__media img{animation:hero-image-enter-slide4 1.05s var(--ease-out) both}
+@keyframes hero-image-enter-slide4{from{opacity:0;transform:translateX(6%) scale(1.06)}to{opacity:1;transform:translateX(6%) scale(1.02)}}
+@media(max-width:720px){.hero-slide:nth-child(2) .hero-slide__media img,.hero-slide:nth-child(3) .hero-slide__media img{object-position:center center;transform:scale(1)}.hero-slide:nth-child(4) .hero-slide__media img{object-position:center center;transform:translateX(3%) scale(1)}}

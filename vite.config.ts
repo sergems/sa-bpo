@@ -31,6 +31,6 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
-    allowedHosts: ["3000-imrbko21qjq6jli4gxek3-9f909201.us5.manus.computer", "3000-idv698pk2qr612sw83pok-06dbe1b8.us2.manus.computer"],
+    allowedHosts: ["3000-imrbko21qjq6jli4gxek3-9f909201.us5.manus.computer", "3000-idv698pk2qr612sw83pok-06dbe1b8.us2.manus.computer", "3000-ie1v1dresq1jyjtyvz1hf-a9e1b051.us1.manus.computer"],
   },
 });
