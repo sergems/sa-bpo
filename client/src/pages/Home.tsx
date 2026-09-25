@@ -177,7 +177,6 @@ const heroSlides = [
     primaryTarget: "calculator",
     secondary: "Explore SA-BPO",
     secondaryTarget: "about",
-    trust: ["Secure & resilient", "QA-led service", "UK / US / AUS aligned"],
     visual: "/assets/sabpo-hero-team-lounge.jpg",
     alt: "SA-BPO customer service team working together in a modern contact centre",
     tone: "people",
@@ -191,7 +190,6 @@ const heroSlides = [
     primaryTarget: "about",
     secondary: "Why SA-BPO",
     secondaryTarget: "confidence",
-    trust: ["People-first culture", "Supported teams", "Better conversations"],
     visual: "/assets/sabpo-home-banner2.jpg",
     alt: "SA-BPO customer service advisor working at a workstation in the contact centre",
     tone: "people",
@@ -205,7 +203,6 @@ const heroSlides = [
     primaryTarget: "calculator",
     secondary: "Meet the team",
     secondaryTarget: "about",
-    trust: ["Human-led service", "Coached for quality", "Ready to scale"],
     visual: "/assets/sabpo-slider-home3.jpg",
     alt: "SA-BPO customer service colleagues working together in a contact centre",
     tone: "people",
@@ -219,7 +216,6 @@ const heroSlides = [
     primaryTarget: "about",
     secondary: "Why SA-BPO",
     secondaryTarget: "confidence",
-    trust: ["People-first culture", "Practical support", "Consistent delivery"],
     visual: "/assets/sabpo-slider-home4.jpg",
     alt: "Smiling SA-BPO customer service advisor at work with colleagues in the background",
     tone: "people",
@@ -367,7 +363,6 @@ export default function Home() {
                     <button className="button button--green" tabIndex={isActive ? 0 : -1} onClick={() => goTo(slide.primaryTarget)}>{slide.primary} <ArrowRight size={17} /></button>
                     <button className="text-button" tabIndex={isActive ? 0 : -1} onClick={() => goTo(slide.secondaryTarget)}>{slide.secondary} <ArrowDownRight size={16} /></button>
                   </div>
-                  <div className="hero-trust" aria-label="Client trust and operational standards"><span className="trust-caption">Trusted delivery</span>{slide.trust.map((item, trustIndex) => <span key={item}>{trustIndex === 0 ? <ShieldCheck size={14} /> : trustIndex === 1 ? <BadgeCheck size={14} /> : <CircleDotDashed size={14} />}{item}</span>)}</div>
                 </div>
                 <div className="hero-slide__media">
                   <img src={slide.visual} alt={isActive ? slide.alt : ""} />
@@ -397,7 +392,7 @@ export default function Home() {
       </section>
 
       <section id="confidence" className="confidence-section section-pad">
-        <div className="section-top section-top--on-dark"><div className="index-label"><span>Why SA-BPO</span></div><div><p className="eyebrow">Partner with confidence</p><h2>Standards you can<br /><em>see in action.</em></h2></div><p className="section-description">Explore the ten operating standards that shape a confident, people-led partnership.</p></div>
+        <div className="section-top section-top--on-dark"><div className="index-label"><span>Why SA-BPO</span></div><div><p className="eyebrow">Partner with confidence</p><h2>Standards you can<br /><em>see in action.</em></h2></div><p className="section-description">Explore the ten operating standards that shape a<br />confident, people-led partnership.</p></div>
         <div className="confidence-icons" role="region" aria-label="SA-BPO service standards">
           <div className="confidence-icon-grid" role="tablist" aria-label="Select a SA-BPO service standard">
             {proofPoints.map((proof, index) => {

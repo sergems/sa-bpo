@@ -1102,3 +1102,10 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 
 /* Compact Contact hero: preserve the composition without letting it dominate the page. */
 .contact-premium .contact-premium-hero{min-height:0;padding-top:92px;padding-bottom:30px}.contact-premium .contact-premium-hero figure{height:320px;min-height:0}.contact-premium .contact-premium-hero h1{margin-bottom:14px}@media(max-width:900px){.contact-premium .contact-premium-hero{padding-top:88px;padding-bottom:26px}.contact-premium .contact-premium-hero figure{height:300px}}@media(max-width:720px){.contact-premium .contact-premium-hero{gap:22px;padding-top:84px;padding-bottom:22px}.contact-premium .contact-premium-hero figure{height:220px}.contact-premium .contact-premium-hero h1{margin-bottom:12px}}
+
+/* Remove the retired trust row's reserved grid space from the homepage slider copy. */
+@media(min-width:721px){.site-shell .hero-copy{height:auto;grid-template-rows:auto minmax(8.45rem,auto) minmax(4.8rem,auto) auto}.site-shell .hero-actions{grid-row:4;margin-top:10px}.site-shell .hero-copy>p:not(.eyebrow){margin-bottom:17px}}
+@media(max-width:720px){.site-shell .hero-copy{height:auto}.site-shell .hero-actions{position:relative;bottom:auto}.site-shell .hero-copy>p:not(.eyebrow){margin-bottom:13px}}
+
+/* Provided positioning points: compact editorial list within What we stand for. */
+.about-premium-value-points{display:grid;gap:9px;margin:24px 0 0;padding:16px 0 0;border-top:1px solid var(--line);list-style:none}.about-premium-value-points li{position:relative;padding-left:18px;color:#50504a;font-family:var(--body-copy-font);font-size:var(--body-copy-size);line-height:1.45}.about-premium-value-points li::before{content:"";position:absolute;top:.62em;left:0;width:6px;height:6px;background:var(--green);border-radius:50%}@media(max-width:720px){.about-premium-value-points{gap:8px;margin-top:20px;padding-top:14px}.about-premium-value-points li{padding-left:16px;font-size:var(--body-copy-size)}}
