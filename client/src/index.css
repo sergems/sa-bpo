@@ -516,7 +516,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 .confidence-standard-detail{border-top:1px solid var(--line);border-right:0;border-bottom:1px solid var(--line);border-left:3px solid var(--confidence);background:linear-gradient(90deg,var(--confidence-soft),#fff)}
 .confidence-standard-detail__icon{border:0;border-radius:0;background:none;color:var(--confidence)}
 .confidence-standard-detail h3{color:var(--ink)}
-.confidence-standard-detail p{color:#4f514b}
+.confidence-standard-detail p{color:var(--confidence)}
 .confidence-standard-detail>div>span,.confidence-standard-detail__next{color:var(--confidence)}
 @media(max-width:720px){.confidence-icon-card{min-height:164px;padding:12px 6px 17px}.confidence-icon-card__icon{width:55px;height:55px;margin-bottom:12px}.confidence-icon-card__icon svg{width:52px;height:52px}.confidence-icon-card strong{font-size:.73rem}.confidence-icon-card::after{width:24px}}
 
@@ -1107,5 +1107,181 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 @media(min-width:721px){.site-shell .hero-copy{height:auto;grid-template-rows:auto minmax(8.45rem,auto) minmax(4.8rem,auto) auto}.site-shell .hero-actions{grid-row:4;margin-top:10px}.site-shell .hero-copy>p:not(.eyebrow){margin-bottom:17px}}
 @media(max-width:720px){.site-shell .hero-copy{height:auto}.site-shell .hero-actions{position:relative;bottom:auto}.site-shell .hero-copy>p:not(.eyebrow){margin-bottom:13px}}
 
+/* Fixed homepage hero actions: the same two destination buttons stay anchored while slide content changes. */
+.hero-fixed-actions{position:absolute;z-index:7;bottom:clamp(82px,10vh,110px);left:clamp(28px,7.5vw,128px);display:flex;align-items:center;gap:12px}
+.hero-fixed-actions .button{min-height:46px;padding:13px 18px;border-radius:3px;white-space:nowrap}
+.hero-fixed-actions .button--yellow{background:var(--yellow);color:var(--ink);box-shadow:0 11px 23px rgba(247,183,25,.2)}
+.hero-fixed-actions .button--yellow:hover{background:#ffd05a}
+@media(max-width:720px){
+  .hero-slide__copy-wrap{padding-bottom:calc(154px + env(safe-area-inset-bottom))}
+  .hero-fixed-actions{right:16px;bottom:calc(66px + env(safe-area-inset-bottom));left:16px;justify-content:center;gap:9px}
+  .hero-fixed-actions .button{min-height:42px;padding:11px 13px;font-size:.68rem}
+  .hero-fixed-actions .button svg{width:15px;height:15px}
+}
+
 /* Provided positioning points: compact editorial list within What we stand for. */
 .about-premium-value-points{display:grid;gap:9px;margin:24px 0 0;padding:16px 0 0;border-top:1px solid var(--line);list-style:none}.about-premium-value-points li{position:relative;padding-left:18px;color:#50504a;font-family:var(--body-copy-font);font-size:var(--body-copy-size);line-height:1.45}.about-premium-value-points li::before{content:"";position:absolute;top:.62em;left:0;width:6px;height:6px;background:var(--green);border-radius:50%}@media(max-width:720px){.about-premium-value-points{gap:8px;margin-top:20px;padding-top:14px}.about-premium-value-points li{padding-left:16px;font-size:var(--body-copy-size)}}
+
+/* Contact Us matches the primary menu type and interaction, with red as its signal color. */
+.primary-nav>a[href="/contact-us"]{position:relative;padding:0;color:#fff;text-decoration:none;font-family:"Poppins",sans-serif;font-size:.84rem;font-weight:500;line-height:normal;transition:color .2s ease,transform .18s cubic-bezier(.23,1,.32,1)}
+.primary-nav>a[href="/contact-us"]::after{content:"";position:absolute;right:0;bottom:-7px;left:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .2s cubic-bezier(.23,1,.32,1)}
+.primary-nav>a[href="/contact-us"]:hover{color:var(--red);transform:translateY(-2px)}
+.primary-nav>a[href="/contact-us"]:hover::after{transform:scaleX(1)}
+
+/* Match each selected Why SA-BPO message to its card’s brand-text color. */
+.confidence-standard-detail--green p{color:#04733d}
+.confidence-standard-detail--blue p{color:#1a459d}
+.confidence-standard-detail--red p{color:#e21e25}
+.confidence-standard-detail--yellow p{color:#fdb713}
+
+/* Keep the selected-standard label and detail-panel icons in the same tone as the message. */
+.confidence-standard-detail--green .confidence-standard-detail__icon,.confidence-standard-detail--green>div>span,.confidence-standard-detail--green .confidence-standard-detail__next{color:#04733d}
+.confidence-standard-detail--blue .confidence-standard-detail__icon,.confidence-standard-detail--blue>div>span,.confidence-standard-detail--blue .confidence-standard-detail__next{color:#1a459d}
+.confidence-standard-detail--red .confidence-standard-detail__icon,.confidence-standard-detail--red>div>span,.confidence-standard-detail--red .confidence-standard-detail__next{color:#e21e25}
+.confidence-standard-detail--yellow .confidence-standard-detail__icon,.confidence-standard-detail--yellow>div>span,.confidence-standard-detail--yellow .confidence-standard-detail__next{color:#fdb713}
+
+/* The Contact Us route cards use a full-width text column without the former icons. */
+.contact-premium-routes .contact-premium-route{grid-template-columns:minmax(0,1fr)}
+
+/* Recruitment portal CTA in the Applications route card. */
+.contact-premium-link--button{min-height:43px;margin-top:3px;padding:11px 15px;border-radius:2px;background:var(--green);color:#fff;font-size:.74rem;font-weight:700;transition:background .2s ease,transform .18s ease}
+.contact-premium-link--button:hover{gap:8px;background:var(--blue);color:#fff;transform:translateY(-1px)}
+.contact-premium-link--button:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+
+/* Standalone About and Contact headers use dark calculator text on the yellow button. */
+.about-page .about-site-header .primary-nav>a.nav-calculator,.about-page .about-site-header .primary-nav>a.nav-calculator svg{color:var(--ink)!important}
+.about-page .about-site-header .primary-nav>a.nav-calculator:hover,.about-page .about-site-header .primary-nav>a.nav-calculator:hover svg{color:#fff!important}
+
+/* Compact Inside SA-BPO Benefits layout after removing its story CTA. */
+.our-home-benefits{justify-content:flex-start;padding:clamp(20px,2.7vw,38px)}
+.our-home-benefits ul{gap:4px;margin-top:12px;padding:10px 0}
+@media(max-width:720px){.our-home-benefits{padding:22px 18px}.our-home-benefits ul{gap:4px;margin-top:10px;padding:9px 0}}
+
+/* About Us: five responsive, accessible principle accordions. */
+.about-premium-accordion{padding:clamp(48px,7vw,92px) clamp(20px,8vw,120px);background:var(--paper)}
+.about-premium-accordion__heading{max-width:760px;margin:0 0 clamp(24px,4vw,42px)}
+.about-premium-accordion__heading h2{margin:0 0 14px;color:var(--ink);font:500 clamp(2.3rem,4.2vw,4.3rem)/.94 "Space Grotesk",sans-serif;letter-spacing:-.06em}
+.about-premium-accordion__heading h2 em{color:var(--green);font-style:normal}
+.about-premium-accordion__heading>p:last-child{max-width:620px;margin:0;color:#50504a;font-family:var(--body-copy-font);font-size:var(--body-copy-size);line-height:var(--body-copy-leading)}
+.about-premium-accordion__list{display:grid;gap:12px;max-width:1320px;margin:0 auto}
+.about-premium-accordion__item{--about-accordion-accent:var(--green);overflow:hidden;border:1px solid rgba(12,12,11,.12);border-left:4px solid var(--about-accordion-accent);background:#fff;box-shadow:0 5px 18px rgba(12,12,11,.035);transition:border-color .22s ease,box-shadow .22s ease}
+.about-premium-accordion__item:nth-child(2){--about-accordion-accent:var(--blue)}
+.about-premium-accordion__item:nth-child(3){--about-accordion-accent:var(--red)}
+.about-premium-accordion__item:nth-child(4){--about-accordion-accent:var(--yellow)}
+.about-premium-accordion__title{margin:0}
+.about-premium-accordion__trigger{display:grid;width:100%;grid-template-columns:44px minmax(0,1fr) 30px;align-items:center;gap:16px;padding:clamp(17px,2.2vw,25px) clamp(18px,2.6vw,30px);border:0;background:#fff;color:var(--ink);text-align:left;cursor:pointer;transition:background .2s ease}
+.about-premium-accordion__trigger:hover,.about-premium-accordion__item.is-open .about-premium-accordion__trigger{background:color-mix(in srgb,var(--about-accordion-accent) 5%,#fff)}
+.about-premium-accordion__trigger:focus-visible{position:relative;z-index:1;outline:3px solid var(--blue);outline-offset:-4px}
+.about-premium-accordion__number{color:var(--about-accordion-accent);font:600 .8rem/1 "Space Grotesk",sans-serif;letter-spacing:.08em}
+.about-premium-accordion__label{font:550 clamp(1.05rem,2.15vw,1.65rem)/1.17 "Space Grotesk",sans-serif;letter-spacing:-.035em}
+.about-premium-accordion__chevron{justify-self:end;color:var(--about-accordion-accent);transition:transform .24s ease}
+.about-premium-accordion__item.is-open .about-premium-accordion__chevron{transform:rotate(180deg)}
+.about-premium-accordion__item.is-open{box-shadow:0 14px 32px rgba(12,12,11,.08)}
+.about-premium-accordion__panel[hidden]{display:none}
+.about-premium-accordion__panel:not([hidden]){display:block;animation:about-accordion-reveal .28s ease both}
+@keyframes about-accordion-reveal{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.about-premium-accordion__panel-inner{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(250px,.85fr);align-items:center;gap:clamp(24px,4vw,58px);padding:0 clamp(18px,2.6vw,30px) clamp(22px,3vw,34px)}
+.about-premium-accordion__copy>.about-premium-kicker{margin:0 0 11px;color:var(--about-accordion-accent);font-size:.66rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
+.about-premium-accordion__copy>p:not(.about-premium-kicker){max-width:700px;margin:0;color:#50504a;font-family:var(--body-copy-font);font-size:var(--body-copy-size);line-height:var(--body-copy-leading)}
+.about-premium-accordion__copy>p:not(.about-premium-kicker)+p:not(.about-premium-kicker){margin-top:12px}
+.about-premium-accordion__image{height:clamp(210px,24vw,330px);margin:0;overflow:hidden;border-radius:2px 34px 2px 2px;background:#e9e9e2}
+.about-premium-accordion__image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+.about-premium-accordion__item.is-open:hover .about-premium-accordion__image img{transform:scale(1.025)}
+.about-premium-accordion__stat{display:flex;align-items:center;gap:14px;max-width:360px;margin-top:18px;padding:12px 15px;border-left:3px solid var(--about-accordion-accent);background:color-mix(in srgb,var(--about-accordion-accent) 7%,#fff)}
+.about-premium-accordion__stat strong{color:var(--about-accordion-accent);font:600 2rem/1 "Space Grotesk",sans-serif}
+.about-premium-accordion__stat span{color:#50504a;font-size:.75rem;line-height:1.35}
+.about-premium-accordion__principles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
+.about-premium-accordion__principles>div{padding:12px;border-top:2px solid var(--about-accordion-accent);background:#f5f5f0}
+.about-premium-accordion__principles strong{color:var(--ink);font-size:.76rem;font-weight:700}
+.about-premium-accordion__principles p{margin:5px 0 0;color:#5d5e58;font-family:var(--body-copy-font);font-size:.72rem;line-height:1.45}
+@media(max-width:900px){.about-premium-accordion__panel-inner{grid-template-columns:minmax(0,1fr) minmax(210px,.75fr);gap:22px}.about-premium-accordion__image{height:250px}}
+@media(max-width:720px){.about-premium-accordion{padding:44px 18px}.about-premium-accordion__heading{margin-bottom:22px}.about-premium-accordion__heading h2{font-size:clamp(2.15rem,10vw,3.1rem)}.about-premium-accordion__list{gap:9px}.about-premium-accordion__trigger{grid-template-columns:30px minmax(0,1fr) 24px;gap:10px;padding:16px 13px}.about-premium-accordion__label{font-size:1.02rem;line-height:1.22}.about-premium-accordion__chevron{width:19px;height:19px}.about-premium-accordion__panel-inner{grid-template-columns:1fr;gap:17px;padding:0 14px 16px}.about-premium-accordion__image{grid-row:1;height:clamp(190px,56vw,270px);border-radius:2px 24px 2px 2px}.about-premium-accordion__principles{gap:8px}.about-premium-accordion__principles>div{padding:10px}.about-premium-accordion__principles p{font-size:.7rem}}
+@media(max-width:380px){.about-premium-accordion__trigger{grid-template-columns:26px minmax(0,1fr) 20px;gap:8px;padding-inline:11px}.about-premium-accordion__label{font-size:.96rem}.about-premium-accordion__principles{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.about-premium-accordion__item,.about-premium-accordion__trigger,.about-premium-accordion__chevron,.about-premium-accordion__image img{transition:none}.about-premium-accordion__panel:not([hidden]){animation:none}}
+
+/* Keep the About Us accordion title on one line at the homepage section-heading scale. */
+.about-premium-accordion__heading{max-width:none}
+.about-premium-accordion__heading h2{font-size:clamp(2.3rem,2.95vw,3.55rem);white-space:nowrap}
+@media(max-width:720px){.about-premium-accordion__heading h2{font-size:clamp(1rem,5.1vw,1.35rem)}}
+
+/* Minimize the transition gap from the black About Us hero to the first accordion section. */
+.about-premium-accordion{padding-top:24px}
+@media(max-width:720px){.about-premium-accordion{padding-top:18px}}
+
+
+/* BPO calculator: gated company intake followed by responsive, workbook-based pricing. */
+.bpo-calculator-modal{width:min(800px,100%);max-height:calc(100dvh - 32px);padding:0;overflow:hidden;background:var(--white)}
+.bpo-calculator-body{padding:clamp(24px,4vw,46px);padding-bottom:30px}
+.bpo-calculator-body>.modal-kicker{display:flex;align-items:center;gap:8px;margin-right:36px}
+.bpo-step-count{margin-left:auto;color:var(--muted);font-size:.64rem;font-weight:700;letter-spacing:.12em}
+.bpo-calculator-modal .calculator-modal-title{max-width:720px;margin:0 34px 12px 0;font-size:clamp(2rem,4.3vw,3.6rem);line-height:.98}
+.bpo-calculator-intro{max-width:620px;margin:0 0 22px!important;color:var(--muted)!important;font-size:.9rem!important;line-height:1.55!important}
+.bpo-intake-form{display:grid;gap:14px}
+.bpo-intake-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.bpo-intake-form label{display:grid;gap:6px;margin:0!important;color:#343b37;font-size:.7rem;font-weight:700;line-height:1.3}
+.bpo-intake-form input:not([type=checkbox]){width:100%;min-height:44px;padding:10px 12px;border:1px solid #d4ddd7;border-radius:2px;background:#fbfcfb;color:var(--ink);font:400 .86rem "DM Sans",sans-serif;outline:none;transition:border-color .16s ease,box-shadow .16s ease}
+.bpo-intake-form input:not([type=checkbox]):focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(0,122,77,.12)}
+.bpo-intake-form input[aria-invalid=true]{border-color:#bb3636}
+.bpo-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important}
+.bpo-intake-form .bpo-consent{display:grid;grid-template-columns:18px minmax(0,1fr);gap:9px;align-items:start;margin:3px 0 0!important;color:#49514c;font-size:.69rem;line-height:1.45}
+.bpo-consent input{width:16px;height:16px;margin:1px 0 0;accent-color:var(--green)}
+.bpo-submit-button{display:flex;align-items:center;justify-content:center;gap:9px;min-height:48px;margin-top:3px}
+.bpo-spinner{animation:bpo-spin 1s linear infinite}
+@keyframes bpo-spin{to{transform:rotate(360deg)}}
+.bpo-form-error{margin:0!important;padding:10px 12px;border-left:3px solid #b43232;background:#fff1f0;color:#8b2424;font-size:.76rem!important;line-height:1.45!important}
+.bpo-calculator-welcome{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin:0 0 24px;padding:0 38px 18px 0;border-bottom:1px solid var(--line)}
+.bpo-welcome-label{margin:0 0 5px;color:var(--green);font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.bpo-calculator-welcome h2{max-width:620px;margin:0;color:var(--ink);font:600 clamp(1.7rem,3.3vw,2.65rem)/1.02 "Space Grotesk",sans-serif;letter-spacing:-.045em}
+.bpo-calculator-welcome h2 em{color:var(--green);font-style:normal}
+.bpo-calculator-welcome--preview>div{width:100%}
+.bpo-calculator-welcome>p{max-width:210px;margin:0;color:var(--muted);font-size:.72rem;line-height:1.45;text-align:right}
+.bpo-calculator-controls{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(220px,.9fr);gap:22px;align-items:start}
+.bpo-currency-fieldset{min-width:0;margin:0;padding:0;border:0}
+.bpo-currency-fieldset legend{margin:0 0 10px;padding:0;color:var(--green-dark);font-size:.64rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.bpo-service-picker{display:grid;gap:10px;align-content:start;min-width:0;margin:0!important;color:var(--green-dark);font-size:.64rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.bpo-service-select{width:100%;min-height:50px;padding:12px;border:1px solid var(--line);border-radius:2px;background:var(--white);color:#39433d;cursor:pointer;font:650 .74rem/1.35 "DM Sans",sans-serif;letter-spacing:normal;text-transform:none}
+.bpo-service-select:hover{border-color:var(--green)}
+.bpo-service-select:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;border-color:var(--green)}
+.bpo-service-help{margin:-2px 0 0;color:var(--muted);font-size:.68rem;font-weight:400;letter-spacing:normal;line-height:1.45;text-transform:none}
+.bpo-calc-settings{display:grid;gap:17px;padding:15px;border:1px solid var(--line);background:#f7f8f6}
+.bpo-currency-switch{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.bpo-currency-switch label{position:relative;display:flex!important;align-items:center;justify-content:center;min-height:39px;margin:0!important;border:1px solid #d7ded8;background:#fff;color:#47504b;cursor:pointer;font-size:.73rem;font-weight:800!important}
+.bpo-currency-switch label.is-selected{border-color:var(--green);background:var(--green);color:#fff}
+.bpo-currency-switch input{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important}
+.bpo-currency-switch label:has(input:focus-visible){outline:3px solid var(--yellow);outline-offset:2px}
+.bpo-advisor-control>label{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;margin:0!important;color:#343b37;font-size:.72rem;font-weight:750!important}
+.bpo-advisor-control output{color:var(--green-dark);font:700 1.12rem "Space Grotesk",sans-serif}
+.bpo-advisor-control input[type=range]{display:block;width:100%;margin:8px 0 0;accent-color:var(--green)}
+.bpo-advisor-control input[type=range]:disabled{opacity:.42}
+.bpo-range-labels{display:flex;justify-content:space-between;margin-top:3px;color:var(--muted);font-size:.61rem}
+.bpo-over-thirty{display:grid!important;grid-template-columns:17px minmax(0,1fr);gap:8px;align-items:start;margin:0!important;color:#3d4941;font-size:.69rem!important;font-weight:650!important;line-height:1.35}
+.bpo-over-thirty input{width:16px;height:16px;margin:0;accent-color:var(--green)}
+.bpo-large-count{display:grid;gap:6px;margin:0!important;color:#343b37;font-size:.69rem;font-weight:700}
+.bpo-large-count input{width:100%;min-height:39px;padding:8px 10px;border:1px solid #cad4cd;background:#fff;color:var(--ink);font:600 .85rem "DM Sans",sans-serif}
+.bpo-estimate{margin-top:20px;padding:20px;background:var(--blue);color:#fff}
+.bpo-estimate-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px}
+.bpo-estimate-heading p{margin:0 0 5px;color:rgba(255,255,255,.72);font-size:.63rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.bpo-estimate-heading h3{margin:0;color:#fff;font:600 clamp(1.2rem,2.5vw,1.65rem)/1.1 "Space Grotesk",sans-serif}
+.bpo-tier-badge{flex:none;padding:6px 9px;background:rgba(255,255,255,.12);color:#fff;font-size:.61rem;font-weight:750;line-height:1.2}
+.bpo-estimate-metrics{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:9px}
+.bpo-estimate-metrics>div{display:grid;align-content:start;gap:7px;min-width:0;padding:13px;background:rgba(255,255,255,.08)}
+.bpo-estimate-metrics span{color:rgba(255,255,255,.76);font-size:.61rem;font-weight:650;line-height:1.3}
+.bpo-estimate-metrics strong{color:#fff;font:700 clamp(1.15rem,2.3vw,1.75rem)/1 "Space Grotesk",sans-serif;overflow-wrap:anywhere}
+.bpo-estimate-metrics .bpo-estimate-total{background:var(--green)}
+.bpo-estimate-metrics .bpo-estimate-total strong{color:#ffdf83}
+.bpo-estimate-total small{color:rgba(255,255,255,.83);font-size:.59rem;line-height:1.35}
+.bpo-hours-note{display:flex;align-items:flex-start;gap:8px;margin-top:13px;color:rgba(255,255,255,.9);font-size:.68rem;line-height:1.45}
+.bpo-hours-note svg{flex:none;color:#ffdf83}
+.bpo-large-team-note{margin:12px 0 0;padding:10px 12px;border-left:3px solid #ffcf57;background:rgba(255,255,255,.1);color:#fff;font-size:.7rem;line-height:1.45}
+.bpo-inclusions{margin-top:15px;border:1px solid var(--line);background:#fff}
+.bpo-inclusions summary{padding:12px 14px;color:var(--green-dark);cursor:pointer;font-size:.72rem;font-weight:750}
+.bpo-inclusions ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 20px;margin:0;padding:2px 16px 16px 30px;color:#49544d;font-size:.67rem;line-height:1.4}
+.bpo-inclusions li::marker{color:var(--green)}
+.bpo-disclaimer{margin:12px 0 0!important;color:var(--muted)!important;font-size:.67rem!important;line-height:1.45!important}
+.bpo-result-actions{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;margin-top:17px}
+.bpo-result-actions .button{display:flex;justify-content:center;align-items:center;gap:9px;min-height:46px;text-decoration:none}
+.bpo-close-button{min-height:42px;padding:9px 13px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;font:650 .7rem "Poppins",sans-serif}
+.bpo-close-button:hover{border-color:var(--green);color:var(--green-dark)}
+@media(max-width:720px){.bpo-calculator-modal{width:100%;max-height:calc(100dvh - 16px)}.bpo-calculator-body{padding:28px 22px 22px}.bpo-calculator-controls{grid-template-columns:1fr;gap:15px}.bpo-calc-settings{grid-template-columns:1fr 1fr;align-items:start}.bpo-currency-fieldset{grid-column:1/-1}.bpo-estimate-metrics{grid-template-columns:1fr 1fr}.bpo-estimate-metrics .bpo-estimate-total{grid-column:1/-1}.bpo-calculator-welcome{align-items:flex-start;flex-direction:column}.bpo-calculator-welcome>p{max-width:none;text-align:left}}
+@media(max-width:480px){.bpo-intake-grid{grid-template-columns:1fr;gap:11px}.bpo-intake-form{gap:12px}.bpo-calculator-modal .calculator-modal-title{font-size:clamp(1.85rem,9vw,2.7rem)}.bpo-calculator-body{padding:25px 17px 19px}.bpo-calculator-welcome{padding-right:30px}.bpo-calc-settings{grid-template-columns:1fr;padding:13px}.bpo-currency-fieldset{grid-column:auto}.bpo-estimate{padding:15px}.bpo-estimate-heading{flex-direction:column}.bpo-estimate-metrics{grid-template-columns:1fr}.bpo-estimate-metrics .bpo-estimate-total{grid-column:auto}.bpo-inclusions ul{grid-template-columns:1fr}.bpo-result-actions{grid-template-columns:1fr}.bpo-close-button{min-height:44px}}
+@media(prefers-reduced-motion:reduce){.bpo-spinner{animation:none}}

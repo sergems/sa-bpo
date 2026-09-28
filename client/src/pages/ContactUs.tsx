@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { ArrowDownRight, ArrowRight, ArrowUp, ArrowUpRight, BriefcaseBusiness, Calculator, Facebook, Linkedin, Mail, MapPin, Menu, X } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ArrowUp, ArrowUpRight, Facebook, Linkedin, MapPin, Menu, X } from "lucide-react";
 
 const facebookUrl = "https://www.facebook.com/profile.php?id=61591312408781";
 const linkedinUrl = "https://www.linkedin.com/company/sa-bpo/";
@@ -31,7 +31,7 @@ export default function ContactUs() {
         <a className="brand-lockup" href="/" onClick={closeMenu} aria-label="SA-BPO home"><img src="/assets/sabpo-logo-original.png" alt="SA-BPO" /></a>
         <nav className={`primary-nav ${menuOpen ? "primary-nav--open" : ""}`}>
           <a href="/about-us" onClick={closeMenu}>About SA-BPO</a>
-          <a href="/#confidence" onClick={closeMenu}>Why SA-BPO</a>
+          <a href="/contact-us" onClick={closeMenu}>Contact Us</a>
           <a className="nav-join" href="https://referral.recruitment.sa-bpo.net" target="_blank" rel="noreferrer" onClick={closeMenu}>Join Our Team <ArrowUpRight size={14} /></a>
           <a className="nav-calculator" href="/?calculator=open" onClick={closeMenu}>BPO calculator <ArrowDownRight size={15} /></a>
         </nav>
@@ -48,7 +48,24 @@ export default function ContactUs() {
         <div className="contact-premium-social"><p className="contact-premium-kicker">Keep in touch</p><h2>Follow the conversation.</h2><div><a href={facebookUrl} target="_blank" rel="noreferrer" aria-label="SA-BPO on Facebook"><Facebook size={18} /> Facebook <ArrowUpRight size={14} /></a><a href={linkedinUrl} target="_blank" rel="noreferrer" aria-label="SA-BPO on LinkedIn"><Linkedin size={18} /> LinkedIn <ArrowUpRight size={14} /></a></div></div>
       </section>
 
-      <section className="contact-premium-routes"><article className="contact-premium-route contact-premium-route--jobs"><div className="contact-premium-route__icon"><BriefcaseBusiness size={21} /></div><div><p className="contact-premium-kicker">Applications / Looking for jobs</p><h2>Bring your best work.</h2><p>We are always interested in hearing from people who care about customers, teamwork, and doing meaningful work. Send your CV to our recruitment team.</p><a className="contact-premium-link" href="mailto:recruitement@sa-bpo.co.za?subject=Job%20application">Email your CV <Mail size={16} /></a><a className="contact-premium-email" href="mailto:recruitement@sa-bpo.co.za">recruitement@sa-bpo.co.za</a></div></article><article className="contact-premium-route contact-premium-route--business"><div className="contact-premium-route__icon"><Calculator size={21} /></div><div><p className="contact-premium-kicker">Business enquiries</p><h2>Build a clearer BPO model.</h2><p>Use our BPO-Calc to frame your operation, or send the requested details directly to our business team.</p><a className="contact-premium-link" href="/?calculator=open">Open BPO-Calculator <ArrowRight size={16} /></a><a className="contact-premium-email" href="mailto:outsourcing@sa-bpo.co.za">outsourcing@sa-bpo.co.za</a></div></article></section>
+      <section className="contact-premium-routes">
+        <article className="contact-premium-route contact-premium-route--jobs">
+          <div>
+            <p className="contact-premium-kicker">Applications / Looking for jobs</p>
+            <h2>Bring your best work.</h2>
+            <p>We are always interested in hearing from people who care about customers, teamwork, and doing meaningful work. Send your CV to our recruitment team.</p>
+            <a className="contact-premium-link contact-premium-link--button" href="https://referral.recruitment.sa-bpo.net" target="_blank" rel="noreferrer">Join Our Team <ArrowUpRight size={16} /></a>
+          </div>
+        </article>
+        <article className="contact-premium-route contact-premium-route--business">
+          <div>
+            <p className="contact-premium-kicker">Business enquiries</p>
+            <h2>Build a clearer BPO model.</h2>
+            <p>Instead of waiting on proposals or calls, use our calculator to provide you with indicative rates in real time!</p>
+            <a className="contact-premium-link contact-premium-link--button" href="/?calculator=open">Use the BPO-Calculator <ArrowRight size={16} /></a>
+          </div>
+        </article>
+      </section>
 
       <section className="contact-premium-enquiry"><div className="contact-premium-enquiry__intro"><p className="contact-premium-kicker">Business enquiry details</p><h2>Tell us what needs to move.</h2><p>Share the information below and your email client will prepare an enquiry for outsourcing@sa-bpo.co.za.</p></div><form onSubmit={submitEnquiry} className="contact-premium-form"><label>Name<input name="name" required autoComplete="given-name" /></label><label>Surname<input name="surname" required autoComplete="family-name" /></label><label>Company<input name="company" required autoComplete="organization" /></label><label>Position<input name="position" required autoComplete="organization-title" /></label><label>Company email<input type="email" name="email" required autoComplete="email" /></label><label>Telephone number<input type="tel" name="telephone" required autoComplete="tel" /></label><button type="submit">Prepare business enquiry <ArrowUpRight size={16} /></button></form></section>
 

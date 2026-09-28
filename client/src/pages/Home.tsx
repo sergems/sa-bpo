@@ -1,6 +1,7 @@
 /* Human Circuit compact edition: a concise people + process + outcome journey with content revealed through deliberate interaction. */
 /* Human Circuit page: people-first editorial navigation with clear, practical routes. */
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import BpoCalculatorModal from "@/components/BpoCalculatorModal";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -33,26 +34,12 @@ import {
 
 type CultureMode = "values" | "performance";
 type LocationMode = "durban" | "home";
-type ServiceFocus = "outbound-sales" | "inbound-customer-service";
-type AdvisorTier = "tier-1" | "tier-2";
-
-// Provisional USD monthly rates per full-time advisor at a 160-hour baseline. Replace with approved commercial rates.
-const provisionalMonthlyRates: Record<ServiceFocus, Record<AdvisorTier, number>> = {
-  "outbound-sales": { "tier-1": 1450, "tier-2": 1850 },
-  "inbound-customer-service": { "tier-1": 1250, "tier-2": 1650 },
-};
-
-const formatEstimatedUsd = (value: number) => new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  maximumFractionDigits: 0,
-}).format(value);
 
 const cultureContent = {
   values: {
     eyebrow: "SA-BPO fundamentals",
     title: <>Values that <span>matter.</span></>,
-    description: <>We build a service culture around the people doing the work because it is where every customer experience begins.</>,
+    description: <>We build our customer service culture around the people doing the work because every customer experience begins with them.</>,
     cards: [
       { title: "Rewards", copy: "Working in a rewarding environment is key to success. At SA-BPO, we recognise and reward our employees for all variants of success, including performance improvements and initiative.", tone: "red", icon: Trophy },
       { title: "Compassion", copy: "Genuine human qualities start from within. We bring compassion to the forefront of all we do, always delivering with honesty and empathy so that every customer experience is enhanced.", tone: "green", icon: HeartHandshake },
@@ -116,14 +103,14 @@ const ourHomeSliderSlides = [
 const ourHomeExperience = {
   story: {
     title: <>Our <em>Home.</em></>,
-    copy: "Making a break from the norm we decided to set up our BPO centre in the heart of Durban North. Just under 10 minutes from the busy Umhlanga and Gateway hubs and less than 25km from King Shaka International Airport, located in the heart of all things Durban. SA-BPO breaking the traditions of the norm to create a better environment for one and all.",
+    copy: "Making a break from the norm we decided to set up our BPO centre in the heart of Durban North. Just under 10 minutes from the busy Umhlanga and Gateway hubs and less than 25km from King Shaka International Airport, located in the heart of all things Durban. As SA-BPO we are breaking the traditions of the norm to create a better environment for one and all.",
     visual: "/assets/sabpo-our-home-welcome.jpg",
     alt: "SA-BPO reception team welcoming visitors at the Durban North workplace",
     label: "Welcome to SA-BPO",
   },
   benefits: {
     title: <>The Benefits of<br /><em>SA-BPO’s Home.</em></>,
-    points: ["Spacious modern working environment", "State of the art network solutions and redundancy", "Daily Grind - In House fresh coffee stations", "Sweet shelf", "Snack n Chat relaxation and break out zones", "Luxurious Amenities", "Construction Site", "Our in-house wellness zone", "Wellness Zone"],
+    points: ["Spacious modern working environment", "State of the art network solutions and redundancy", "The Spill: In house fresh coffee", "Sweet Shelf", "Snack n Chat relaxation and break out zones", "Luxurious Amenities", "Construction Site", "Wellness Zone"],
     visual: "/assets/sabpo-our-home-contact-centre.jpg",
     alt: "SA-BPO customer service specialists working in the contact centre",
     label: "A live operating environment",
@@ -156,11 +143,6 @@ const locationSliderSlides = [
     alt: "Moses Mabhida Stadium in Durban at dusk",
   },
   {
-    id: "our-home",
-    visual: "/assets/sabpo-operations.png",
-    alt: "SA-BPO workplace and operations specialist",
-  },
-  {
     id: "home-image2",
     visual: "/assets/home-image2.jpg",
     alt: "Lighthouse and palm trees along the Durban North coastline",
@@ -173,10 +155,6 @@ const heroSlides = [
     eyebrow: "People-powered operations",
     title: <>Our people <em>speak for</em> your brand.</>,
     copy: "The conversations behind your growth, delivered with local fluency, global standards, and enterprise discipline.",
-    primary: "Map your BPO model",
-    primaryTarget: "calculator",
-    secondary: "Explore SA-BPO",
-    secondaryTarget: "about",
     visual: "/assets/sabpo-hero-team-lounge.jpg",
     alt: "SA-BPO customer service team working together in a modern contact centre",
     tone: "people",
@@ -186,10 +164,6 @@ const heroSlides = [
     eyebrow: "Service culture / people first",
     title: <>Service culture. <em>People first.</em></>,
     copy: "When our people feel supported, your customers feel the difference—in every conversation, every day.",
-    primary: "Meet SA-BPO",
-    primaryTarget: "about",
-    secondary: "Why SA-BPO",
-    secondaryTarget: "confidence",
     visual: "/assets/sabpo-home-banner2.jpg",
     alt: "SA-BPO customer service advisor working at a workstation in the contact centre",
     tone: "people",
@@ -199,10 +173,6 @@ const heroSlides = [
     eyebrow: "In the moment / in your corner",
     title: <>Every conversation <em>counts.</em></>,
     copy: "Thoughtful advisors, clear collaboration, and the confidence to make every customer moment matter.",
-    primary: "Map your BPO model",
-    primaryTarget: "calculator",
-    secondary: "Meet the team",
-    secondaryTarget: "about",
     visual: "/assets/sabpo-slider-home3.jpg",
     alt: "SA-BPO customer service colleagues working together in a contact centre",
     tone: "people",
@@ -212,10 +182,6 @@ const heroSlides = [
     eyebrow: "Better work / better outcomes",
     title: <>Built for <em>brighter</em> work.</>,
     copy: "A positive operating environment gives people the space to think clearly, work confidently, and deliver brilliantly.",
-    primary: "Explore SA-BPO",
-    primaryTarget: "about",
-    secondary: "Why SA-BPO",
-    secondaryTarget: "confidence",
     visual: "/assets/sabpo-slider-home4.jpg",
     alt: "Smiling SA-BPO customer service advisor at work with colleagues in the background",
     tone: "people",
@@ -239,11 +205,6 @@ export default function Home() {
   const [locationMode, setLocationMode] = useState<LocationMode>(() => new URLSearchParams(window.location.search).get("location") === "home" ? "home" : "durban");
   const [showCalculator, setShowCalculator] = useState(() => new URLSearchParams(window.location.search).get("calculator") === "open");
   const [showStatementDetails, setShowStatementDetails] = useState(() => new URLSearchParams(window.location.search).get("statement") === "details");
-  const [trialAdvisors, setTrialAdvisors] = useState(2);
-  const [bauAdvisors, setBauAdvisors] = useState(8);
-  const [hours, setHours] = useState(160);
-  const [serviceFocus, setServiceFocus] = useState<ServiceFocus[]>([]);
-  const [advisorTiers, setAdvisorTiers] = useState<AdvisorTier[]>([]);
   const [scrolled, setScrolled] = useState(false);
   const [activeHeroSlide, setActiveHeroSlide] = useState(() => {
     const requestedSlide = new URLSearchParams(window.location.search).get("hero");
@@ -266,6 +227,11 @@ export default function Home() {
     });
     return () => window.cancelAnimationFrame(frame);
   }, []);
+
+  useEffect(() => {
+    if (activeHomeTile !== "benefits") return;
+    document.querySelector(".our-home-benefits")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [activeHomeTile]);
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -309,25 +275,9 @@ export default function Home() {
   const selectedLocation = locationContent[locationMode];
   const activeHero = heroSlides[activeHeroSlide];
   const ActiveProofIcon = proofPoints[activeProof].icon;
-  const trialCoverageHours = useMemo(() => trialAdvisors * hours, [trialAdvisors, hours]);
-  const bauCoverageHours = useMemo(() => bauAdvisors * hours, [bauAdvisors, hours]);
-  const provisionalRatePerAdvisor = useMemo(() => {
-    const selectedRates = serviceFocus.flatMap((service) => advisorTiers.map((tier) => provisionalMonthlyRates[service][tier]));
-    if (!selectedRates.length) return 0;
-    return Math.round(selectedRates.reduce((total, rate) => total + rate, 0) / selectedRates.length);
-  }, [serviceFocus, advisorTiers]);
-  const trialMonthlyEstimate = useMemo(() => Math.round(trialAdvisors * provisionalRatePerAdvisor * (hours / 160)), [trialAdvisors, hours, provisionalRatePerAdvisor]);
-  const bauMonthlyEstimate = useMemo(() => Math.round(bauAdvisors * provisionalRatePerAdvisor * (hours / 160)), [bauAdvisors, hours, provisionalRatePerAdvisor]);
-  const hasPricingSelection = serviceFocus.length > 0 && advisorTiers.length > 0;
   const goTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMenuOpen(false);
-  };
-  const toggleServiceFocus = (service: ServiceFocus) => {
-    setServiceFocus((selected) => selected.includes(service) ? selected.filter((item) => item !== service) : [...selected, service]);
-  };
-  const toggleAdvisorTier = (tier: AdvisorTier) => {
-    setAdvisorTiers((selected) => selected.includes(tier) ? selected.filter((item) => item !== tier) : [...selected, tier]);
   };
   const changeHeroSlide = (direction: 1 | -1) => {
     setActiveHeroSlide((slide) => (slide + direction + heroSlides.length) % heroSlides.length);
@@ -339,7 +289,7 @@ export default function Home() {
         <button className="brand-lockup" onClick={() => goTo("top")} aria-label="SA-BPO home"><img src="/assets/sabpo-logo-original.png" alt="SA-BPO" /></button>
         <nav className={`primary-nav ${menuOpen ? "primary-nav--open" : ""}`}>
           <a href="/about-us">About SA-BPO</a>
-          <button onClick={() => goTo("confidence")}>Why SA-BPO</button>
+          <a href="/contact-us">Contact Us</a>
           <a className="nav-join" href="https://referral.recruitment.sa-bpo.net" target="_blank" rel="noreferrer">Join Our Team <ArrowUpRight size={14} /></a>
           <button className="nav-calculator" onClick={() => setShowCalculator(true)}>BPO calculator <ArrowDownRight size={15} /></button>
         </nav>
@@ -359,10 +309,6 @@ export default function Home() {
                     <h1>{slide.title}</h1>
                     <p>{slide.copy}</p>
                   </div>
-                  <div className="hero-actions">
-                    <button className="button button--green" tabIndex={isActive ? 0 : -1} onClick={() => goTo(slide.primaryTarget)}>{slide.primary} <ArrowRight size={17} /></button>
-                    <button className="text-button" tabIndex={isActive ? 0 : -1} onClick={() => goTo(slide.secondaryTarget)}>{slide.secondary} <ArrowDownRight size={16} /></button>
-                  </div>
                 </div>
                 <div className="hero-slide__media">
                   <img src={slide.visual} alt={isActive ? slide.alt : ""} />
@@ -371,6 +317,10 @@ export default function Home() {
               </article>
             );
           })}
+        </div>
+        <div className="hero-fixed-actions" aria-label="Explore SA-BPO">
+          <button className="button button--green" onClick={() => goTo("confidence")}>Why SA-BPO <ArrowRight size={17} /></button>
+          <button className="button button--yellow" onClick={() => goTo("about")}>Explore SA-BPO <ArrowDownRight size={16} /></button>
         </div>
         <div className="hero-slider-controls" aria-label="Hero slide controls">
           <div className="hero-slider-status" aria-live="polite"><span>0{activeHeroSlide + 1} / 0{heroSlides.length}</span><b>{activeHero.eyebrow}</b></div>
@@ -392,7 +342,7 @@ export default function Home() {
       </section>
 
       <section id="confidence" className="confidence-section section-pad">
-        <div className="section-top section-top--on-dark"><div className="index-label"><span>Why SA-BPO</span></div><div><p className="eyebrow">Partner with confidence</p><h2>Standards you can<br /><em>see in action.</em></h2></div><p className="section-description">Explore the ten operating standards that shape a<br />confident, people-led partnership.</p></div>
+        <div className="section-top section-top--on-dark"><div className="index-label"><span>Why SA-BPO</span></div><div><p className="eyebrow">Partner with confidence</p><h2>Standards you can<br /><em>see in action.</em></h2></div><p className="section-description">Explore the 10 operating standards that shape a<br />confident, people-led partnership.</p></div>
         <div className="confidence-icons" role="region" aria-label="SA-BPO service standards">
           <div className="confidence-icon-grid" role="tablist" aria-label="Select a SA-BPO service standard">
             {proofPoints.map((proof, index) => {
@@ -412,14 +362,14 @@ export default function Home() {
       <section id="our-home" className="our-home-section">
         <div className="our-home-heading"><div className="index-label"><span>Inside SA-BPO</span></div><p className="eyebrow eyebrow--green">A home for better work</p><div className="our-home-switch" role="tablist" aria-label="Explore the SA-BPO home"><button className={activeHomeTile === "story" ? "is-active" : ""} onClick={() => setActiveHomeTile("story")} role="tab" aria-selected={activeHomeTile === "story"}><span>01</span> Our home</button><button className={activeHomeTile === "benefits" ? "is-active" : ""} onClick={() => setActiveHomeTile("benefits")} role="tab" aria-selected={activeHomeTile === "benefits"}><span>02</span> Benefits</button></div></div>
         <div className={`our-home-mosaic our-home-mosaic--${activeHomeTile}`}>
-          <article className="our-home-story"><p className="our-home-kicker">Durban North / SA-BPO</p><h2>{ourHomeExperience.story.title}</h2><p>{ourHomeExperience.story.copy}</p><button className="our-home-tile-action" onClick={() => setActiveHomeTile("benefits")}>See the benefits <ArrowRight size={16} /></button></article>
+          <article className="our-home-story"><p className="our-home-kicker">Durban North / SA-BPO</p><h2>{ourHomeExperience.story.title}</h2><p>{ourHomeExperience.story.copy}</p></article>
           <div className="our-home-media our-home-media--reception" aria-label="SA-BPO workplace image slider" role="region" aria-roledescription="carousel">
             <div className="our-home-slider">
               {ourHomeSliderSlides.map((slide, index) => <img key={slide.id} className={activeHomeSlide === index ? "is-active" : ""} src={slide.visual} alt={activeHomeSlide === index ? slide.alt : ""} aria-hidden={activeHomeSlide !== index} />)}
             </div>
           </div>
           <button className="our-home-media our-home-media--operations" onClick={() => setActiveHomeTile("benefits")} aria-label="Show Our Home benefits"><img src={ourHomeExperience.benefits.visual} alt={ourHomeExperience.benefits.alt} /><span><Headphones size={16} /> {ourHomeExperience.benefits.label}</span></button>
-          <article className="our-home-benefits"><p className="our-home-kicker">Built around people</p><h3>{ourHomeExperience.benefits.title}</h3><ul>{ourHomeExperience.benefits.points.map((point) => <li key={point}><Check size={15} />{point}</li>)}</ul><button className="our-home-tile-action" onClick={() => setActiveHomeTile("story")}>Read our story <ArrowRight size={16} /></button></article>
+          <article className="our-home-benefits"><p className="our-home-kicker">Built around people</p><h3>{ourHomeExperience.benefits.title}</h3><ul>{ourHomeExperience.benefits.points.map((point) => <li key={point}><Check size={15} />{point}</li>)}</ul></article>
         </div>
       </section>
 
@@ -427,7 +377,7 @@ export default function Home() {
 
       <footer className="site-footer"><div><img src="/assets/sabpo-logo-original.png" alt="SA-BPO" /><p>Our people speak for your brand.</p></div><div className="footer-right"><div className="footer-nav"><a href="/about-us">About SA-BPO</a><a href="/contact-us">Contact Us</a><button onClick={() => goTo("confidence")}>Why SA-BPO</button><a href="/privacy-policy">Privacy Policy</a><a className="footer-social-link" href="https://www.facebook.com/profile.php?id=61591312408781" target="_blank" rel="noreferrer" aria-label="SA-BPO on Facebook" title="Facebook"><Facebook size={16} aria-hidden="true" /></a><a className="footer-social-link" href="https://www.linkedin.com/company/sa-bpo/" target="_blank" rel="noreferrer" aria-label="SA-BPO on LinkedIn" title="LinkedIn"><Linkedin size={16} aria-hidden="true" /></a><button className="footer-top-link" onClick={() => goTo("top")} aria-label="Back to top" title="Back to top"><ArrowUp size={16} aria-hidden="true" /></button></div><img className="footer-bpo-graphic" src="/assets/footer-compliance-latest.png" alt="SA-BPO compliance and quality accreditations" /></div><small>© 2026 SA-BPO. South Africa / Global conversations.</small></footer>
 
-      {showCalculator && <div className="modal-backdrop" onClick={() => setShowCalculator(false)}><div className="calculator-modal" onClick={(event) => event.stopPropagation()}><button className="modal-close" onClick={() => setShowCalculator(false)} aria-label="Close calculator"><X /></button><div className="calculator-modal-body"><p className="modal-kicker"><Sparkles size={15} /> BPO calculator</p><h2 className="calculator-modal-title">Shape the first<br /><em>conversation.</em></h2><p>Use the inputs to create a simple coverage signal. A full operating model is always tailored with you.</p><fieldset className="calculator-fieldset"><legend>Service focus</legend><div className="calculator-checklist"><label className="calculator-check"><input type="checkbox" name="service-focus" value="outbound-sales" checked={serviceFocus.includes("outbound-sales")} onChange={() => toggleServiceFocus("outbound-sales")} /><span className="calculator-check__control" aria-hidden="true" /><span><strong>Outbound Sales</strong></span></label><label className="calculator-check"><input type="checkbox" name="service-focus" value="inbound-customer-service" checked={serviceFocus.includes("inbound-customer-service")} onChange={() => toggleServiceFocus("inbound-customer-service")} /><span className="calculator-check__control" aria-hidden="true" /><span><strong>Inbound CS</strong></span></label></div></fieldset><fieldset className="calculator-fieldset"><legend>Advisor tier</legend><div className="calculator-checklist"><label className="calculator-check"><input type="checkbox" name="advisor-tier" value="tier-1" checked={advisorTiers.includes("tier-1")} onChange={() => toggleAdvisorTier("tier-1")} /><span className="calculator-check__control" aria-hidden="true" /><span><strong>Tier 1 Advisor</strong><small>Basic, volume-based work.</small></span></label><label className="calculator-check"><input type="checkbox" name="advisor-tier" value="tier-2" checked={advisorTiers.includes("tier-2")} onChange={() => toggleAdvisorTier("tier-2")} /><span className="calculator-check__control" aria-hidden="true" /><span><strong>Tier 2 Advisor</strong><small>Complex complaints, cancellations, billing, and similar work.</small></span></label></div></fieldset><label>Number of advisors required for trial <output>{trialAdvisors}</output><input type="range" min="1" max="40" value={trialAdvisors} onChange={(event) => setTrialAdvisors(Number(event.target.value))} /></label><label>Number of advisors required for BAU <output>{bauAdvisors}</output><input type="range" min="1" max="40" value={bauAdvisors} onChange={(event) => setBauAdvisors(Number(event.target.value))} /></label><label>Hours per advisor / month <output>{hours}</output><input type="range" min="80" max="220" step="10" value={hours} onChange={(event) => setHours(Number(event.target.value))} /></label><div className="phase-output-grid"><div className="coverage-output"><span>Trial coverage hours</span><strong>{trialCoverageHours.toLocaleString()}</strong><small>Indicative monthly capacity for the trial team.</small></div><div className="coverage-output"><span>BAU coverage hours</span><strong>{bauCoverageHours.toLocaleString()}</strong><small>Indicative monthly capacity for the BAU team.</small></div></div><div className="pricing-output" aria-live="polite"><span>Provisional monthly phase estimates</span>{hasPricingSelection ? <div className="pricing-phase-grid"><div><b>Trial</b><strong>{formatEstimatedUsd(trialMonthlyEstimate)}</strong><small>{trialAdvisors} advisor{trialAdvisors === 1 ? "" : "s"} at the selected provisional rate.</small></div><div><b>BAU</b><strong>{formatEstimatedUsd(bauMonthlyEstimate)}</strong><small>{bauAdvisors} advisor{bauAdvisors === 1 ? "" : "s"} at the selected provisional rate.</small></div></div> : <><strong>—</strong><small>Select at least one service focus and one advisor tier to reveal phase estimates.</small></>}<p>{hasPricingSelection ? `${formatEstimatedUsd(provisionalRatePerAdvisor)} per advisor / month at a 160-hour baseline. Trial and BAU are shown as separate phases and should only be combined if their teams overlap.` : "Provisional USD estimate only. Commercial rates will be confirmed with your operating model."}</p></div><section className="calculator-inclusions" aria-labelledby="calculator-inclusions-title"><div className="calculator-inclusions__heading"><ShieldCheck size={17} aria-hidden="true" /><div><p id="calculator-inclusions-title">Provisional pricing includes</p><span>The provisional estimate includes the people, technology, and operational resilience below.</span></div></div><ul><li>Advisor salary, including competitive Durban rates and commissions</li><li>Dedicated Team Leader — automatically provisioned</li><li>Operations Manager — automatically provisioned</li><li>IT infrastructure and software</li><li>Dell systems</li><li>Microsoft</li><li>Telephony platform</li><li>Reporting suites, including Power BI</li><li>World-class facility and connectivity</li><li>Three links routed across Africa, designed to support 99.9% uptime</li><li>All Tier 1 carriers</li><li>Back-up power and water</li></ul></section></div><div className="calculator-modal-action"><button className="button button--green button--full" onClick={() => { setShowCalculator(false); goTo("contact"); }}>Use this as a starting point <ArrowRight size={16} /></button></div></div></div>}
+      {showCalculator && <BpoCalculatorModal onClose={() => setShowCalculator(false)} />}
       {showStatementDetails && <div className="modal-backdrop" onClick={() => setShowStatementDetails(false)}><article className={`statement-dialog statement-dialog--${activeValue.tone}`} onClick={(event) => event.stopPropagation()}><button className="modal-close statement-close" onClick={() => setShowStatementDetails(false)} aria-label="Close statement details"><X /></button><p className="statement-kicker">SA-BPO / {cultureMode === "values" ? "Core value" : "Performance pillar"}</p><div className="statement-icon"><ActiveValueIcon size={30} /></div><h2>{activeValue.title}</h2><p>{activeValue.copy}</p><div className="statement-context"><span>Why it matters</span><p>{activeCulture.description}</p></div><button className="statement-dismiss" onClick={() => setShowStatementDetails(false)}>Close details <X size={15} /></button></article></div>}
     </main>
   );
