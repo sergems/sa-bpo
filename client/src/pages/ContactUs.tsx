@@ -1,4 +1,6 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import BrandLockupContent from "@/components/BrandLockupContent";
+import { setPageMetadata } from "@/lib/seo";
 import { ArrowDownRight, ArrowRight, ArrowUp, ArrowUpRight, Facebook, Linkedin, MapPin, Menu, X } from "lucide-react";
 
 const facebookUrl = "https://www.facebook.com/profile.php?id=61591312408781";
@@ -7,6 +9,12 @@ const address = "59 Adelaide Tambo Drive";
 const mapUrl = "https://www.google.com/maps/search/?api=1&query=59+Adelaide+Tambo+Drive+Durban+North+South+Africa";
 
 export default function ContactUs() {
+  useEffect(() => {
+    setPageMetadata({
+      title: "Contact SA-BPO | BPO Enquiries, Careers & Locations",
+      description: "Contact SA-BPO in Durban North for BPO service enquiries, indicative rates, business partnerships, or recruitment and careers information.",
+    });
+  }, []);
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = () => setMenuOpen(false);
 
@@ -22,13 +30,13 @@ export default function ContactUs() {
       `Company email: ${data.get("email") || ""}`,
       `Telephone: ${data.get("telephone") || ""}`,
     ].join("\n");
-    window.location.href = `mailto:outsourcing@sa-bpo.co.za?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:admin@sa-bpo.co.za?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   return (
     <main id="top" className="about-page contact-page contact-premium">
       <header className={`site-header site-header--scrolled about-site-header ${menuOpen ? "is-menu-open" : ""}`}>
-        <a className="brand-lockup" href="/" onClick={closeMenu} aria-label="SA-BPO home"><img src="/assets/sabpo-logo-original.png" alt="SA-BPO" /></a>
+        <a className="brand-lockup" href="/" onClick={closeMenu} aria-label="SA-BPO home"><BrandLockupContent /></a>
         <nav className={`primary-nav ${menuOpen ? "primary-nav--open" : ""}`}>
           <a href="/about-us" onClick={closeMenu}>About SA-BPO</a>
           <a href="/contact-us" onClick={closeMenu}>Contact Us</a>
@@ -40,7 +48,7 @@ export default function ContactUs() {
 
       <section className="contact-premium-hero">
         <div><p className="contact-premium-kicker">SA-BPO / Contact Us</p><h1>Let’s move<br /><em>forward.</em></h1><p className="contact-premium-hero__lead">Whether you are looking for your next opportunity or a better way to support your customers, start the conversation with SA-BPO.</p></div>
-        <figure><img src="/assets/sabpo-our-home-reception.png" alt="SA-BPO team welcoming visitors at the reception" /><figcaption>Durban North, South Africa</figcaption></figure>
+        <figure><img src="/assets/sabpo-our-home-reception.png" alt="SA-BPO reception with branded front desk and wall signage" /><figcaption>Durban North, South Africa</figcaption></figure>
       </section>
 
       <section className="contact-premium-info">
@@ -67,9 +75,9 @@ export default function ContactUs() {
         </article>
       </section>
 
-      <section className="contact-premium-enquiry"><div className="contact-premium-enquiry__intro"><p className="contact-premium-kicker">Business enquiry details</p><h2>Tell us what needs to move.</h2><p>Share the information below and your email client will prepare an enquiry for outsourcing@sa-bpo.co.za.</p></div><form onSubmit={submitEnquiry} className="contact-premium-form"><label>Name<input name="name" required autoComplete="given-name" /></label><label>Surname<input name="surname" required autoComplete="family-name" /></label><label>Company<input name="company" required autoComplete="organization" /></label><label>Position<input name="position" required autoComplete="organization-title" /></label><label>Company email<input type="email" name="email" required autoComplete="email" /></label><label>Telephone number<input type="tel" name="telephone" required autoComplete="tel" /></label><button type="submit">Prepare business enquiry <ArrowUpRight size={16} /></button></form></section>
+      <section className="contact-premium-enquiry"><div className="contact-premium-enquiry__intro"><p className="contact-premium-kicker">Business enquiry details</p><h2>Make the first move.</h2><p>Complete details below to submit your enquiry to admin@sa-bpo.co.za and explore potential business opportunities with our team!</p></div><form onSubmit={submitEnquiry} className="contact-premium-form"><label>Name<input name="name" required autoComplete="given-name" /></label><label>Surname<input name="surname" required autoComplete="family-name" /></label><label>Company<input name="company" required autoComplete="organization" /></label><label>Position<input name="position" required autoComplete="organization-title" /></label><label>Company email<input type="email" name="email" required autoComplete="email" /></label><label>Telephone number<input type="tel" name="telephone" required autoComplete="tel" /></label><button type="submit">Prepare business enquiry <ArrowUpRight size={16} /></button></form></section>
 
-      <footer className="site-footer about-site-footer"><div><img src="/assets/sabpo-logo-original.png" alt="SA-BPO" /><p>Our people speak for your brand.</p></div><div className="footer-right"><div className="footer-nav"><a href="/about-us">About SA-BPO</a><a href="/contact-us">Contact Us</a><a href="/#confidence">Why SA-BPO</a><a href="/privacy-policy">Privacy Policy</a><a className="footer-social-link" href={facebookUrl} target="_blank" rel="noreferrer" aria-label="SA-BPO on Facebook" title="Facebook"><Facebook size={16} aria-hidden="true" /></a><a className="footer-social-link" href={linkedinUrl} target="_blank" rel="noreferrer" aria-label="SA-BPO on LinkedIn" title="LinkedIn"><Linkedin size={16} aria-hidden="true" /></a><a className="footer-top-link" href="#top" aria-label="Back to top" title="Back to top"><ArrowUp size={16} aria-hidden="true" /></a></div><img className="footer-bpo-graphic" src="/assets/footer-compliance-latest.png" alt="SA-BPO compliance and quality accreditations" /></div><small>© 2026 SA-BPO. South Africa / Global conversations.</small></footer>
+      <footer className="site-footer about-site-footer"><div><a className="site-footer-brand" href="/" aria-label="SA-BPO home"><BrandLockupContent /></a><p>Our people speak for your brand.</p></div><div className="footer-right"><div className="footer-nav"><a href="/#about">Explore SA-BPO</a><a href="/#confidence">Why SA-BPO</a><a href="/about-us">About SA-BPO</a><a href="/contact-us">Contact Us</a><a href="/privacy-policy">Privacy Policy</a><a className="footer-social-link" href={facebookUrl} target="_blank" rel="noreferrer" aria-label="SA-BPO on Facebook" title="Facebook"><Facebook size={16} aria-hidden="true" /></a><a className="footer-social-link" href={linkedinUrl} target="_blank" rel="noreferrer" aria-label="SA-BPO on LinkedIn" title="LinkedIn"><Linkedin size={16} aria-hidden="true" /></a><a className="footer-top-link" href="#top" aria-label="Back to top" title="Back to top"><ArrowUp size={16} aria-hidden="true" /></a></div><img className="footer-bpo-graphic" src="/assets/footer-compliance-latest.png" alt="SA-BPO compliance and quality accreditations" /></div><small>© 2026 SA-BPO. South Africa / Global conversations.</small></footer>
     </main>
   );
 }

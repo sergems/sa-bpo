@@ -2,8 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle, Home } from "lucide-react";
 import { useLocation } from "wouter";
+import { useEffect } from "react";
+import { setPageMetadata } from "@/lib/seo";
 
 export default function NotFound() {
+  useEffect(() => {
+    setPageMetadata({
+      title: "Page Not Found | SA-BPO",
+      description: "The page you are looking for could not be found. Return to the SA-BPO homepage to explore our services and information.",
+    });
+  }, []);
   const [, setLocation] = useLocation();
 
   const handleGoHome = () => {

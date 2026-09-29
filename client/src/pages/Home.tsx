@@ -2,6 +2,8 @@
 /* Human Circuit page: people-first editorial navigation with clear, practical routes. */
 import { useEffect, useState } from "react";
 import BpoCalculatorModal from "@/components/BpoCalculatorModal";
+import BrandLockupContent from "@/components/BrandLockupContent";
+import { setPageMetadata } from "@/lib/seo";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -61,7 +63,7 @@ const cultureContent = {
 };
 
 const proofPoints = [
-  { label: "24/7 service via: Voice / Email / Chat", detail: "Always-on channel readiness keeps customer conversations moving across voice, email, and chat.", icon: PhoneCall, tone: "green" },
+  { label: "24/7 Service via: Voice/Email/Chat", detail: "Always-on channel readiness keeps customer conversations moving across voice, email, and chat.", icon: PhoneCall, tone: "green" },
   { label: "KPI driven service", detail: "Visible measures connect service delivery, coaching, and business outcomes.", icon: ChartNoAxesCombined, tone: "blue" },
   { label: "Outstanding customer support & delivery", detail: "Dedicated support teams protect every customer moment with practical operational discipline.", icon: Headset, tone: "red" },
   { label: "UK / US / AUS in-house office standards", detail: "Our working environment is designed around the office and service expectations of UK, US, and AUS partners.", icon: MonitorCheck, tone: "yellow" },
@@ -103,16 +105,16 @@ const ourHomeSliderSlides = [
 const ourHomeExperience = {
   story: {
     title: <>Our <em>Home.</em></>,
-    copy: "Making a break from the norm we decided to set up our BPO centre in the heart of Durban North. Just under 10 minutes from the busy Umhlanga and Gateway hubs and less than 25km from King Shaka International Airport, located in the heart of all things Durban. As SA-BPO we are breaking the traditions of the norm to create a better environment for one and all.",
+    copy: "Breaking away from the norm we have decided to set up our BPO centre in the heart of Durban North. Just under 10 minutes from the busy Umhlanga and Gateway hubs and less than 25km from King Shaka International Airport, located in the heart of all things Durban. As SA-BPO we are breaking the traditions of the norm to create a better environment for one and all.",
     visual: "/assets/sabpo-our-home-welcome.jpg",
     alt: "SA-BPO reception team welcoming visitors at the Durban North workplace",
     label: "Welcome to SA-BPO",
   },
   benefits: {
     title: <>The Benefits of<br /><em>SA-BPO’s Home.</em></>,
-    points: ["Spacious modern working environment", "State of the art network solutions and redundancy", "The Spill: In house fresh coffee", "Sweet Shelf", "Snack n Chat relaxation and break out zones", "Luxurious Amenities", "Construction Site", "Wellness Zone"],
+    points: ["Spacious modern working environment", "State of the art network solutions and redundancy", "The Spill: In house fresh coffee", "Sweet Shelf", "Snack n Chat: Relaxation and break out zones", "Luxurious Amenities", "Construction Site: Wellness zone"],
     visual: "/assets/sabpo-our-home-contact-centre.jpg",
-    alt: "SA-BPO customer service specialists working in the contact centre",
+    alt: "A team member assists a colleague at a computer workstation in the contact centre",
     label: "A live operating environment",
   },
 };
@@ -130,7 +132,7 @@ const locationContent = {
     tab: "Our home",
     title: <>The Benefits of our<br /><em>BPO in Durban North</em></>,
     text: "",
-    points: ["Community culture embraced by all at SA BPO.", "Excellent location for all major transport networks.", "Cost effective retail solutions for our employees.", "Away from the Central Hubs of the Industry allowing for a more creative approach to the BPO space for both ourselves and our employees.", "Sun, Sea, Sand and all the trappings of a prime destination but at community driven costs and prices."],
+    points: ["Community culture embraced by all at SA-BPO.", "Excellent location for all major transport networks.", "Cost effective retail solutions for our employees.", "Away from the Central Hubs of the Industry allowing for a more creative approach to the BPO space for both ourselves and our employees.", "Sun, Sea, Sand and all the trappings of a prime destination but at community driven costs and prices."],
     visual: "/assets/sabpo-our-home-work.jpg",
     alt: "SA-BPO workplace specialist working at a desk in the Durban North office",
   },
@@ -186,9 +188,24 @@ const heroSlides = [
     alt: "Smiling SA-BPO customer service advisor at work with colleagues in the background",
     tone: "people",
   },
+  {
+    id: "teamwork",
+    eyebrow: "People first / work together",
+    title: <>Great work <em>starts together.</em></>,
+    copy: "A welcoming, collaborative environment helps our people bring their best to every customer conversation.",
+    visual: "/assets/sabpo-slider-home5.jpg",
+    alt: "SA-BPO colleagues sharing a conversation in a welcoming team lounge",
+    tone: "people",
+  },
 ];
 
 export default function Home() {
+  useEffect(() => {
+    setPageMetadata({
+      title: "SA-BPO | People-Powered BPO & Customer Experience",
+      description: "SA-BPO delivers people-powered BPO and customer service operations for global brands, combining South African talent, omnichannel support and performance-driven delivery.",
+    });
+  }, []);
   const [menuOpen, setMenuOpen] = useState(false);
   const [cultureMode, setCultureMode] = useState<CultureMode>(() => new URLSearchParams(window.location.search).get("culture") === "performance" ? "performance" : "values");
   const [activeValueIndex, setActiveValueIndex] = useState(() => {
@@ -286,7 +303,7 @@ export default function Home() {
   return (
     <main className="site-shell">
       <header className={`site-header ${scrolled ? "site-header--scrolled" : ""}`}>
-        <button className="brand-lockup" onClick={() => goTo("top")} aria-label="SA-BPO home"><img src="/assets/sabpo-logo-original.png" alt="SA-BPO" /></button>
+        <button className="brand-lockup" onClick={() => goTo("top")} aria-label="SA-BPO home"><BrandLockupContent /></button>
         <nav className={`primary-nav ${menuOpen ? "primary-nav--open" : ""}`}>
           <a href="/about-us">About SA-BPO</a>
           <a href="/contact-us">Contact Us</a>
@@ -319,8 +336,8 @@ export default function Home() {
           })}
         </div>
         <div className="hero-fixed-actions" aria-label="Explore SA-BPO">
-          <button className="button button--green" onClick={() => goTo("confidence")}>Why SA-BPO <ArrowRight size={17} /></button>
           <button className="button button--yellow" onClick={() => goTo("about")}>Explore SA-BPO <ArrowDownRight size={16} /></button>
+          <button className="button button--green" onClick={() => goTo("confidence")}>Why SA-BPO <ArrowRight size={17} /></button>
         </div>
         <div className="hero-slider-controls" aria-label="Hero slide controls">
           <div className="hero-slider-status" aria-live="polite"><span>0{activeHeroSlide + 1} / 0{heroSlides.length}</span><b>{activeHero.eyebrow}</b></div>
@@ -335,7 +352,7 @@ export default function Home() {
 
       <section id="about" className="culture-section section-pad">
         <div className="culture-orbit culture-orbit--one" /><div className="culture-orbit culture-orbit--two" />
-        <div className="culture-intro"><div className="index-label"><span>About SA-BPO</span></div><div><p className="eyebrow">The operating culture</p><h2>{activeCulture.title}</h2></div><p className="culture-intro-description">{activeCulture.description}</p></div>
+        <div className="culture-intro"><div className="index-label"><span>Explore SA-BPO</span></div><div><p className="eyebrow">The operating culture</p><h2>{activeCulture.title}</h2></div><p className="culture-intro-description">{activeCulture.description}</p></div>
         <div className="culture-mode" role="tablist" aria-label="SA-BPO culture content"><button className={cultureMode === "values" ? "is-active" : ""} onClick={() => { setCultureMode("values"); setActiveValueIndex(0); }} onFocus={() => { setCultureMode("values"); setActiveValueIndex(0); }} role="tab" aria-selected={cultureMode === "values"}><span>01</span> Our values</button><button className={cultureMode === "performance" ? "is-active" : ""} onClick={() => { setCultureMode("performance"); setActiveValueIndex(0); }} onFocus={() => { setCultureMode("performance"); setActiveValueIndex(0); }} role="tab" aria-selected={cultureMode === "performance"}><span>02</span> Performance</button></div>
         <div className="value-console"><div className="value-selector" role="tablist" aria-label="Select a SA-BPO value">{activeCulture.cards.map((item, index) => { const Icon = item.icon; return <button key={item.title} className={`value-select value-select--${item.tone} ${activeValueIndex === index ? "is-active" : ""}`} onClick={() => setActiveValueIndex(index)} onFocus={() => setActiveValueIndex(index)} role="tab" aria-selected={activeValueIndex === index}><span className="value-number">0{index + 1}</span><span className="value-select-name">{item.title}</span><Icon size={18} /><ArrowRight size={16} /></button>; })}</div><article key={`${cultureMode}-${activeValue.title}`} className={`value-display value-display--${activeValue.tone}`}><div className="value-display-top"><span>SA-BPO / {cultureMode === "values" ? "Core value" : "Performance pillar"}</span><span>0{activeValueIndex + 1} / 04</span></div><div className="value-display-copy"><div className="value-display-icon"><ActiveValueIcon size={34} /></div><h3>{activeValue.title}</h3><p>{activeValue.copy}</p></div><button className="value-details" onClick={() => setShowStatementDetails(true)}>View details <ArrowUpRight size={14} /></button><button className="value-next" onClick={() => setActiveValueIndex((activeValueIndex + 1) % activeCulture.cards.length)}>Next pillar <ArrowRight size={15} /></button><div className="value-display-path"><i /><span /><i /><span /><i /></div><div className="value-display-word">{activeValue.title}</div></article></div>
         <div className="culture-promise"><span className="promise-dot" /><p><strong>People → Process → Outcome.</strong><span className="culture-promise-detail">Every SA-BPO value is designed to improve the experience behind your brand.</span></p><button onClick={() => goTo("confidence")}>Why SA-BPO <ArrowRight size={16} /></button></div>
@@ -348,7 +365,7 @@ export default function Home() {
             {proofPoints.map((proof, index) => {
               const Icon = proof.icon;
               const isActive = activeProof === index;
-              return <button key={proof.label} className={`confidence-icon-card confidence-icon-card--${proof.tone} ${isActive ? "is-active" : ""}`} onClick={() => setActiveProof(index)} onFocus={() => setActiveProof(index)} role="tab" aria-selected={isActive} aria-controls="confidence-standard-detail"><span className="confidence-icon-card__icon"><Icon aria-hidden="true" strokeWidth={1.75} /></span><strong>{proof.label}</strong></button>;
+              return <button key={proof.label} className={`confidence-icon-card confidence-icon-card--${proof.tone} ${isActive ? "is-active" : ""}`} onClick={() => setActiveProof(index)} onFocus={() => setActiveProof(index)} role="tab" aria-selected={isActive} aria-controls="confidence-standard-detail"><span className="confidence-icon-card__icon"><Icon aria-hidden="true" strokeWidth={1.75} /></span><strong>{index === 0 ? <>24/7 Service via:<br />Voice/Email/Chat</> : proof.label}</strong></button>;
             })}
           </div>
           <article id="confidence-standard-detail" key={activeProof} className={`confidence-standard-detail confidence-standard-detail--${proofPoints[activeProof].tone}`} aria-live="polite"><div className="confidence-standard-detail__icon"><ActiveProofIcon aria-hidden="true" strokeWidth={1.7} /></div><div><span>Selected operating standard</span><h3>{proofPoints[activeProof].label}</h3><p>{proofPoints[activeProof].detail}</p></div><button className="confidence-standard-detail__next" onClick={() => setActiveProof((activeProof + 1) % proofPoints.length)}>Next standard <ArrowRight size={16} /></button></article>
@@ -356,7 +373,7 @@ export default function Home() {
       </section>
 
       <section id="location" className="location-section">
-        <div className="location-media" role={locationMode === "durban" ? "region" : undefined} aria-roledescription={locationMode === "durban" ? "carousel" : undefined} aria-label={locationMode === "durban" ? "Durban North location images" : "SA-BPO workplace image"}>{locationMode === "durban" ? <div className="location-slider">{locationSliderSlides.map((slide, index) => <img key={slide.id} className={activeLocationSlide === index ? "is-active" : ""} src={slide.visual} alt={activeLocationSlide === index ? slide.alt : ""} aria-hidden={activeLocationSlide !== index} />)}</div> : <img src={selectedLocation.visual} alt={selectedLocation.alt} />}</div><div key={locationMode} className={`location-content location-content--${locationMode}`}><div className="location-toggle"><button className={locationMode === "home" ? "is-active" : ""} onClick={() => setLocationMode("home")}>Our home</button><button className={locationMode === "durban" ? "is-active" : ""} onClick={() => setLocationMode("durban")}>Durban North</button></div><p className="eyebrow">Our location</p><h2>{selectedLocation.title}</h2>{selectedLocation.text ? <p>{selectedLocation.text}</p> : null}<ul>{selectedLocation.points.map((point) => <li key={point}><Check size={15} />{point}</li>)}</ul><button className="text-button" onClick={() => goTo("contact")}>Talk to the local team <ArrowRight size={16} /></button></div>
+        <div className="location-media" role={locationMode === "durban" ? "region" : undefined} aria-roledescription={locationMode === "durban" ? "carousel" : undefined} aria-label={locationMode === "durban" ? "Durban North location images" : "SA-BPO workplace image"}>{locationMode === "durban" ? <div className="location-slider">{locationSliderSlides.map((slide, index) => <img key={slide.id} className={activeLocationSlide === index ? "is-active" : ""} src={slide.visual} alt={activeLocationSlide === index ? slide.alt : ""} aria-hidden={activeLocationSlide !== index} />)}</div> : <img src={selectedLocation.visual} alt={selectedLocation.alt} />}</div><div key={locationMode} className={`location-content location-content--${locationMode}`}><div className="location-toggle"><button className={locationMode === "home" ? "is-active" : ""} onClick={() => setLocationMode("home")}>Our home</button><button className={locationMode === "durban" ? "is-active" : ""} onClick={() => setLocationMode("durban")}>Durban North</button></div><p className="eyebrow">Our location</p><h2>{selectedLocation.title}</h2>{selectedLocation.text ? <p>{selectedLocation.text}</p> : null}<ul>{selectedLocation.points.map((point) => <li key={point}><Check size={15} />{point}</li>)}</ul>{locationMode === "durban" ? <a className="text-button" href="https://www.google.com/maps/search/?api=1&query=59+Adelaide+Tambo+Drive+Durban+North+South+Africa" target="_blank" rel="noreferrer">Open location on map <ArrowUpRight size={16} /></a> : <button className="text-button" onClick={() => goTo("contact")}>Talk to the local team <ArrowRight size={16} /></button>}</div>
       </section>
 
       <section id="our-home" className="our-home-section">
@@ -373,9 +390,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="contact-section section-pad"><div className="contact-section__label index-label"><span>Start here</span></div><div className="contact-section__grid"><div className="contact-section__main"><p className="eyebrow eyebrow--dark">Let’s make the next conversation count</p><h2>Tell us what<br /><span>needs to move.</span></h2><p className="contact-section__copy">Whether you are scaling support, simplifying operations, or looking for a people-first partner, we are ready to listen. Tell us what needs to move, and we will shape a clearer operating conversation around the people and outcomes that matter to your brand.</p><a className="contact-section__email" href="mailto:hello@sa-bpo.com">hello@sa-bpo.com <ArrowUpRight size={20} /></a></div><aside className="contact-section__action"><div className="contact-section__action-icon"><Sparkles size={22} /></div><div><p className="contact-section__action-kicker">BPO calculator</p><strong>Start with a clearer model.</strong><p>Use the BPO calculator to frame the conversation around your operation, then turn your first view into a focused next step.</p></div><button className="contact-section__action-button" onClick={() => setShowCalculator(true)}>Build a first view <ArrowRight size={17} /></button></aside></div></section>
+      <section id="contact" className="contact-section section-pad"><div className="contact-section__label index-label"><span>Start here</span></div><div className="contact-section__grid"><div className="contact-section__main"><p className="eyebrow eyebrow--dark">Let’s make the next conversation count</p><h2>Make the<br /><span>first move.</span></h2><p className="contact-section__copy">Whether you are scaling support, simplifying operations, or looking for a people-first partner, we are ready to listen. Tell us what needs to move, and we will shape a clearer operating conversation around the people and outcomes that matter to your brand.</p><a className="contact-section__email" href="mailto:hello@sa-bpo.com">hello@sa-bpo.com <ArrowUpRight size={20} /></a></div><aside className="contact-section__action"><div className="contact-section__action-icon"><Sparkles size={22} /></div><div><p className="contact-section__action-kicker">BPO calculator</p><strong>Start with a clearer model.</strong><p>Use the BPO calculator to frame the conversation around your operation, then turn your first view into a focused next step.</p></div><button className="contact-section__action-button" onClick={() => setShowCalculator(true)}>Build a first view <ArrowRight size={17} /></button></aside></div></section>
 
-      <footer className="site-footer"><div><img src="/assets/sabpo-logo-original.png" alt="SA-BPO" /><p>Our people speak for your brand.</p></div><div className="footer-right"><div className="footer-nav"><a href="/about-us">About SA-BPO</a><a href="/contact-us">Contact Us</a><button onClick={() => goTo("confidence")}>Why SA-BPO</button><a href="/privacy-policy">Privacy Policy</a><a className="footer-social-link" href="https://www.facebook.com/profile.php?id=61591312408781" target="_blank" rel="noreferrer" aria-label="SA-BPO on Facebook" title="Facebook"><Facebook size={16} aria-hidden="true" /></a><a className="footer-social-link" href="https://www.linkedin.com/company/sa-bpo/" target="_blank" rel="noreferrer" aria-label="SA-BPO on LinkedIn" title="LinkedIn"><Linkedin size={16} aria-hidden="true" /></a><button className="footer-top-link" onClick={() => goTo("top")} aria-label="Back to top" title="Back to top"><ArrowUp size={16} aria-hidden="true" /></button></div><img className="footer-bpo-graphic" src="/assets/footer-compliance-latest.png" alt="SA-BPO compliance and quality accreditations" /></div><small>© 2026 SA-BPO. South Africa / Global conversations.</small></footer>
+      <footer className="site-footer"><div><a className="site-footer-brand" href="/" aria-label="SA-BPO home"><BrandLockupContent /></a><p>Our people speak for your brand.</p></div><div className="footer-right"><div className="footer-nav"><button onClick={() => goTo("about")}>Explore SA-BPO</button><button onClick={() => goTo("confidence")}>Why SA-BPO</button><a href="/about-us">About SA-BPO</a><a href="/contact-us">Contact Us</a><a href="/privacy-policy">Privacy Policy</a><a className="footer-social-link" href="https://www.facebook.com/profile.php?id=61591312408781" target="_blank" rel="noreferrer" aria-label="SA-BPO on Facebook" title="Facebook"><Facebook size={16} aria-hidden="true" /></a><a className="footer-social-link" href="https://www.linkedin.com/company/sa-bpo/" target="_blank" rel="noreferrer" aria-label="SA-BPO on LinkedIn" title="LinkedIn"><Linkedin size={16} aria-hidden="true" /></a><button className="footer-top-link" onClick={() => goTo("top")} aria-label="Back to top" title="Back to top"><ArrowUp size={16} aria-hidden="true" /></button></div><img className="footer-bpo-graphic" src="/assets/footer-compliance-latest.png" alt="SA-BPO compliance and quality accreditations" /></div><small>© 2026 SA-BPO. South Africa / Global conversations.</small></footer>
 
       {showCalculator && <BpoCalculatorModal onClose={() => setShowCalculator(false)} />}
       {showStatementDetails && <div className="modal-backdrop" onClick={() => setShowStatementDetails(false)}><article className={`statement-dialog statement-dialog--${activeValue.tone}`} onClick={(event) => event.stopPropagation()}><button className="modal-close statement-close" onClick={() => setShowStatementDetails(false)} aria-label="Close statement details"><X /></button><p className="statement-kicker">SA-BPO / {cultureMode === "values" ? "Core value" : "Performance pillar"}</p><div className="statement-icon"><ActiveValueIcon size={30} /></div><h2>{activeValue.title}</h2><p>{activeValue.copy}</p><div className="statement-context"><span>Why it matters</span><p>{activeCulture.description}</p></div><button className="statement-dismiss" onClick={() => setShowStatementDetails(false)}>Close details <X size={15} /></button></article></div>}

@@ -1,5 +1,8 @@
 /* Human Circuit privacy page: a clear, people-first reading experience that uses the same editorial hierarchy as SA-BPO’s homepage. */
+import { useEffect } from "react";
 import { ArrowLeft } from "lucide-react";
+import BrandLockupContent from "@/components/BrandLockupContent";
+import { setPageMetadata } from "@/lib/seo";
 
 const policySections = [
   {
@@ -29,10 +32,16 @@ const policySections = [
 ];
 
 export default function PrivacyPolicy() {
+  useEffect(() => {
+    setPageMetadata({
+      title: "Privacy Policy | SA-BPO",
+      description: "Read the SA-BPO privacy policy to learn how personal information is collected, used, shared, protected and retained.",
+    });
+  }, []);
   return (
     <main className="privacy-page">
       <header className="privacy-header">
-        <a className="privacy-brand" href="/" aria-label="SA-BPO home"><img src="/assets/sabpo-logo-original.png" alt="SA-BPO" /></a>
+        <a className="privacy-brand" href="/" aria-label="SA-BPO home"><BrandLockupContent /></a>
         <a className="privacy-home-link" href="/"><ArrowLeft size={16} /> Back to home</a>
       </header>
 

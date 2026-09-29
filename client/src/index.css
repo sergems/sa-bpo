@@ -1285,3 +1285,19 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 @media(max-width:720px){.bpo-calculator-modal{width:100%;max-height:calc(100dvh - 16px)}.bpo-calculator-body{padding:28px 22px 22px}.bpo-calculator-controls{grid-template-columns:1fr;gap:15px}.bpo-calc-settings{grid-template-columns:1fr 1fr;align-items:start}.bpo-currency-fieldset{grid-column:1/-1}.bpo-estimate-metrics{grid-template-columns:1fr 1fr}.bpo-estimate-metrics .bpo-estimate-total{grid-column:1/-1}.bpo-calculator-welcome{align-items:flex-start;flex-direction:column}.bpo-calculator-welcome>p{max-width:none;text-align:left}}
 @media(max-width:480px){.bpo-intake-grid{grid-template-columns:1fr;gap:11px}.bpo-intake-form{gap:12px}.bpo-calculator-modal .calculator-modal-title{font-size:clamp(1.85rem,9vw,2.7rem)}.bpo-calculator-body{padding:25px 17px 19px}.bpo-calculator-welcome{padding-right:30px}.bpo-calc-settings{grid-template-columns:1fr;padding:13px}.bpo-currency-fieldset{grid-column:auto}.bpo-estimate{padding:15px}.bpo-estimate-heading{flex-direction:column}.bpo-estimate-metrics{grid-template-columns:1fr}.bpo-estimate-metrics .bpo-estimate-total{grid-column:auto}.bpo-inclusions ul{grid-template-columns:1fr}.bpo-result-actions{grid-template-columns:1fr}.bpo-close-button{min-height:44px}}
 @media(prefers-reduced-motion:reduce){.bpo-spinner{animation:none}}
+
+
+/* SA-BPO wordmark: exact live text plus the existing symbol, cropped to preserve the supplied mark. */
+.brand-lockup{display:flex;align-items:center;justify-content:flex-start;gap:0}
+.brand-lockup-content{display:flex;align-items:center;gap:2px;width:100%;overflow:hidden}
+.brand-lockup-wordmark{display:block;flex:none;color:#fff;font-family:"Space Grotesk",sans-serif;font-size:clamp(1.1rem,1.5vw,1.38rem);font-weight:700;letter-spacing:-.075em;line-height:1;white-space:nowrap}
+.brand-lockup-mark{display:block;flex:0 0 46px;width:46px!important;height:46px!important;max-width:none;object-fit:cover;object-position:right center;filter:none!important}
+.site-footer-brand{display:flex;width:162px;align-items:center;color:#fff;text-decoration:none}
+.site-footer-brand .brand-lockup-content{gap:0}
+.site-footer-brand .brand-lockup-wordmark{font-size:1.32rem}
+.site-footer-brand .brand-lockup-mark{flex-basis:40px;width:40px!important;height:40px!important}
+.privacy-brand{display:flex;align-items:center}
+.privacy-brand .brand-lockup-wordmark{font-size:1.3rem}
+.privacy-brand .brand-lockup-mark{flex-basis:42px;width:42px!important;height:42px!important}
+@media(max-width:900px){.brand-lockup{width:165px;margin-left:0}.brand-lockup-wordmark{font-size:1.22rem}.brand-lockup-mark{flex-basis:40px;width:40px!important;height:40px!important}}
+@media(max-width:720px){.brand-lockup{width:150px}.brand-lockup-content{gap:0}.brand-lockup-wordmark,.privacy-brand .brand-lockup-wordmark{font-size:1.12rem}.brand-lockup-mark,.privacy-brand .brand-lockup-mark{flex-basis:36px;width:36px!important;height:36px!important}.privacy-brand{width:145px}}

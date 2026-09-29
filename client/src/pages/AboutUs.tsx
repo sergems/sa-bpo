@@ -10,6 +10,8 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import BrandLockupContent from "@/components/BrandLockupContent";
+import { setPageMetadata } from "@/lib/seo";
 
 type AboutPrinciple = { title: string; description: string };
 type AboutSection = {
@@ -33,7 +35,7 @@ const aboutPrinciples: AboutPrinciple[] = [
 const aboutSections: AboutSection[] = [
   {
     id: "customer-experience",
-    title: "SA BPO offers a world-class customer experience.",
+    title: "SA-BPO offers a world-class customer experience.",
     kicker: "Who we are",
     paragraphs: [
       "SA-BPO is a South African outsourcing company that partners with global businesses to deliver world-class customer experiences across the omnichannel space.",
@@ -71,7 +73,7 @@ const aboutSections: AboutSection[] = [
     title: "Striving to become the destination for one and all.",
     kicker: "More than a workplace",
     paragraphs: [
-      "Industry-leading salaries make SA-BPO a destination for all. Our location allows our people to be part of an established community at the heart of Durban, while the premises we selected and converted gives our employees a place they get to call home.",
+      "Industry-leading salaries and benefits make SA-BPO a destination for all. Our location allows our people to be part of an established community at the heart of Durban, while the premises we selected and converted gives our employees a place they get to call home.",
     ],
     image: "/assets/sabpo-our-home-work.jpg",
     alt: "SA-BPO specialist working in the office",
@@ -94,16 +96,10 @@ export default function AboutUs() {
   const [expandedAboutSection, setExpandedAboutSection] = useState<string | null>(null);
 
   useEffect(() => {
-    document.title = "About SA-BPO | South African BPO & Global Outsourcing";
-    const description =
-      "Discover SA-BPO, a South African outsourcing company delivering world-class customer experiences through experienced people, innovative technology and customer-centric BPO solutions.";
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) {
-      meta = document.createElement("meta");
-      meta.setAttribute("name", "description");
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute("content", description);
+    setPageMetadata({
+      title: "About SA-BPO | South African BPO & Global Outsourcing",
+      description: "Discover SA-BPO, a South African outsourcing company delivering world-class customer experiences through experienced people, innovative technology and customer-centric BPO solutions.",
+    });
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
@@ -112,7 +108,7 @@ export default function AboutUs() {
     <main id="top" className="about-page about-redesign about-premium">
       <header className={`site-header site-header--scrolled about-site-header ${menuOpen ? "is-menu-open" : ""}`}>
         <a className="brand-lockup" href="/" onClick={closeMenu} aria-label="SA-BPO home">
-          <img src="/assets/sabpo-logo-original.png" alt="SA-BPO" />
+          <BrandLockupContent />
         </a>
         <nav className={`primary-nav ${menuOpen ? "primary-nav--open" : ""}`}>
           <a href="/about-us" onClick={closeMenu}>About SA-BPO</a>
@@ -164,7 +160,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      <footer className="site-footer about-site-footer"><div><img src="/assets/sabpo-logo-original.png" alt="SA-BPO" /><p>Our people speak for your brand.</p></div><div className="footer-right"><div className="footer-nav"><a href="/about-us">About SA-BPO</a><a href="/contact-us">Contact Us</a><a href="/#confidence">Why SA-BPO</a><a href="/privacy-policy">Privacy Policy</a><a className="footer-social-link" href="https://www.facebook.com/profile.php?id=61591312408781" target="_blank" rel="noreferrer" aria-label="SA-BPO on Facebook" title="Facebook"><Facebook size={16} aria-hidden="true" /></a><a className="footer-social-link" href="https://www.linkedin.com/company/sa-bpo/" target="_blank" rel="noreferrer" aria-label="SA-BPO on LinkedIn" title="LinkedIn"><Linkedin size={16} aria-hidden="true" /></a><a className="footer-top-link" href="#top" aria-label="Back to top" title="Back to top"><ArrowUp size={16} aria-hidden="true" /></a></div><img className="footer-bpo-graphic" src="/assets/footer-compliance-latest.png" alt="SA-BPO compliance and quality accreditations" /></div><small>© 2026 SA-BPO. South Africa / Global conversations.</small></footer>
+      <footer className="site-footer about-site-footer"><div><a className="site-footer-brand" href="/" aria-label="SA-BPO home"><BrandLockupContent /></a><p>Our people speak for your brand.</p></div><div className="footer-right"><div className="footer-nav"><a href="/#about">Explore SA-BPO</a><a href="/#confidence">Why SA-BPO</a><a href="/about-us">About SA-BPO</a><a href="/contact-us">Contact Us</a><a href="/privacy-policy">Privacy Policy</a><a className="footer-social-link" href="https://www.facebook.com/profile.php?id=61591312408781" target="_blank" rel="noreferrer" aria-label="SA-BPO on Facebook" title="Facebook"><Facebook size={16} aria-hidden="true" /></a><a className="footer-social-link" href="https://www.linkedin.com/company/sa-bpo/" target="_blank" rel="noreferrer" aria-label="SA-BPO on LinkedIn" title="LinkedIn"><Linkedin size={16} aria-hidden="true" /></a><a className="footer-top-link" href="#top" aria-label="Back to top" title="Back to top"><ArrowUp size={16} aria-hidden="true" /></a></div><img className="footer-bpo-graphic" src="/assets/footer-compliance-latest.png" alt="SA-BPO compliance and quality accreditations" /></div><small>© 2026 SA-BPO. South Africa / Global conversations.</small></footer>
     </main>
   );
 }
