@@ -157,8 +157,8 @@ const heroSlides = [
     eyebrow: "People-powered operations",
     title: <>Our people <em>speak for</em> your brand.</>,
     copy: "The conversations behind your growth, delivered with local fluency, global standards, and enterprise discipline.",
-    visual: "/assets/sabpo-hero-team-lounge.jpg",
-    alt: "SA-BPO customer service team working together in a modern contact centre",
+    visual: "/assets/sabpo-main-hero-slide1.jpg",
+    alt: "Three SA-BPO colleagues sharing a conversation in the workplace lounge",
     tone: "people",
   },
   {

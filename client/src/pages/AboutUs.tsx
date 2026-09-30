@@ -11,6 +11,7 @@ import {
   X,
 } from "lucide-react";
 import BrandLockupContent from "@/components/BrandLockupContent";
+import BpoCalculatorModal from "@/components/BpoCalculatorModal";
 import { setPageMetadata } from "@/lib/seo";
 
 type AboutPrinciple = { title: string; description: string };
@@ -86,14 +87,15 @@ const aboutSections: AboutSection[] = [
       "This is reflected in the location we have carefully selected, the environment we have created and the solutions we present to you, our valued client.",
       "South African talent, connected to the world through every customer conversation.",
     ],
-    image: "/assets/sabpo-hero-global-delivery.png",
-    alt: "SA-BPO team collaborating with a Durban city view",
+    image: "/assets/sabpo-about-environment.jpg",
+    alt: "SA-BPO colleagues sharing a conversation in the workplace lounge",
   },
 ];
 
 export default function AboutUs() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [expandedAboutSection, setExpandedAboutSection] = useState<string | null>(null);
+  const [showCalculator, setShowCalculator] = useState(false);
 
   useEffect(() => {
     setPageMetadata({
@@ -114,7 +116,7 @@ export default function AboutUs() {
           <a href="/about-us" onClick={closeMenu}>About SA-BPO</a>
           <a href="/contact-us" onClick={closeMenu}>Contact Us</a>
           <a className="nav-join" href="https://referral.recruitment.sa-bpo.net" target="_blank" rel="noreferrer" onClick={closeMenu}>Join Our Team <ArrowUpRight size={14} /></a>
-          <a className="nav-calculator" href="/#calculator" onClick={closeMenu}>BPO calculator <ArrowDownRight size={15} /></a>
+          <button className="nav-calculator" type="button" onClick={() => { closeMenu(); setShowCalculator(true); }}>BPO calculator <ArrowDownRight size={15} /></button>
         </nav>
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation" aria-expanded={menuOpen}>{menuOpen ? <X /> : <Menu />}</button>
       </header>
@@ -161,6 +163,7 @@ export default function AboutUs() {
       </section>
 
       <footer className="site-footer about-site-footer"><div><a className="site-footer-brand" href="/" aria-label="SA-BPO home"><BrandLockupContent /></a><p>Our people speak for your brand.</p></div><div className="footer-right"><div className="footer-nav"><a href="/#about">Explore SA-BPO</a><a href="/#confidence">Why SA-BPO</a><a href="/about-us">About SA-BPO</a><a href="/contact-us">Contact Us</a><a href="/privacy-policy">Privacy Policy</a><a className="footer-social-link" href="https://www.facebook.com/profile.php?id=61591312408781" target="_blank" rel="noreferrer" aria-label="SA-BPO on Facebook" title="Facebook"><Facebook size={16} aria-hidden="true" /></a><a className="footer-social-link" href="https://www.linkedin.com/company/sa-bpo/" target="_blank" rel="noreferrer" aria-label="SA-BPO on LinkedIn" title="LinkedIn"><Linkedin size={16} aria-hidden="true" /></a><a className="footer-top-link" href="#top" aria-label="Back to top" title="Back to top"><ArrowUp size={16} aria-hidden="true" /></a></div><img className="footer-bpo-graphic" src="/assets/footer-compliance-latest.png" alt="SA-BPO compliance and quality accreditations" /></div><small>© 2026 SA-BPO. South Africa / Global conversations.</small></footer>
+      {showCalculator && <BpoCalculatorModal onClose={() => setShowCalculator(false)} />}
     </main>
   );
 }

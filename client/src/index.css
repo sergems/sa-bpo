@@ -1128,18 +1128,12 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 .primary-nav>a[href="/contact-us"]:hover{color:var(--red);transform:translateY(-2px)}
 .primary-nav>a[href="/contact-us"]:hover::after{transform:scaleX(1)}
 
-/* Match each selected Why SA-BPO message to its card’s brand-text color. */
-.confidence-standard-detail--green p{color:#04733d}
-.confidence-standard-detail--blue p{color:#1a459d}
-.confidence-standard-detail--red p{color:#e21e25}
-.confidence-standard-detail--yellow p{color:#fdb713}
-
-/* Keep the selected-standard label and detail-panel icons in the same tone as the message. */
-.confidence-standard-detail--green .confidence-standard-detail__icon,.confidence-standard-detail--green>div>span,.confidence-standard-detail--green .confidence-standard-detail__next{color:#04733d}
-.confidence-standard-detail--blue .confidence-standard-detail__icon,.confidence-standard-detail--blue>div>span,.confidence-standard-detail--blue .confidence-standard-detail__next{color:#1a459d}
-.confidence-standard-detail--red .confidence-standard-detail__icon,.confidence-standard-detail--red>div>span,.confidence-standard-detail--red .confidence-standard-detail__next{color:#e21e25}
-.confidence-standard-detail--yellow .confidence-standard-detail__icon,.confidence-standard-detail--yellow>div>span,.confidence-standard-detail--yellow .confidence-standard-detail__next{color:#fdb713}
-
+/* Keep supporting copy white and highlight each selected standard in its card tone. */
+.confidence-standard-detail>div>span,.confidence-standard-detail p,.confidence-standard-detail__next{color:#fff!important}
+.confidence-standard-detail--green h3{color:#04733d!important}
+.confidence-standard-detail--blue h3{color:#1a459d!important}
+.confidence-standard-detail--red h3{color:#e21e25!important}
+.confidence-standard-detail--yellow h3{color:#fdb713!important}
 /* The Contact Us route cards use a full-width text column without the former icons. */
 .contact-premium-routes .contact-premium-route{grid-template-columns:minmax(0,1fr)}
 
