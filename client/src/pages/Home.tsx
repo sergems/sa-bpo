@@ -97,7 +97,7 @@ const ourHomeSliderSlides = [
   {
     id: "coffee",
     visual: "/assets/sabpo-slider4.jpg",
-    alt: "Two SA-BPO colleagues sharing coffee beside the workplace coffee station",
+    alt: "Two SA-BPO colleagues holding branded coffee cups at work",
     label: "A workplace with character",
   },
 ] as const;
@@ -184,8 +184,8 @@ const heroSlides = [
     eyebrow: "Better work / better outcomes",
     title: <>Built for <em>brighter</em> work.</>,
     copy: "A positive operating environment gives people the space to think clearly, work confidently, and deliver brilliantly.",
-    visual: "/assets/sabpo-slider-home4.jpg",
-    alt: "Smiling SA-BPO customer service advisor at work with colleagues in the background",
+    visual: "/assets/sabpo-main-hero-slide4.jpg",
+    alt: "SA-BPO customer service advisor wearing a headset at her workstation",
     tone: "people",
   },
   {

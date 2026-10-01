@@ -1295,3 +1295,9 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 .privacy-brand .brand-lockup-mark{flex-basis:42px;width:42px!important;height:42px!important}
 @media(max-width:900px){.brand-lockup{width:165px;margin-left:0}.brand-lockup-wordmark{font-size:1.22rem}.brand-lockup-mark{flex-basis:40px;width:40px!important;height:40px!important}}
 @media(max-width:720px){.brand-lockup{width:150px}.brand-lockup-content{gap:0}.brand-lockup-wordmark,.privacy-brand .brand-lockup-wordmark{font-size:1.12rem}.brand-lockup-mark,.privacy-brand .brand-lockup-mark{flex-basis:36px;width:36px!important;height:36px!important}.privacy-brand{width:145px}}
+
+/* Slide 04 rightward framing: give the advisor's face clear space beside the headline. */
+.hero-slide.hero-slide--better-work .hero-slide__media img{object-position:46% 38%;transform:translateX(9%) scale(1.14)}
+.hero-slide.hero-slide--better-work.is-active .hero-slide__media img{animation:hero-image-enter-face-focus-right 1.05s var(--ease-out) both}
+@keyframes hero-image-enter-face-focus-right{from{opacity:0;transform:translateX(9%) scale(1.08)}to{opacity:1;transform:translateX(9%) scale(1.14)}}
+@media(max-width:720px){.hero-slide.hero-slide--better-work .hero-slide__media img{object-position:39% 38%;transform:scale(1.1)}.hero-slide.hero-slide--better-work.is-active .hero-slide__media img{animation:hero-image-enter-face-focus-mobile-right 1.05s var(--ease-out) both}@keyframes hero-image-enter-face-focus-mobile-right{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:scale(1.1)}}}

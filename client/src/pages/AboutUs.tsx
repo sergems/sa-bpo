@@ -66,7 +66,7 @@ const aboutSections: AboutSection[] = [
       "With a management and support team rich in experience and knowledge, we have prided ourselves on becoming a disruptor within the BPO space; bringing innovation, change and continuous improvement to all aspects of day-to-day BPO operations.",
     ],
     image: "/assets/sabpo-hero-workplace-collaboration.jpg",
-    alt: "SA-BPO colleagues collaborating on customer experience operations",
+    alt: "SA-BPO colleagues talking in a relaxed lounge area",
     principles: aboutPrinciples,
   },
   {
@@ -76,8 +76,8 @@ const aboutSections: AboutSection[] = [
     paragraphs: [
       "Industry-leading salaries and benefits make SA-BPO a destination for all. Our location allows our people to be part of an established community at the heart of Durban, while the premises we selected and converted gives our employees a place they get to call home.",
     ],
-    image: "/assets/sabpo-our-home-work.jpg",
-    alt: "SA-BPO specialist working in the office",
+    image: "/assets/sabpo-slider-home4.jpg",
+    alt: "Smiling SA-BPO customer service advisor at work with colleagues in the background",
   },
   {
     id: "environment",
