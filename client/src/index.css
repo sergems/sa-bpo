@@ -1308,3 +1308,11 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 .contact-premium-phone{display:flex;width:fit-content;margin-top:15px}
 .site-footer-phone{display:inline-flex;align-items:center;gap:8px;margin-top:12px;color:rgba(255,255,255,.82);font-size:.78rem;font-weight:700;letter-spacing:.04em;text-decoration:none;transition:color .2s ease}
 .site-footer-phone:hover{color:var(--yellow)}
+
+/* BPO calculator international telephone field: flag/calling-code picker before the local number. */
+.bpo-phone-control{display:flex;align-items:stretch;gap:8px;width:100%}
+.bpo-intake-form .bpo-phone-control .bpo-phone-country{flex:0 1 48%;min-width:118px;max-width:180px;min-height:44px;padding:9px 26px 9px 10px;border:1px solid #d4ddd7;border-radius:2px;background:#fbfcfb;color:var(--ink);font:400 .82rem "DM Sans",sans-serif}
+.bpo-phone-prefix{display:flex;align-items:center;justify-content:center;min-width:42px;padding:8px 7px;border:1px solid #d4ddd7;border-radius:2px;background:#f2f5f2;color:#34413a;font-size:.8rem;font-weight:700}
+.bpo-intake-form .bpo-phone-control input{flex:1;min-width:0}
+.bpo-intake-form .bpo-phone-country:focus{border-color:var(--green);outline:none;box-shadow:0 0 0 3px rgba(0,122,77,.12)}
+@media(max-width:480px){.bpo-phone-control{gap:7px}.bpo-intake-form .bpo-phone-control .bpo-phone-country{flex-basis:46%;min-width:112px;padding-inline:7px;font-size:.75rem}}

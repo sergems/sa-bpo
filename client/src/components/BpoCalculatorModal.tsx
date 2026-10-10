@@ -1,5 +1,6 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { ArrowRight, CheckCircle2, LoaderCircle, Mail, ShieldCheck, Sparkles, X } from "lucide-react";
+import { getCountries, getCountryCallingCode, parsePhoneNumber, type Country } from "react-phone-number-input";
 
 export type Currency = "USD" | "GBP";
 type LeadData = {
@@ -78,6 +79,7 @@ type CalculatorSession = {
   step: "lead" | "calculator";
   draft: LeadDraft;
   lead: LeadData | null;
+  phoneCountry: Country;
   consent: boolean;
   previewOnly: boolean;
   currency: Currency;
@@ -90,6 +92,23 @@ type CalculatorSession = {
 const SESSION_COOKIE_NAME = "sa_bpo_calculator_session";
 const SESSION_STORAGE_PREFIX = "sa-bpo-calculator-session:";
 const leadFields: (keyof LeadData)[] = ["firstName", "surname", "company", "position", "email", "telephone"];
+const countryNames = new Intl.DisplayNames(["en"], { type: "region" });
+const phoneCountries = getCountries().map((country) => ({
+  country,
+  name: countryNames.of(country) ?? country,
+  callingCode: getCountryCallingCode(country),
+  flag: country.split("").map((letter) => String.fromCodePoint(letter.charCodeAt(0) + 127397)).join(""),
+})).sort((left, right) => left.name.localeCompare(right.name));
+
+function toInternationalTelephone(value: string, country: Country): string {
+  const trimmed = value.trim();
+  const parsed = trimmed.startsWith("+") ? parsePhoneNumber(trimmed) : parsePhoneNumber(trimmed, country);
+  if (parsed) return parsed.number;
+
+  const digits = trimmed.replace(/\D/g, "");
+  const nationalDigits = trimmed.startsWith("+") ? digits : digits.replace(/^0+/, "");
+  return `+${trimmed.startsWith("+") ? digits : `${getCountryCallingCode(country)}${nationalDigits}`}`;
+}
 
 function readSessionIdFromCookie(): string | null {
   if (typeof document === "undefined") return null;
@@ -150,6 +169,9 @@ function readCalculatorSession(): CalculatorSession | null {
       if (typeof savedDraft[field] === "string") draft[field] = savedDraft[field] as string;
     }
     const lead = isLeadData(saved.lead) ? saved.lead : null;
+    const phoneCountry = typeof saved.phoneCountry === "string" && getCountries().includes(saved.phoneCountry as Country)
+      ? saved.phoneCountry as Country
+      : "ZA";
     const advisorValue = Number(saved.advisors);
     const serviceId = typeof saved.serviceId === "string" && serviceOptions.some((service) => service.id === saved.serviceId)
       ? saved.serviceId
@@ -158,6 +180,7 @@ function readCalculatorSession(): CalculatorSession | null {
       step: saved.step === "calculator" && lead ? "calculator" : "lead",
       draft,
       lead,
+      phoneCountry,
       consent: true,
       previewOnly: saved.previewOnly === true,
       currency: saved.currency === "GBP" ? "GBP" : "USD",
@@ -176,6 +199,7 @@ export default function BpoCalculatorModal({ onClose }: Props) {
   const [step, setStep] = useState<"lead" | "calculator">(sessionSeed?.step ?? "lead");
   const [draft, setDraft] = useState<LeadDraft>(sessionSeed?.draft ?? emptyDraft);
   const [lead, setLead] = useState<LeadData | null>(sessionSeed?.lead ?? null);
+  const [phoneCountry, setPhoneCountry] = useState<Country>(sessionSeed?.phoneCountry ?? "ZA");
   const [consent, setConsent] = useState(sessionSeed?.consent ?? false);
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
@@ -199,12 +223,12 @@ export default function BpoCalculatorModal({ onClose }: Props) {
     try {
       const sessionId = ensureSessionCookie();
       if (!sessionId) return;
-      const session: CalculatorSession = { step, draft, lead, consent: true, previewOnly, currency, serviceId, advisors, moreThanThirty, largeAdvisorCount };
+      const session: CalculatorSession = { step, draft, lead, phoneCountry, consent: true, previewOnly, currency, serviceId, advisors, moreThanThirty, largeAdvisorCount };
       window.sessionStorage.setItem(`${SESSION_STORAGE_PREFIX}${sessionId}`, JSON.stringify(session));
     } catch {
       // Session persistence is an enhancement; the calculator remains usable without browser storage.
     }
-  }, [step, draft, lead, consent, previewOnly, currency, serviceId, advisors, moreThanThirty, largeAdvisorCount]);
+  }, [step, draft, lead, phoneCountry, consent, previewOnly, currency, serviceId, advisors, moreThanThirty, largeAdvisorCount]);
 
   const advisorCount = moreThanThirty ? Math.max(31, Number(largeAdvisorCount) || 31) : advisors;
   const { selectedService, hourlyRate, monthlyPerAdvisor, monthlyTotal, tierLabel } = calculateBpoEstimate(currency, serviceId, advisorCount);
@@ -252,7 +276,7 @@ export default function BpoCalculatorModal({ onClose }: Props) {
       company: draft.company.trim(),
       position: draft.position.trim(),
       email: draft.email.trim().toLowerCase(),
-      telephone: draft.telephone.trim(),
+      telephone: toInternationalTelephone(draft.telephone, phoneCountry),
     };
     const phoneDigits = cleanLead.telephone.replace(/\D/g, "");
     if (!consent) {
@@ -305,7 +329,7 @@ export default function BpoCalculatorModal({ onClose }: Props) {
                   <label htmlFor="bpo-company">Company<input id="bpo-company" name="company" autoComplete="organization" value={draft.company} onChange={(event) => updateDraft("company", event.target.value)} maxLength={120} required /></label>
                   <label htmlFor="bpo-position">Position<input id="bpo-position" name="position" autoComplete="organization-title" value={draft.position} onChange={(event) => updateDraft("position", event.target.value)} maxLength={100} required /></label>
                   <label htmlFor="bpo-company-email">Company email<input id="bpo-company-email" name="email" type="email" autoComplete="email" value={draft.email} onChange={(event) => updateDraft("email", event.target.value)} maxLength={254} required /></label>
-                  <label htmlFor="bpo-telephone">Telephone number<input id="bpo-telephone" name="telephone" type="tel" autoComplete="tel" inputMode="tel" value={draft.telephone} onChange={(event) => updateDraft("telephone", event.target.value)} maxLength={30} required /></label>
+                  <label className="bpo-phone-field" htmlFor="bpo-telephone">Telephone number<div className="bpo-phone-control"><select id="bpo-phone-country" className="bpo-phone-country" aria-label="Select country and telephone calling code" value={phoneCountry} onChange={(event) => setPhoneCountry(event.target.value as Country)}>{phoneCountries.map((option) => <option key={option.country} value={option.country}>{option.flag} {option.name} (+{option.callingCode})</option>)}</select><span className="bpo-phone-prefix">+{getCountryCallingCode(phoneCountry)}</span><input id="bpo-telephone" name="telephone" type="tel" autoComplete="tel-national" inputMode="tel" placeholder="Phone number" value={draft.telephone} onChange={(event) => updateDraft("telephone", event.target.value)} maxLength={30} required /></div></label>
                 </div>
                 <label className="bpo-honeypot" aria-hidden="true">Leave this field empty<input name="website" tabIndex={-1} autoComplete="off" value={draft.website} onChange={(event) => updateDraft("website", event.target.value)} /></label>
                 <label className="bpo-consent"><input type="checkbox" checked={consent} onChange={(event) => {
