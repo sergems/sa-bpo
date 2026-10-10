@@ -1310,9 +1310,19 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 .site-footer-phone:hover{color:var(--yellow)}
 
 /* BPO calculator international telephone field: flag/calling-code picker before the local number. */
+.bpo-phone-field{display:grid;gap:6px;color:#343b37;font-size:.7rem;font-weight:700;line-height:1.3}
 .bpo-phone-control{display:flex;align-items:stretch;gap:8px;width:100%}
-.bpo-intake-form .bpo-phone-control .bpo-phone-country{flex:0 1 48%;min-width:118px;max-width:180px;min-height:44px;padding:9px 26px 9px 10px;border:1px solid #d4ddd7;border-radius:2px;background:#fbfcfb;color:var(--ink);font:400 .82rem "DM Sans",sans-serif}
+.bpo-country-picker{position:relative;flex:0 0 auto}
+.bpo-country-trigger{display:flex;align-items:center;justify-content:center;gap:5px;width:54px;min-height:44px;padding:8px;border:1px solid #d4ddd7;border-radius:2px;background:#fbfcfb;color:var(--ink);cursor:pointer}
+.bpo-country-trigger>svg:first-child{display:block;width:25px;height:17px}
+.bpo-country-trigger:hover,.bpo-country-trigger[aria-expanded=true]{border-color:var(--green);background:#f2f8f4}
+.bpo-country-popover{position:absolute;z-index:30;bottom:calc(100% + 8px);left:0;width:min(280px,calc(100vw - 48px));padding:10px;border:1px solid #d4ddd7;border-radius:4px;background:#fff;box-shadow:0 14px 32px rgba(12,12,11,.2)}
+.bpo-intake-form .bpo-country-search{min-height:36px;padding:7px 9px;border:1px solid #d4ddd7;border-radius:2px;background:#fbfcfb;font-size:.76rem}
+.bpo-country-flag-grid{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;max-height:min(188px,34vh);margin-top:8px;padding:2px 3px 2px 0;overflow:auto}
+.bpo-country-flag-option{display:grid;place-items:center;aspect-ratio:1.5;padding:2px;border:1px solid transparent;border-radius:3px;background:transparent;cursor:pointer}
+.bpo-country-flag-option svg{display:block;width:100%;height:100%}
+.bpo-country-flag-option:hover,.bpo-country-flag-option:focus-visible,.bpo-country-flag-option.is-selected{border-color:var(--green);background:#edf6f0;outline:none}
+.bpo-country-empty{margin:10px 0 2px;color:var(--muted);font-size:.75rem}
 .bpo-phone-prefix{display:flex;align-items:center;justify-content:center;min-width:42px;padding:8px 7px;border:1px solid #d4ddd7;border-radius:2px;background:#f2f5f2;color:#34413a;font-size:.8rem;font-weight:700}
 .bpo-intake-form .bpo-phone-control input{flex:1;min-width:0}
-.bpo-intake-form .bpo-phone-country:focus{border-color:var(--green);outline:none;box-shadow:0 0 0 3px rgba(0,122,77,.12)}
-@media(max-width:480px){.bpo-phone-control{gap:7px}.bpo-intake-form .bpo-phone-control .bpo-phone-country{flex-basis:46%;min-width:112px;padding-inline:7px;font-size:.75rem}}
+@media(max-width:480px){.bpo-phone-control{gap:7px}.bpo-country-trigger{width:50px}.bpo-country-popover{width:min(280px,calc(100vw - 40px))}}

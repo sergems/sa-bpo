@@ -1,6 +1,7 @@
-import { FormEvent, useEffect, useMemo, useState } from "react";
-import { ArrowRight, CheckCircle2, LoaderCircle, Mail, ShieldCheck, Sparkles, X } from "lucide-react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { ArrowRight, CheckCircle2, ChevronDown, LoaderCircle, Mail, ShieldCheck, Sparkles, X } from "lucide-react";
 import { getCountries, getCountryCallingCode, parsePhoneNumber, type Country } from "react-phone-number-input";
+import countryFlags from "react-phone-number-input/flags";
 
 export type Currency = "USD" | "GBP";
 type LeadData = {
@@ -97,7 +98,6 @@ const phoneCountries = getCountries().map((country) => ({
   country,
   name: countryNames.of(country) ?? country,
   callingCode: getCountryCallingCode(country),
-  flag: country.split("").map((letter) => String.fromCodePoint(letter.charCodeAt(0) + 127397)).join(""),
 })).sort((left, right) => left.name.localeCompare(right.name));
 
 function toInternationalTelephone(value: string, country: Country): string {
@@ -200,6 +200,9 @@ export default function BpoCalculatorModal({ onClose }: Props) {
   const [draft, setDraft] = useState<LeadDraft>(sessionSeed?.draft ?? emptyDraft);
   const [lead, setLead] = useState<LeadData | null>(sessionSeed?.lead ?? null);
   const [phoneCountry, setPhoneCountry] = useState<Country>(sessionSeed?.phoneCountry ?? "ZA");
+  const [countryPickerOpen, setCountryPickerOpen] = useState(false);
+  const [countrySearch, setCountrySearch] = useState("");
+  const phoneCountryPickerRef = useRef<HTMLDivElement>(null);
   const [consent, setConsent] = useState(sessionSeed?.consent ?? false);
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
@@ -209,14 +212,43 @@ export default function BpoCalculatorModal({ onClose }: Props) {
   const [advisors, setAdvisors] = useState(sessionSeed?.advisors ?? 12);
   const [moreThanThirty, setMoreThanThirty] = useState(sessionSeed?.moreThanThirty ?? false);
   const [largeAdvisorCount, setLargeAdvisorCount] = useState(sessionSeed?.largeAdvisorCount ?? "31");
+  const selectedPhoneCountry = phoneCountries.find((option) => option.country === phoneCountry) ?? phoneCountries[0];
+  const SelectedCountryFlag = countryFlags[phoneCountry];
+  const filteredPhoneCountries = useMemo(() => {
+    const query = countrySearch.trim().toLocaleLowerCase();
+    if (!query) return phoneCountries;
+    const digits = query.replace(/\D/g, "");
+    return phoneCountries.filter((option) => option.name.toLocaleLowerCase().includes(query)
+      || option.country.toLocaleLowerCase() === query
+      || (digits.length > 0 && option.callingCode.includes(digits)));
+  }, [countrySearch]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") {
+        if (countryPickerOpen) {
+          setCountryPickerOpen(false);
+          setCountrySearch("");
+          return;
+        }
+        onClose();
+      }
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [onClose]);
+  }, [onClose, countryPickerOpen]);
+
+  useEffect(() => {
+    if (!countryPickerOpen) return;
+    const closeOnOutsidePointer = (event: PointerEvent) => {
+      if (!phoneCountryPickerRef.current?.contains(event.target as Node)) {
+        setCountryPickerOpen(false);
+        setCountrySearch("");
+      }
+    };
+    document.addEventListener("pointerdown", closeOnOutsidePointer);
+    return () => document.removeEventListener("pointerdown", closeOnOutsidePointer);
+  }, [countryPickerOpen]);
 
   useEffect(() => {
     if (!consent) return;
@@ -329,7 +361,13 @@ export default function BpoCalculatorModal({ onClose }: Props) {
                   <label htmlFor="bpo-company">Company<input id="bpo-company" name="company" autoComplete="organization" value={draft.company} onChange={(event) => updateDraft("company", event.target.value)} maxLength={120} required /></label>
                   <label htmlFor="bpo-position">Position<input id="bpo-position" name="position" autoComplete="organization-title" value={draft.position} onChange={(event) => updateDraft("position", event.target.value)} maxLength={100} required /></label>
                   <label htmlFor="bpo-company-email">Company email<input id="bpo-company-email" name="email" type="email" autoComplete="email" value={draft.email} onChange={(event) => updateDraft("email", event.target.value)} maxLength={254} required /></label>
-                  <label className="bpo-phone-field" htmlFor="bpo-telephone">Telephone number<div className="bpo-phone-control"><select id="bpo-phone-country" className="bpo-phone-country" aria-label="Select country and telephone calling code" value={phoneCountry} onChange={(event) => setPhoneCountry(event.target.value as Country)}>{phoneCountries.map((option) => <option key={option.country} value={option.country}>{option.flag} {option.name} (+{option.callingCode})</option>)}</select><span className="bpo-phone-prefix">+{getCountryCallingCode(phoneCountry)}</span><input id="bpo-telephone" name="telephone" type="tel" autoComplete="tel-national" inputMode="tel" placeholder="Phone number" value={draft.telephone} onChange={(event) => updateDraft("telephone", event.target.value)} maxLength={30} required /></div></label>
+                  <div className="bpo-phone-field"><label htmlFor="bpo-telephone">Telephone number</label><div className="bpo-phone-control"><div className="bpo-country-picker" ref={phoneCountryPickerRef}>
+                    <button className="bpo-country-trigger" type="button" aria-label={`Choose country flag; selected ${selectedPhoneCountry.name}, +${selectedPhoneCountry.callingCode}`} aria-expanded={countryPickerOpen} aria-haspopup="dialog" onClick={() => { setCountrySearch(""); setCountryPickerOpen((open) => !open); }}>{SelectedCountryFlag && <SelectedCountryFlag title="" />}<ChevronDown size={12} aria-hidden="true" /></button>
+                    {countryPickerOpen && <div className="bpo-country-popover" role="dialog" aria-label="Choose a country flag"><input className="bpo-country-search" type="search" placeholder="Search flags or calling code" aria-label="Search countries by name or calling code" value={countrySearch} onChange={(event) => setCountrySearch(event.target.value)} autoFocus /><div className="bpo-country-flag-grid" role="group" aria-label="Available country flags" onKeyDown={(event) => { if (!["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"].includes(event.key)) return; const buttons = Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>(".bpo-country-flag-option")); const currentIndex = buttons.indexOf(document.activeElement as HTMLButtonElement); if (currentIndex < 0 || buttons.length === 0) return; event.preventDefault(); const direction = event.key === "ArrowRight" || event.key === "ArrowDown" ? 1 : -1; buttons[(currentIndex + direction + buttons.length) % buttons.length]?.focus(); }}>{filteredPhoneCountries.map((option, index) => {
+                      const CountryFlag = countryFlags[option.country];
+                      return <button className={`bpo-country-flag-option${option.country === phoneCountry ? " is-selected" : ""}`} type="button" key={option.country} aria-label={`${option.name}, +${option.callingCode}`} aria-pressed={option.country === phoneCountry} tabIndex={index === 0 ? 0 : -1} onClick={() => { setPhoneCountry(option.country); setCountryPickerOpen(false); setCountrySearch(""); setFormError(""); }}>{CountryFlag && <CountryFlag title="" />}</button>;
+                    })}</div>{filteredPhoneCountries.length === 0 && <p className="bpo-country-empty">No matching flags.</p>}</div>}
+                  </div><span className="bpo-phone-prefix">+{getCountryCallingCode(phoneCountry)}</span><input id="bpo-telephone" name="telephone" type="tel" autoComplete="tel-national" inputMode="tel" placeholder="Phone number" value={draft.telephone} onChange={(event) => updateDraft("telephone", event.target.value)} maxLength={30} required /></div></div>
                 </div>
                 <label className="bpo-honeypot" aria-hidden="true">Leave this field empty<input name="website" tabIndex={-1} autoComplete="off" value={draft.website} onChange={(event) => updateDraft("website", event.target.value)} /></label>
                 <label className="bpo-consent"><input type="checkbox" checked={consent} onChange={(event) => {
