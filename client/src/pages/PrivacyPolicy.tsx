@@ -55,7 +55,7 @@ export default function PrivacyPolicy() {
           <aside className="privacy-aside"><strong>Last updated</strong><p>21 August 2026</p><p>This is a working website draft. Review it with qualified legal counsel before publication or reliance.</p></aside>
           <article className="privacy-article">
             {policySections.map((section, index) => <section className="privacy-section" key={section.title}><span className="privacy-section-number">0{index + 1}</span><div><h2>{section.title}</h2><p>{section.body}</p></div></section>)}
-            <section className="privacy-contact"><p className="privacy-kicker">Questions or requests</p><h2>Talk to our team.</h2><p>For privacy questions or requests about personal information, contact SA-BPO at <a href="mailto:hello@sa-bpo.com">hello@sa-bpo.com</a>.</p></section>
+            <section className="privacy-contact"><p className="privacy-kicker">Questions or requests</p><h2>Talk to our team.</h2><p>For privacy questions or requests about personal information, contact SA-BPO at <a href="mailto:hello@sa-bpo.com">hello@sa-bpo.com</a> or call <a href="tel:+27310026554" aria-label="Call SA-BPO on 031 002 6554">031 002 6554</a>.</p></section>
           </article>
         </div>
       </section>

@@ -1301,3 +1301,10 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 .hero-slide.hero-slide--better-work.is-active .hero-slide__media img{animation:hero-image-enter-face-focus-right 1.05s var(--ease-out) both}
 @keyframes hero-image-enter-face-focus-right{from{opacity:0;transform:translateX(9%) scale(1.08)}to{opacity:1;transform:translateX(9%) scale(1.14)}}
 @media(max-width:720px){.hero-slide.hero-slide--better-work .hero-slide__media img{object-position:39% 38%;transform:scale(1.1)}.hero-slide.hero-slide--better-work.is-active .hero-slide__media img{animation:hero-image-enter-face-focus-mobile-right 1.05s var(--ease-out) both}@keyframes hero-image-enter-face-focus-mobile-right{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:scale(1.1)}}}
+
+/* Click-to-call contact details. */
+.contact-section__phone{display:inline-flex;align-items:center;gap:10px;margin-top:14px;color:#0c0c0b;font-size:clamp(1rem,1.45vw,1.35rem);font-weight:700;text-decoration:none;transition:color .2s ease,gap .2s ease}
+.contact-section__phone:hover{gap:14px;color:#04733d}
+.contact-premium-phone{display:flex;width:fit-content;margin-top:15px}
+.site-footer-phone{display:inline-flex;align-items:center;gap:8px;margin-top:12px;color:rgba(255,255,255,.82);font-size:.78rem;font-weight:700;letter-spacing:.04em;text-decoration:none;transition:color .2s ease}
+.site-footer-phone:hover{color:var(--yellow)}
