@@ -128,6 +128,23 @@ const formatCurrency = (amount: number, currency: Currency) => new Intl.NumberFo
   { style: "currency", currency, minimumFractionDigits: 2, maximumFractionDigits: 2 },
 ).format(amount);
 
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, (character) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  })[character] ?? character);
+}
+
+function emailDetailRow(label: string, value: string): string {
+  return `<tr>
+    <td style="padding:11px 14px;border-bottom:1px solid #e8e7e1;color:#686963;font-size:13px;line-height:19px;vertical-align:top;width:38%;">${escapeHtml(label)}</td>
+    <td style="padding:11px 14px;border-bottom:1px solid #e8e7e1;color:#0c0c0b;font-size:14px;line-height:20px;font-weight:600;vertical-align:top;word-break:break-word;">${escapeHtml(value)}</td>
+  </tr>`;
+}
+
 async function sendLeadEmail(
   lead: CalculatorLead,
   env: CalculatorEmailEnvironment,
@@ -140,6 +157,15 @@ async function sendLeadEmail(
   }
 
   const safeCompany = lead.company.replace(/[\r\n\t]+/g, " ").replace(/\s+/g, " ").slice(0, 120);
+  const receivedAt = new Date();
+  const receivedLabel = new Intl.DateTimeFormat("en-ZA", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "Africa/Johannesburg",
+  }).format(receivedAt) + " SAST";
+  const estimate = calculator
+    ? calculateBpoEstimate(calculator.currency, calculator.serviceId, calculator.advisorCount)
+    : null;
   const text = [
     calculator ? "Completed BPO calculator estimate" : "New BPO calculator access request",
     "",
@@ -148,9 +174,7 @@ async function sendLeadEmail(
     `Position: ${lead.position}`,
     `Company email: ${lead.email}`,
     `Telephone: ${lead.telephone}`,
-    ...(calculator ? (() => {
-      const estimate = calculateBpoEstimate(calculator.currency, calculator.serviceId, calculator.advisorCount);
-      return [
+    ...(calculator && estimate ? [
         "",
         "Calculator selections and indicative estimate:",
         `Service focus: ${estimate.selectedService.label}`,
@@ -163,12 +187,76 @@ async function sendLeadEmail(
         `Monthly rate per advisor: ${formatCurrency(estimate.monthlyPerAdvisor, calculator.currency)}`,
         `Total indicative monthly invoice: ${formatCurrency(estimate.monthlyTotal, calculator.currency)}`,
         `Working assumptions: 9 hours per day, 45 hours per week, ${MONTHLY_HOURS} working hours per month.`,
-      ];
-    })() : []),
+      ] : []),
     "",
-    `Received: ${new Date().toISOString()}`,
+    `Received: ${receivedAt.toISOString()} (${receivedLabel})`,
     "Consent to process the calculator enquiry: Yes",
   ].join("\n");
+  const contactRows = [
+    ["Name", `${lead.firstName} ${lead.surname}`],
+    ["Company", lead.company],
+    ["Position", lead.position],
+    ["Company email", lead.email],
+    ["Telephone", lead.telephone],
+  ].map(([label, value]) => emailDetailRow(label, value)).join("");
+  const estimateRows = calculator && estimate ? [
+    ["Service focus", estimate.selectedService.label],
+    ["Service option", calculator.serviceId],
+    ["Currency", calculator.currency],
+    ["Advisor count", String(calculator.advisorCount)],
+    ["More than 30 advisors", calculator.moreThanThirty ? "Yes" : "No"],
+    ["Rate tier", estimate.tierLabel],
+    ["Hourly rate per advisor", formatCurrency(estimate.hourlyRate, calculator.currency)],
+    ["Monthly rate per advisor", formatCurrency(estimate.monthlyPerAdvisor, calculator.currency)],
+  ].map(([label, value]) => emailDetailRow(label, value)).join("") : "";
+  const title = calculator ? "Calculator estimate received" : "New calculator enquiry";
+  const html = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>${escapeHtml(title)}</title>
+  </head>
+  <body style="margin:0;padding:0;background-color:#f5f3ee;font-family:Arial,Helvetica,sans-serif;color:#0c0c0b;">
+    <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">${calculator ? "A new BPO estimate and contact details are ready for review." : "A new BPO calculator enquiry is ready for review."}</div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;background-color:#f5f3ee;">
+      <tr><td align="center" style="padding:28px 14px;">
+        <table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:640px;background-color:#fffdfa;border:1px solid #e2e0d8;border-radius:16px;overflow:hidden;">
+          <tr><td height="6" style="height:6px;background-color:#f7b719;font-size:0;line-height:0;">&nbsp;</td></tr>
+          <tr><td style="padding:25px 30px 23px;background-color:#005b3a;color:#ffffff;">
+            <p style="margin:0;color:#ffffff;font-size:23px;line-height:28px;font-weight:800;letter-spacing:-1.2px;">SA-BPO</p>
+            <p style="margin:8px 0 0;color:#f7b719;font-size:10px;line-height:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Calculator enquiry</p>
+          </td></tr>
+          <tr><td style="padding:30px 30px 12px;">
+            <p style="margin:0 0 9px;color:#007a4d;font-size:11px;line-height:16px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">${calculator ? "Estimate ready" : "New enquiry"}</p>
+            <h1 style="margin:0;color:#0c0c0b;font-size:27px;line-height:34px;font-weight:700;letter-spacing:-0.6px;">${escapeHtml(title)}</h1>
+            <p style="margin:12px 0 0;color:#686963;font-size:15px;line-height:23px;">${calculator ? "A visitor has completed the calculator. Their contact details and selected estimate are summarised below." : "A visitor has submitted their details through the SA-BPO calculator."}</p>
+          </td></tr>
+          <tr><td style="padding:20px 30px 8px;">
+            <h2 style="margin:0 0 10px;color:#0c0c0b;font-size:15px;line-height:21px;font-weight:700;">Contact details</h2>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;border:1px solid #e8e7e1;border-radius:10px;border-collapse:separate;border-spacing:0;background-color:#ffffff;">${contactRows}</table>
+          </td></tr>
+          ${calculator && estimate ? `<tr><td style="padding:22px 30px 8px;">
+            <h2 style="margin:0 0 10px;color:#0c0c0b;font-size:15px;line-height:21px;font-weight:700;">Estimate snapshot</h2>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;border:1px solid #d8e5dc;border-radius:10px;border-collapse:separate;border-spacing:0;background-color:#f7faf7;">${estimateRows}</table>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;margin-top:12px;background-color:#005b3a;border-radius:10px;">
+              <tr><td style="padding:16px 18px 4px;color:#ffffff;font-size:12px;line-height:18px;">Indicative monthly invoice</td></tr>
+              <tr><td style="padding:0 18px 15px;color:#f7b719;font-size:27px;line-height:34px;font-weight:700;">${escapeHtml(formatCurrency(estimate.monthlyTotal, calculator.currency))}</td></tr>
+            </table>
+            <p style="margin:12px 0 0;padding:12px 14px;border-left:3px solid #f7b719;background-color:#f5f3ee;color:#686963;font-size:12px;line-height:19px;">Based on 9 hours per day, 45 hours per week, and ${MONTHLY_HOURS} working hours per month.${calculator.moreThanThirty ? " For teams above 30 advisors, the estimate uses the 25–30 advisor base rate; please follow up to discuss the specific requirement." : ""}</p>
+          </td></tr>` : ""}
+          <tr><td style="padding:24px 30px 26px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-top:1px solid #e8e7e1;">
+              <tr><td style="padding:15px 0 0;color:#686963;font-size:12px;line-height:18px;">Received ${escapeHtml(receivedLabel)}<br>Visitor consent recorded: Yes</td></tr>
+            </table>
+          </td></tr>
+          <tr><td style="padding:17px 30px;background-color:#f0eee7;color:#686963;font-size:11px;line-height:17px;">SA-BPO &nbsp;·&nbsp; Automated calculator notification</td></tr>
+        </table>
+      </td></tr>
+    </table>
+  </body>
+</html>`;
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -182,6 +270,7 @@ async function sendLeadEmail(
       reply_to: lead.email,
       subject: `${calculator ? "BPO calculator estimate" : "BPO calculator access request"} — ${safeCompany}`,
       text,
+      html,
     }),
   });
 
