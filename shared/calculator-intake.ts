@@ -1,3 +1,5 @@
+import { calculateBpoEstimate, MONTHLY_HOURS, serviceOptions, type Currency } from "./bpo-estimate";
+
 export type CalculatorLead = {
   firstName: string;
   surname: string;
@@ -5,6 +7,13 @@ export type CalculatorLead = {
   position: string;
   email: string;
   telephone: string;
+};
+
+export type CalculatorSelection = {
+  serviceId: string;
+  currency: Currency;
+  advisorCount: number;
+  moreThanThirty: boolean;
 };
 
 export type CalculatorEmailEnvironment = {
@@ -19,8 +28,7 @@ export type CalculatorIntakeResult = {
 type RateWindow = { startedAt: number; count: number };
 type ResendApiResponse = { id?: string };
 
-// Temporary trial destination. Replace with SA-BPO's final inbox after testing.
-const RECIPIENT = "serge@mediabeyondvision.com";
+const RECIPIENT = "admin@sa-bpo.co.za";
 const SENDER = "SA-BPO Calculator <calculator@notifications.sa-bpo.com>";
 const RATE_WINDOW_MS = 15 * 60 * 1000;
 const RATE_WINDOW_MAX = 5;
@@ -77,6 +85,25 @@ function readLead(body: unknown): CalculatorLead | null {
   return phoneDigits.length >= 7 && phoneDigits.length <= 15 ? lead : null;
 }
 
+function readCalculatorSelection(value: unknown): CalculatorSelection | null {
+  if (!isRecord(value)) return null;
+  const { serviceId, currency, advisorCount, moreThanThirty } = value;
+  if (
+    typeof serviceId !== "string" ||
+    !serviceOptions.some((service) => service.id === serviceId) ||
+    (currency !== "USD" && currency !== "GBP") ||
+    typeof advisorCount !== "number" ||
+    !Number.isInteger(advisorCount) ||
+    typeof moreThanThirty !== "boolean" ||
+    (moreThanThirty && (advisorCount < 31 || advisorCount > 1000)) ||
+    (!moreThanThirty && (advisorCount < 1 || advisorCount > 30))
+  ) {
+    return null;
+  }
+
+  return { serviceId, currency, advisorCount, moreThanThirty };
+}
+
 function isRateLimited(clientAddress: string): boolean {
   const now = Date.now();
   const key = clientAddress || "unknown";
@@ -96,7 +123,16 @@ function isRateLimited(clientAddress: string): boolean {
   return current.count > RATE_WINDOW_MAX;
 }
 
-async function sendLeadEmail(lead: CalculatorLead, env: CalculatorEmailEnvironment): Promise<void> {
+const formatCurrency = (amount: number, currency: Currency) => new Intl.NumberFormat(
+  currency === "USD" ? "en-US" : "en-GB",
+  { style: "currency", currency, minimumFractionDigits: 2, maximumFractionDigits: 2 },
+).format(amount);
+
+async function sendLeadEmail(
+  lead: CalculatorLead,
+  env: CalculatorEmailEnvironment,
+  calculator?: CalculatorSelection,
+): Promise<void> {
   const apiKey = env.RESEND_API_KEY?.trim();
 
   if (!apiKey) {
@@ -105,16 +141,33 @@ async function sendLeadEmail(lead: CalculatorLead, env: CalculatorEmailEnvironme
 
   const safeCompany = lead.company.replace(/[\r\n\t]+/g, " ").replace(/\s+/g, " ").slice(0, 120);
   const text = [
-    "New BPO calculator access request",
+    calculator ? "Completed BPO calculator estimate" : "New BPO calculator access request",
     "",
     `Name: ${lead.firstName} ${lead.surname}`,
     `Company: ${lead.company}`,
     `Position: ${lead.position}`,
     `Company email: ${lead.email}`,
     `Telephone: ${lead.telephone}`,
+    ...(calculator ? (() => {
+      const estimate = calculateBpoEstimate(calculator.currency, calculator.serviceId, calculator.advisorCount);
+      return [
+        "",
+        "Calculator selections and indicative estimate:",
+        `Service focus: ${estimate.selectedService.label}`,
+        `Service option: ${calculator.serviceId}`,
+        `Currency: ${calculator.currency}`,
+        `Advisor count selected: ${calculator.advisorCount}`,
+        `More than 30 advisors selected: ${calculator.moreThanThirty ? "Yes" : "No"}`,
+        `Rate tier applied: ${estimate.tierLabel}`,
+        `Hourly rate per advisor: ${formatCurrency(estimate.hourlyRate, calculator.currency)}`,
+        `Monthly rate per advisor: ${formatCurrency(estimate.monthlyPerAdvisor, calculator.currency)}`,
+        `Total indicative monthly invoice: ${formatCurrency(estimate.monthlyTotal, calculator.currency)}`,
+        `Working assumptions: 9 hours per day, 45 hours per week, ${MONTHLY_HOURS} working hours per month.`,
+      ];
+    })() : []),
     "",
     `Received: ${new Date().toISOString()}`,
-    "Consent to follow up: Yes",
+    "Consent to process the calculator enquiry: Yes",
   ].join("\n");
 
   const response = await fetch("https://api.resend.com/emails", {
@@ -127,7 +180,7 @@ async function sendLeadEmail(lead: CalculatorLead, env: CalculatorEmailEnvironme
       from: SENDER,
       to: [RECIPIENT],
       reply_to: lead.email,
-      subject: `BPO calculator access request — ${safeCompany}`,
+      subject: `${calculator ? "BPO calculator estimate" : "BPO calculator access request"} — ${safeCompany}`,
       text,
     }),
   });
@@ -152,6 +205,12 @@ export async function processCalculatorIntake(
     return { status: 400, body: { error: "Check your details and consent, then try again." } };
   }
 
+  const hasCalculatorSelection = Object.prototype.hasOwnProperty.call(body, "calculator");
+  const calculator = hasCalculatorSelection ? readCalculatorSelection(body.calculator) : undefined;
+  if (calculator === null) {
+    return { status: 400, body: { error: "Check your calculator selections and try again." } };
+  }
+
   if (isRateLimited(clientAddress)) {
     return { status: 429, body: { error: "Too many requests. Please wait a few minutes and try again." } };
   }
@@ -164,7 +223,7 @@ export async function processCalculatorIntake(
   }
 
   try {
-    await sendLeadEmail(lead, env);
+    await sendLeadEmail(lead, env, calculator);
     return { status: 200, body: { ok: true } };
   } catch {
     // Do not log lead data, API credentials, or provider responses.

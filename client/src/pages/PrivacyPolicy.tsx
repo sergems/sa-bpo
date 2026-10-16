@@ -11,11 +11,11 @@ const policySections = [
   },
   {
     title: "Information we may receive",
-    body: "We may receive contact details, company information, service requirements, correspondence, and any other information you choose to provide when you contact SA-BPO. We may also receive limited technical information that helps us keep the website secure and understand how it is used.",
+    body: "We may receive contact details, company information, service requirements, correspondence, and any other information you choose to provide when you contact SA-BPO. If you use the BPO calculator, your contact details and the service focus, currency, advisor count, and indicative estimate you select are sent to admin@sa-bpo.co.za when you close the calculator, even if you do not compose a separate email. We may also receive limited technical information that helps us keep the website secure and understand how it is used.",
   },
   {
     title: "How we use information",
-    body: "SA-BPO uses information to respond to enquiries, discuss and deliver services, maintain professional relationships, improve our website and operating model, and meet applicable legal or contractual obligations. We use information only where there is a clear business, legal, or service-related reason to do so.",
+    body: "SA-BPO uses information to prepare indicative calculator estimates, respond to enquiries, discuss and deliver services, maintain professional relationships, improve our website and operating model, and meet applicable legal or contractual obligations. Calculator selections are sent to SA-BPO for the requested estimate whether or not you compose a separate email. We use information only where there is a clear business, legal, or service-related reason to do so.",
   },
   {
     title: "When information is shared",

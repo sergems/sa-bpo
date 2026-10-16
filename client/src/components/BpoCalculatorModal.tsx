@@ -2,8 +2,8 @@ import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, CheckCircle2, ChevronDown, LoaderCircle, Mail, ShieldCheck, Sparkles, X } from "lucide-react";
 import { getCountries, getCountryCallingCode, parsePhoneNumber, type Country } from "react-phone-number-input";
 import countryFlags from "react-phone-number-input/flags";
+import { calculateBpoEstimate, MONTHLY_HOURS, serviceOptions, type Currency } from "../../../shared/bpo-estimate";
 
-export type Currency = "USD" | "GBP";
 type LeadData = {
   firstName: string;
   surname: string;
@@ -13,38 +13,7 @@ type LeadData = {
   telephone: string;
 };
 type LeadDraft = LeadData & { website: string };
-type ServiceOption = {
-  id: string;
-  label: string;
-  rates: Record<Currency, [number, number, number]>;
-};
 type Props = { onClose: () => void };
-
-const MONTHLY_HOURS = 195;
-export const serviceOptions: ServiceOption[] = [
-  { id: "customer-service", label: "Customer Service", rates: { USD: [12.5, 12.15, 11.75], GBP: [9.5, 9, 8.75] } },
-  { id: "outbound-sales", label: "Outbound Sales — No Data Provided", rates: { USD: [13.5, 13.1625, 12.825], GBP: [10, 9.75, 9.5] } },
-  { id: "inbound-sales", label: "Inbound Sales and Retentions", rates: { USD: [13.1625, 12.825, 12.4875], GBP: [9.75, 9.5, 9.25] } },
-  { id: "complaints", label: "Complaints and Escalations", rates: { USD: [13.5, 13.1625, 12.825], GBP: [10, 9.75, 9.5] } },
-  { id: "ecommerce", label: "E-Commerce Support", rates: { USD: [16.2, 15.525, 14.85], GBP: [12, 11.5, 11] } },
-  { id: "after-hours", label: "Out Of Hours Support / Night Shift", rates: { USD: [8.775, 8.4375, 8.1], GBP: [6.5, 6.25, 6] } },
-];
-
-export function calculateBpoEstimate(currency: Currency, serviceId: string, advisorCount: number) {
-  const safeCount = Math.max(1, Math.round(advisorCount || 1));
-  const tierIndex: 0 | 1 | 2 = safeCount <= 12 ? 0 : safeCount <= 24 ? 1 : 2;
-  const selectedService = serviceOptions.find((service) => service.id === serviceId) ?? serviceOptions[0];
-  const hourlyRate = selectedService.rates[currency][tierIndex];
-  const monthlyPerAdvisor = hourlyRate * MONTHLY_HOURS;
-  return {
-    selectedService,
-    tierIndex,
-    hourlyRate,
-    monthlyPerAdvisor,
-    monthlyTotal: monthlyPerAdvisor * safeCount,
-    tierLabel: tierIndex === 0 ? "1–12 advisors" : tierIndex === 1 ? "13–24 advisors" : "25–30 advisor base rate",
-  };
-}
 
 const inclusions = [
   "Advisor salary, most competitive rates and commissions in Durban",
@@ -203,9 +172,14 @@ export default function BpoCalculatorModal({ onClose }: Props) {
   const [countryPickerOpen, setCountryPickerOpen] = useState(false);
   const [countrySearch, setCountrySearch] = useState("");
   const phoneCountryPickerRef = useRef<HTMLDivElement>(null);
+  const closeCalculatorRef = useRef<() => void>(() => onClose());
+  const sentEstimateSnapshotRef = useRef<string | null>(null);
+  const estimateRequestRef = useRef<Promise<boolean> | null>(null);
   const [consent, setConsent] = useState(sessionSeed?.consent ?? false);
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
+  const [estimateSending, setEstimateSending] = useState(false);
+  const [estimateSendError, setEstimateSendError] = useState("");
   const [previewOnly, setPreviewOnly] = useState(sessionSeed?.previewOnly ?? false);
   const [currency, setCurrency] = useState<Currency>(sessionSeed?.currency ?? "USD");
   const [serviceId, setServiceId] = useState(sessionSeed?.serviceId ?? serviceOptions[0].id);
@@ -231,7 +205,7 @@ export default function BpoCalculatorModal({ onClose }: Props) {
           setCountrySearch("");
           return;
         }
-        onClose();
+        closeCalculatorRef.current();
       }
     };
     document.addEventListener("keydown", onKeyDown);
@@ -262,7 +236,7 @@ export default function BpoCalculatorModal({ onClose }: Props) {
     }
   }, [step, draft, lead, phoneCountry, consent, previewOnly, currency, serviceId, advisors, moreThanThirty, largeAdvisorCount]);
 
-  const advisorCount = moreThanThirty ? Math.max(31, Number(largeAdvisorCount) || 31) : advisors;
+  const advisorCount = moreThanThirty ? Math.min(1000, Math.max(31, Math.round(Number(largeAdvisorCount) || 31))) : advisors;
   const { selectedService, hourlyRate, monthlyPerAdvisor, monthlyTotal, tierLabel } = calculateBpoEstimate(currency, serviceId, advisorCount);
 
   const emailDraft = useMemo(() => {
@@ -281,6 +255,7 @@ export default function BpoCalculatorModal({ onClose }: Props) {
       "",
       `Service focus: ${selectedService.label}`,
       `Advisors required: ${advisorCount}`,
+      `More than 30 advisors selected: ${moreThanThirty ? "Yes" : "No"}`,
       `Currency: ${currency}`,
       `Rate tier: ${tierLabel}`,
       `Hourly rate per advisor: ${formatCurrency(hourlyRate, currency)}`,
@@ -291,7 +266,7 @@ export default function BpoCalculatorModal({ onClose }: Props) {
       "",
       "These prices are indicative. SA-BPO will gather more information to prepare a tailored quote.",
     ];
-    return `mailto:hello@sa-bpo.co.za?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
+    return `mailto:admin@sa-bpo.co.za?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
   }, [lead, selectedService.label, advisorCount, currency, tierLabel, hourlyRate, monthlyPerAdvisor, monthlyTotal, moreThanThirty]);
 
   const updateDraft = (field: keyof LeadDraft, value: string) => {
@@ -312,7 +287,7 @@ export default function BpoCalculatorModal({ onClose }: Props) {
     };
     const phoneDigits = cleanLead.telephone.replace(/\D/g, "");
     if (!consent) {
-      setFormError("Please confirm that SA-BPO may use these details to respond to your enquiry.");
+      setFormError("Please confirm that SA-BPO may use your details and calculator selections to prepare and respond to this estimate.");
       return;
     }
     if (phoneDigits.length < 7 || phoneDigits.length > 15) {
@@ -344,16 +319,58 @@ export default function BpoCalculatorModal({ onClose }: Props) {
     }
   };
 
+  const sendEstimateSnapshot = async (): Promise<boolean> => {
+    if (!lead || previewOnly) return true;
+    const calculator = { serviceId, currency, advisorCount, moreThanThirty };
+    const payload = { ...lead, consent, website: draft.website, calculator };
+    const snapshot = JSON.stringify(payload);
+    if (sentEstimateSnapshotRef.current === snapshot) return true;
+    if (estimateRequestRef.current) return estimateRequestRef.current;
+
+    setEstimateSending(true);
+    setEstimateSendError("");
+    const request = (async () => {
+      try {
+        const response = await fetch("/api/calculator-intake", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const result = await response.json().catch(() => ({})) as { error?: string };
+        if (!response.ok) throw new Error(result.error || "We couldn't send your estimate selections.");
+        sentEstimateSnapshotRef.current = snapshot;
+        return true;
+      } catch {
+        setEstimateSendError("We couldn't send your calculator selections to SA-BPO. Please try again or use the compose button to send the estimate yourself.");
+        return false;
+      } finally {
+        setEstimateSending(false);
+        estimateRequestRef.current = null;
+      }
+    })();
+    estimateRequestRef.current = request;
+    return request;
+  };
+
+  const closeCalculator = async () => {
+    if (step === "calculator" && lead && !previewOnly) {
+      const sent = await sendEstimateSnapshot();
+      if (!sent) return;
+    }
+    onClose();
+  };
+  closeCalculatorRef.current = () => { void closeCalculator(); };
+
   return (
-    <div className="modal-backdrop bpo-calculator-backdrop" onClick={onClose}>
+    <div className="modal-backdrop bpo-calculator-backdrop" onClick={() => closeCalculatorRef.current()}>
       <section className="calculator-modal bpo-calculator-modal" role="dialog" aria-modal="true" aria-labelledby="bpo-calculator-title" onClick={(event) => event.stopPropagation()}>
-        <button className="modal-close" onClick={onClose} aria-label="Close BPO calculator"><X /></button>
+        <button className="modal-close" onClick={() => closeCalculatorRef.current()} aria-label="Close BPO calculator" disabled={estimateSending}><X /></button>
         <div className="calculator-modal-body bpo-calculator-body">
           {step === "lead" ? (
             <>
               <p className="modal-kicker"><Sparkles size={15} aria-hidden="true" /> BPO calculator <span className="bpo-step-count">01 / 02</span></p>
               <h2 id="bpo-calculator-title" className="calculator-modal-title">Start with a <em>clear picture.</em></h2>
-              <p className="bpo-calculator-intro">First, tell us who you are. Your details are sent securely to our outsourcing team so they can follow up on your estimate.</p>
+              <p className="bpo-calculator-intro">First, tell us who you are. Your details are sent securely to SA-BPO. Your final calculator selections are also sent when you close the calculator, even if you do not compose an estimate email.</p>
               <form className="bpo-intake-form" onSubmit={submitLead}>
                 <div className="bpo-intake-grid">
                   <label htmlFor="bpo-first-name">Name<input id="bpo-first-name" name="firstName" autoComplete="given-name" value={draft.firstName} onChange={(event) => updateDraft("firstName", event.target.value)} maxLength={80} required autoFocus /></label>
@@ -374,7 +391,7 @@ export default function BpoCalculatorModal({ onClose }: Props) {
                   const optedIn = event.target.checked;
                   setConsent(optedIn);
                   if (!optedIn) clearCalculatorSession();
-                }} required /><span>I agree that SA-BPO may use these details to respond to this calculator enquiry.</span></label>
+                }} required /><span>I agree that SA-BPO may use my details and calculator selections to prepare this estimate and respond to this enquiry.</span></label>
                 {formError && <p className="bpo-form-error" role="alert">{formError}</p>}
                 <button className="button button--green button--full bpo-submit-button" type="submit" disabled={submitting}>
                   {submitting ? <><LoaderCircle size={17} className="bpo-spinner" /> Sending details…</> : <>Continue to calculator <ArrowRight size={17} /></>}
@@ -384,21 +401,21 @@ export default function BpoCalculatorModal({ onClose }: Props) {
           ) : (
             <>
               <p className="modal-kicker"><CheckCircle2 size={15} aria-hidden="true" /> Details validated <span className="bpo-step-count">02 / 02</span></p>
-              <div className={`bpo-calculator-welcome${previewOnly ? " bpo-calculator-welcome--preview" : ""}`}><div><p className="bpo-welcome-label">Welcome</p><h2 id="bpo-calculator-title">{lead?.firstName}, let's shape your <em>first estimate.</em></h2></div>{!previewOnly && <p>Your details have been sent to our outsourcing team.</p>}</div>
+              <div className={`bpo-calculator-welcome${previewOnly ? " bpo-calculator-welcome--preview" : ""}`}><div><p className="bpo-welcome-label">Welcome</p><h2 id="bpo-calculator-title">{lead?.firstName}, let's shape your <em>first estimate.</em></h2></div>{!previewOnly && <p>Your contact details are sent. Your final selections will be emailed to SA-BPO when you close this calculator, whether or not you compose an estimate email.</p>}</div>
               <div className="bpo-calculator-controls">
                 <label className="bpo-service-picker" htmlFor="bpo-service-focus">Service focus
-                  <select className="bpo-service-select" id="bpo-service-focus" name="bpo-service" value={serviceId} onChange={(event) => setServiceId(event.target.value)}>
+                  <select className="bpo-service-select" id="bpo-service-focus" name="bpo-service" value={serviceId} disabled={estimateSending} onChange={(event) => setServiceId(event.target.value)}>
                     {serviceOptions.map((service) => <option key={service.id} value={service.id}>{service.label}</option>)}
                   </select>
                   <small className="bpo-service-help">Select a service focus from the dropdown to view its estimate.</small>
                 </label>
                 <div className="bpo-calc-settings">
                   <fieldset className="bpo-currency-fieldset"><legend>Currency</legend><div className="bpo-currency-switch">
-                    {(["USD", "GBP"] as const).map((option) => <label className={currency === option ? "is-selected" : ""} key={option}><input type="radio" name="bpo-currency" value={option} checked={currency === option} onChange={() => setCurrency(option)} /><span>{option === "USD" ? "$ USD" : "£ GBP"}</span></label>)}
+                    {(["USD", "GBP"] as const).map((option) => <label className={currency === option ? "is-selected" : ""} key={option}><input type="radio" name="bpo-currency" value={option} checked={currency === option} disabled={estimateSending} onChange={() => setCurrency(option)} /><span>{option === "USD" ? "$ USD" : "£ GBP"}</span></label>)}
                   </div></fieldset>
-                  <div className="bpo-advisor-control"><label htmlFor="bpo-advisor-range">Advisors required for launch <output>{moreThanThirty ? `${advisorCount}+` : advisors}</output></label><input id="bpo-advisor-range" type="range" min="1" max="30" value={advisors} disabled={moreThanThirty} onChange={(event) => setAdvisors(Number(event.target.value))} /><div className="bpo-range-labels"><span>1 advisor</span><span>30 advisors</span></div></div>
-                  <label className="bpo-over-thirty"><input type="checkbox" checked={moreThanThirty} onChange={(event) => setMoreThanThirty(event.target.checked)} /><span>I need more than 30 advisors</span></label>
-                  {moreThanThirty && <label className="bpo-large-count" htmlFor="bpo-large-advisors">Advisor count<input id="bpo-large-advisors" type="number" min={31} max={1000} step={1} value={largeAdvisorCount} onChange={(event) => setLargeAdvisorCount(event.target.value)} onBlur={() => setLargeAdvisorCount(String(Math.min(1000, Math.max(31, Number(largeAdvisorCount) || 31))))} /></label>}
+                  <div className="bpo-advisor-control"><label htmlFor="bpo-advisor-range">Advisors required for launch <output>{moreThanThirty ? `${advisorCount}+` : advisors}</output></label><input id="bpo-advisor-range" type="range" min="1" max="30" value={advisors} disabled={moreThanThirty || estimateSending} onChange={(event) => setAdvisors(Number(event.target.value))} /><div className="bpo-range-labels"><span>1 advisor</span><span>30 advisors</span></div></div>
+                  <label className="bpo-over-thirty"><input type="checkbox" checked={moreThanThirty} disabled={estimateSending} onChange={(event) => setMoreThanThirty(event.target.checked)} /><span>I need more than 30 advisors</span></label>
+                  {moreThanThirty && <label className="bpo-large-count" htmlFor="bpo-large-advisors">Advisor count<input id="bpo-large-advisors" type="number" min={31} max={1000} step={1} value={largeAdvisorCount} disabled={estimateSending} onChange={(event) => setLargeAdvisorCount(event.target.value)} onBlur={() => setLargeAdvisorCount(String(Math.min(1000, Math.max(31, Math.round(Number(largeAdvisorCount) || 31)))))} /></label>}
                 </div>
               </div>
               <section className="bpo-estimate" aria-live="polite" aria-labelledby="bpo-estimate-heading">
@@ -414,8 +431,10 @@ export default function BpoCalculatorModal({ onClose }: Props) {
               <details className="bpo-inclusions"><summary>What is included in the rate?</summary><ul>{inclusions.map((item) => <li key={item}>{item}</li>)}</ul></details>
               <p className="bpo-disclaimer">These prices are indicative and intended to provide an initial guide. Our associates will gather more information to create a tailored quote for your business requirements.</p>
               <div className="bpo-result-actions">
-                <a className="button button--green button--full" href={emailDraft}><Mail size={17} /> Compose estimate email <ArrowRight size={17} /></a>
-                <button className="bpo-close-button" type="button" onClick={onClose}>Close calculator</button>
+                {estimateSending && <p className="bpo-form-status" role="status">Sending your selections securely to SA-BPO…</p>}
+                {estimateSendError && <p className="bpo-form-error" role="alert">{estimateSendError}</p>}
+                <a className="button button--green button--full" href={emailDraft} aria-disabled={estimateSending} onClick={(event) => { if (estimateSending) { event.preventDefault(); return; } void sendEstimateSnapshot(); }}><Mail size={17} /> Compose estimate email <ArrowRight size={17} /></a>
+                <button className="bpo-close-button" type="button" onClick={() => { void closeCalculator(); }} disabled={estimateSending}>{estimateSending ? "Sending estimate…" : "Close calculator"}</button>
               </div>
             </>
           )}
