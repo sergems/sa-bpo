@@ -385,7 +385,7 @@ export default function BpoCalculatorModal({ onClose }: Props) {
           ) : (
             <>
               <p className="modal-kicker"><CheckCircle2 size={15} aria-hidden="true" /> Details validated <span className="bpo-step-count">02 / 02</span></p>
-              <div className={`bpo-calculator-welcome${previewOnly ? " bpo-calculator-welcome--preview" : ""}`}><div><p className="bpo-welcome-label">Welcome</p><h2 id="bpo-calculator-title">{lead?.firstName}, let's shape your <em>first estimate.</em></h2></div>{!previewOnly && <p>Your details are held for this estimate. When you finish, one combined email with your details and final selections is sent to SA-BPO.</p>}</div>
+              <div className={`bpo-calculator-welcome${previewOnly ? " bpo-calculator-welcome--preview" : ""}`}><div><p className="bpo-welcome-label">Welcome</p><h2 id="bpo-calculator-title">{lead?.firstName}, let's shape your <em>first estimate.</em></h2></div></div>
               <div className="bpo-calculator-controls">
                 <label className="bpo-service-picker" htmlFor="bpo-service-focus">Service focus
                   <select className="bpo-service-select" id="bpo-service-focus" name="bpo-service" value={serviceId} disabled={estimateSending} onChange={(event) => setServiceId(event.target.value)}>
