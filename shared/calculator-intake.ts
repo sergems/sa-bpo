@@ -21,7 +21,7 @@ type ResendApiResponse = { id?: string };
 
 // Temporary trial destination. Replace with SA-BPO's final inbox after testing.
 const RECIPIENT = "serge@mediabeyondvision.com";
-const SENDER = "SA-BPO Calculator <calculator@notifications.sa-bpo.co.za>";
+const SENDER = "SA-BPO Calculator <calculator@notifications.sa-bpo.com>";
 const RATE_WINDOW_MS = 15 * 60 * 1000;
 const RATE_WINDOW_MAX = 5;
 const MAX_BODY_LENGTH = 12 * 1024;
