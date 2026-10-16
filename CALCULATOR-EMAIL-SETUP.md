@@ -1,19 +1,19 @@
 # BPO calculator email setup with Resend
 
-## Current test configuration
+## Current notification configuration
 
-The calculator uses the Cloudflare Pages Function at `/api/calculator-intake` and Resend for outbound notifications. Automatic calculator notifications are currently sent from **SA-BPO Calculator <calculator@notifications.sa-bpo.com>** to the trial inbox **`serge@mediabeyondvision.com`**. Replies go to the visitor's company email.
+The calculator uses the Cloudflare Pages Function at `/api/calculator-intake` and Resend for outbound notifications. Automatic calculator notifications are sent from **SA-BPO Calculator <calculator@notifications.sa-bpo.com>** to **`admin@sa-bpo.co.za`**. Replies go to the visitor's company email.
 
 When a visitor continues to the calculator, their contact details are held with the calculator session. **One combined automatic email** is sent when they close the calculator or choose **Compose estimate email**. It contains their name, surname, company, position, company email, telephone, selected service, currency, advisor count, rate tier, hourly rate, monthly rate per advisor, total estimate, and working assumptions. They do not need to compose or send an email draft for the automatic notification to go out.
 
-The **Compose estimate email** action also opens a separate draft addressed to **`admin@sa-bpo.co.za`**. The visitor must choose to send that draft in their email application. The automatic notification remains a single email to Serge; sending the draft themselves creates an additional message from the visitor.
+The **Compose estimate email** action also opens a separate draft addressed to **`admin@sa-bpo.co.za`**. The visitor must choose to send that draft in their email application. The automatic notification remains a single email to admin; sending the draft themselves creates an additional message from the visitor.
 
-> The automatic notification recipient remains Serge for testing. Do not change it to `admin@sa-bpo.co.za` until the site owner asks to switch the test recipient.
+The automatic notification and the optional estimate-email draft both use `admin@sa-bpo.co.za`. The automatic notification is sent by the site; the separate draft is sent only if the visitor chooses to send it from their email application.
 
 ## Domain roles
 
 - `sa-bpo.com` is managed in Cloudflare and provides the verified Resend sending subdomain `notifications.sa-bpo.com`.
-- `sa-bpo.co.za` is the Microsoft 365 / Exchange email domain. The estimate draft is addressed to `admin@sa-bpo.co.za`.
+- `sa-bpo.co.za` is the Microsoft 365 / Exchange email domain. The automatic calculator notification and optional estimate draft are addressed to `admin@sa-bpo.co.za`.
 
 Resend only sends email. Do not change the Microsoft 365 MX records or other DNS for `sa-bpo.co.za` as part of this setup.
 
@@ -68,9 +68,9 @@ Resend only sends email. Do not change the Microsoft 365 MX records or other DNS
 
 1. Ensure Cloudflare Pages has deployed the latest code from the connected GitHub `main` branch. If you save or change the secret after a deployment, start a new deployment.
 2. Open the deployed SA-BPO site, launch the calculator, enter the required contact details and consent, and continue to the calculator.
-3. Change the service focus, currency, and advisor count, then close the calculator. One combined email should arrive at **`serge@mediabeyondvision.com`**. Check its junk folder too.
+3. Change the service focus, currency, and advisor count, then close the calculator. One combined email should arrive at **`admin@sa-bpo.co.za`**. Check its junk folder too.
 4. Confirm that the email includes both the visitor's details and the final estimate selections, including the pricing tier and monthly total.
-5. Try **Compose estimate email**. It opens a draft addressed to `admin@sa-bpo.co.za`; the automatic email is still sent to Serge independently. Sending the draft is optional and creates an additional visitor-sent message.
+5. Try **Compose estimate email**. It opens a draft addressed to `admin@sa-bpo.co.za`; the automatic email is also sent to that inbox independently. Sending the draft is optional and creates an additional visitor-sent message.
 6. If needed, inspect **Emails** / **Logs** in Resend. Resend accepting an API request means it accepted the message for processing, not necessarily that the recipient's mailbox placed it in the inbox.
 
 ## If something goes wrong

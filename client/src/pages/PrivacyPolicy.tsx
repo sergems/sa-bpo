@@ -11,7 +11,7 @@ const policySections = [
   },
   {
     title: "Information we may receive",
-    body: "We may receive contact details, company information, service requirements, correspondence, and any other information you choose to provide when you contact SA-BPO. If you use the BPO calculator, your contact details and final service focus, currency, advisor count, and estimate are sent together in one automatic email to the current calculator test inbox, serge@mediabeyondvision.com, when you close the calculator or choose to compose an estimate email. You do not need to send the separate email draft for this automatic notification to be sent. We may also receive limited technical information that helps us keep the website secure and understand how it is used.",
+    body: "We may receive contact details, company information, service requirements, correspondence, and any other information you choose to provide when you contact SA-BPO. If you use the BPO calculator, your contact details and final service focus, currency, advisor count, and estimate are sent together in one automatic email to admin@sa-bpo.co.za when you close the calculator or choose to compose an estimate email. You do not need to send the separate email draft for this automatic notification to be sent. We may also receive limited technical information that helps us keep the website secure and understand how it is used.",
   },
   {
     title: "How we use information",

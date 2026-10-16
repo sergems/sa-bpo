@@ -114,7 +114,7 @@ const ourHomeExperience = {
     title: <>The Benefits of<br /><em>SA-BPO’s Home.</em></>,
     points: ["Spacious modern working environment", "State of the art network solutions and redundancy", "The Spill: In house fresh coffee", "Sweet Shelf", "Snack n Chat: Relaxation and break out zones", "Luxurious Amenities", "Construction Site: Wellness zone"],
     visual: "/assets/sabpo-our-home-contact-centre.jpg",
-    alt: "A team member assists a colleague at a computer workstation in the contact centre",
+    alt: "SA-BPO team members working at contact-centre desks with a foosball table in the foreground",
     label: "A live operating environment",
   },
 };
@@ -134,7 +134,7 @@ const locationContent = {
     text: "",
     points: ["Community culture embraced by all at SA-BPO.", "Excellent location for all major transport networks.", "Cost effective retail solutions for our employees.", "Away from the Central Hubs of the Industry allowing for a more creative approach to the BPO space for both ourselves and our employees.", "Sun, Sea, Sand and all the trappings of a prime destination but at community driven costs and prices."],
     visual: "/assets/sabpo-our-home-work.jpg",
-    alt: "SA-BPO workplace specialist working at a desk in the Durban North office",
+    alt: "SA-BPO team member smiling at her workstation in the Durban North office",
   },
 };
 
@@ -167,7 +167,7 @@ const heroSlides = [
     title: <>Service culture. <em>People first.</em></>,
     copy: "When our people feel supported, your customers feel the difference—in every conversation, every day.",
     visual: "/assets/sabpo-home-banner2.jpg",
-    alt: "SA-BPO customer service advisor working at a workstation in the contact centre",
+    alt: "Three SA-BPO colleagues working together at a customer service workstation",
     tone: "people",
   },
   {

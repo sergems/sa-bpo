@@ -1306,6 +1306,11 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 .contact-section__phone{display:inline-flex;align-items:center;gap:10px;margin-top:14px;color:#0c0c0b;font-size:clamp(1rem,1.45vw,1.35rem);font-weight:700;text-decoration:none;transition:color .2s ease,gap .2s ease}
 .contact-section__phone:hover{gap:14px;color:#04733d}
 .contact-premium-phone{display:flex;width:fit-content;margin-top:15px}
+
+/* Main hero slide 01: lower the image and retain enough overscan to reveal the tops of heads. */
+.hero-slide.hero-slide--people .hero-slide__media img{object-position:center 0%;transform:translateY(3.5%) scale(1.04)}
+.hero-slide.hero-slide--people.is-active .hero-slide__media img{animation:hero-image-enter-people-lower 1.05s var(--ease-out) both}
+@keyframes hero-image-enter-people-lower{from{opacity:0;transform:translateY(3.5%) scale(1.06)}to{opacity:1;transform:translateY(3.5%) scale(1.04)}}
 .site-footer-phone{display:inline-flex;align-items:center;gap:8px;margin-top:12px;color:rgba(255,255,255,.82);font-size:.78rem;font-weight:700;letter-spacing:.04em;text-decoration:none;transition:color .2s ease}
 .site-footer-phone:hover{color:var(--yellow)}
 
