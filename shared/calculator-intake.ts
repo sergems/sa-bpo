@@ -28,7 +28,7 @@ export type CalculatorIntakeResult = {
 type RateWindow = { startedAt: number; count: number };
 type ResendApiResponse = { id?: string };
 
-const RECIPIENT = "admin@sa-bpo.co.za";
+const RECIPIENT = "serge@mediabeyondvision.com";
 const SENDER = "SA-BPO Calculator <calculator@notifications.sa-bpo.com>";
 const RATE_WINDOW_MS = 15 * 60 * 1000;
 const RATE_WINDOW_MAX = 5;
