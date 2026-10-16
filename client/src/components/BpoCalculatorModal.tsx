@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { ArrowRight, CheckCircle2, ChevronDown, LoaderCircle, Mail, ShieldCheck, Sparkles, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronDown, Mail, ShieldCheck, Sparkles, X } from "lucide-react";
 import { getCountries, getCountryCallingCode, parsePhoneNumber, type Country } from "react-phone-number-input";
 import countryFlags from "react-phone-number-input/flags";
 import { calculateBpoEstimate, MONTHLY_HOURS, serviceOptions, type Currency } from "../../../shared/bpo-estimate";
@@ -176,9 +176,7 @@ export default function BpoCalculatorModal({ onClose }: Props) {
   const sentEstimateSnapshotRef = useRef<string | null>(null);
   const estimateRequestRef = useRef<Promise<boolean> | null>(null);
   const [consent, setConsent] = useState(sessionSeed?.consent ?? false);
-  const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
-  const [detailsOnlySent, setDetailsOnlySent] = useState(false);
   const [estimateSending, setEstimateSending] = useState(false);
   const [estimateSendError, setEstimateSendError] = useState("");
   const [previewOnly, setPreviewOnly] = useState(sessionSeed?.previewOnly ?? false);
@@ -226,7 +224,7 @@ export default function BpoCalculatorModal({ onClose }: Props) {
   }, [countryPickerOpen]);
 
   useEffect(() => {
-    if (!consent || detailsOnlySent) return;
+    if (!consent) return;
     try {
       const sessionId = ensureSessionCookie();
       if (!sessionId) return;
@@ -235,7 +233,7 @@ export default function BpoCalculatorModal({ onClose }: Props) {
     } catch {
       // Session persistence is an enhancement; the calculator remains usable without browser storage.
     }
-  }, [step, draft, lead, phoneCountry, consent, previewOnly, currency, serviceId, advisors, moreThanThirty, largeAdvisorCount, detailsOnlySent]);
+  }, [step, draft, lead, phoneCountry, consent, previewOnly, currency, serviceId, advisors, moreThanThirty, largeAdvisorCount]);
 
   const advisorCount = moreThanThirty ? Math.min(1000, Math.max(31, Math.round(Number(largeAdvisorCount) || 31))) : advisors;
   const { selectedService, hourlyRate, monthlyPerAdvisor, monthlyTotal, tierLabel } = calculateBpoEstimate(currency, serviceId, advisorCount);
@@ -275,11 +273,9 @@ export default function BpoCalculatorModal({ onClose }: Props) {
     if (formError) setFormError("");
   };
 
-  const submitLead = async (event: FormEvent<HTMLFormElement>) => {
+  const submitLead = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setFormError("");
-    const submitter = (event.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null;
-    const detailsOnly = submitter?.value === "details-only";
     const cleanLead: LeadData = {
       firstName: draft.firstName.trim(),
       surname: draft.surname.trim(),
@@ -298,28 +294,8 @@ export default function BpoCalculatorModal({ onClose }: Props) {
       return;
     }
 
-    if (!detailsOnly) {
-      setLead(cleanLead);
-      setStep("calculator");
-      return;
-    }
-
-    setSubmitting(true);
-    try {
-      const response = await fetch("/api/calculator-intake", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...cleanLead, consent, website: draft.website }),
-      });
-      const result = await response.json().catch(() => ({})) as { error?: string };
-      if (!response.ok) throw new Error(result.error || "We couldn't send your details. Please try again.");
-      clearCalculatorSession();
-      setDetailsOnlySent(true);
-    } catch (error) {
-      setFormError(error instanceof Error ? error.message : "We couldn't send your details. Please try again.");
-    } finally {
-      setSubmitting(false);
-    }
+    setLead(cleanLead);
+    setStep("calculator");
   };
 
   const sendEstimateSnapshot = async (): Promise<boolean> => {
@@ -374,18 +350,11 @@ export default function BpoCalculatorModal({ onClose }: Props) {
       <section className="calculator-modal bpo-calculator-modal" role="dialog" aria-modal="true" aria-labelledby="bpo-calculator-title" onClick={(event) => event.stopPropagation()}>
         <button className="modal-close" onClick={() => closeCalculatorRef.current()} aria-label="Close BPO calculator" disabled={estimateSending}><X /></button>
         <div className="calculator-modal-body bpo-calculator-body">
-          {detailsOnlySent ? (
-            <div className="bpo-details-only-success" role="status">
-              <p className="modal-kicker"><CheckCircle2 size={15} aria-hidden="true" /> Details sent</p>
-              <h2 id="bpo-calculator-title" className="calculator-modal-title">Thank you for sharing your <em>details.</em></h2>
-              <p className="bpo-calculator-intro">Your contact details have been sent to SA-BPO. Because you chose details only, no calculator selections or estimate were sent.</p>
-              <button className="button button--green button--full" type="button" onClick={onClose}>Close</button>
-            </div>
-          ) : step === "lead" ? (
+          {step === "lead" ? (
             <>
               <p className="modal-kicker"><Sparkles size={15} aria-hidden="true" /> BPO calculator <span className="bpo-step-count">01 / 02</span></p>
               <h2 id="bpo-calculator-title" className="calculator-modal-title">Start with a <em>clear picture.</em></h2>
-              <p className="bpo-calculator-intro">First, tell us who you are. Choose to send your details only, or continue to the calculator. If you continue, SA-BPO receives one email with your details and final calculator selections when you finish—no separate email is needed.</p>
+              <p className="bpo-calculator-intro">First, tell us who you are. Your details are held for this estimate. When you finish or close the calculator, one email with your details and final calculator selections is sent to SA-BPO—no separate email is needed.</p>
               <form className="bpo-intake-form" onSubmit={submitLead}>
                 <div className="bpo-intake-grid">
                   <label htmlFor="bpo-first-name">Name<input id="bpo-first-name" name="firstName" autoComplete="given-name" value={draft.firstName} onChange={(event) => updateDraft("firstName", event.target.value)} maxLength={80} required autoFocus /></label>
@@ -406,13 +375,10 @@ export default function BpoCalculatorModal({ onClose }: Props) {
                   const optedIn = event.target.checked;
                   setConsent(optedIn);
                   if (!optedIn) clearCalculatorSession();
-                }} required /><span>I agree that SA-BPO may use my details and, if I continue, my calculator selections to prepare this estimate and respond to this enquiry.</span></label>
+                }} required /><span>I agree that SA-BPO may use my details and calculator selections to prepare this estimate and respond to this enquiry.</span></label>
                 {formError && <p className="bpo-form-error" role="alert">{formError}</p>}
-                <button className="button button--green button--full bpo-submit-button" type="submit" disabled={submitting}>
+                <button className="button button--green button--full bpo-submit-button" type="submit">
                   Continue to calculator <ArrowRight size={17} />
-                </button>
-                <button className="bpo-close-button bpo-details-only-button" type="submit" name="intakeAction" value="details-only" disabled={submitting}>
-                  {submitting ? <><LoaderCircle size={17} className="bpo-spinner" /> Sending details…</> : "Send details only"}
                 </button>
               </form>
             </>

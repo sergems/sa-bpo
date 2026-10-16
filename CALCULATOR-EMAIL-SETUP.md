@@ -4,12 +4,9 @@
 
 The calculator uses the Cloudflare Pages Function at `/api/calculator-intake` and Resend for outbound notifications. Automatic calculator notifications are currently sent from **SA-BPO Calculator <calculator@notifications.sa-bpo.com>** to the trial inbox **`serge@mediabeyondvision.com`**. Replies go to the visitor's company email.
 
-A visitor chooses one of two automatic-email paths:
+When a visitor continues to the calculator, their contact details are held with the calculator session. **One combined automatic email** is sent when they close the calculator or choose **Compose estimate email**. It contains their name, surname, company, position, company email, telephone, selected service, currency, advisor count, rate tier, hourly rate, monthly rate per advisor, total estimate, and working assumptions. They do not need to compose or send an email draft for the automatic notification to go out.
 
-1. **Send details only:** one email with their contact details is sent to Serge. No calculator selections or estimate are included.
-2. **Continue to calculator:** no email is sent at the gate. Once the visitor closes the calculator or chooses **Compose estimate email**, one combined automatic email is sent to Serge with their contact details, selected service, currency, advisor count, pricing tier, hourly and monthly rates, total estimate, and working assumptions.
-
-The **Compose estimate email** button also opens a separate draft addressed to **`admin@sa-bpo.co.za`**. That draft is only sent if the visitor chooses to send it in their email application. The automatic notification remains a single email to Serge. If the visitor manually sends the draft as well, that will be an additional message from the visitor.
+The **Compose estimate email** action also opens a separate draft addressed to **`admin@sa-bpo.co.za`**. The visitor must choose to send that draft in their email application. The automatic notification remains a single email to Serge; sending the draft themselves creates an additional message from the visitor.
 
 > The automatic notification recipient remains Serge for testing. Do not change it to `admin@sa-bpo.co.za` until the site owner asks to switch the test recipient.
 
@@ -70,16 +67,17 @@ Resend only sends email. Do not change the Microsoft 365 MX records or other DNS
 ## Part 6 — Deploy and test
 
 1. Ensure Cloudflare Pages has deployed the latest code from the connected GitHub `main` branch. If you save or change the secret after a deployment, start a new deployment.
-2. To test the **details-only** path, enter the required contact details and consent, then choose **Send details only**. One email containing those details should reach `serge@mediabeyondvision.com`.
-3. To test the **calculator** path, enter the contact details and consent, then choose **Continue to calculator**. Select a service focus, currency, and advisor count. Close the calculator to send one combined email to Serge. You may also choose **Compose estimate email**; the same single automatic notification is triggered, and a separate draft opens to `admin@sa-bpo.co.za`.
-4. Confirm the combined email contains the lead details and final estimate selections, including the applied pricing tier and monthly total. Check the inbox's junk folder too.
-5. If needed, inspect **Emails** / **Logs** in Resend. Resend accepting an API request means it accepted the message for processing, not necessarily that the recipient's mailbox placed it in the inbox.
+2. Open the deployed SA-BPO site, launch the calculator, enter the required contact details and consent, and continue to the calculator.
+3. Change the service focus, currency, and advisor count, then close the calculator. One combined email should arrive at **`serge@mediabeyondvision.com`**. Check its junk folder too.
+4. Confirm that the email includes both the visitor's details and the final estimate selections, including the pricing tier and monthly total.
+5. Try **Compose estimate email**. It opens a draft addressed to `admin@sa-bpo.co.za`; the automatic email is still sent to Serge independently. Sending the draft is optional and creates an additional visitor-sent message.
+6. If needed, inspect **Emails** / **Logs** in Resend. Resend accepting an API request means it accepted the message for processing, not necessarily that the recipient's mailbox placed it in the inbox.
 
 ## If something goes wrong
 
 - **“The secure email service is not configured yet.”** Confirm `RESEND_API_KEY` is an encrypted secret in the correct Pages project and environment (Production or Preview), then redeploy.
 - **“We couldn't send your details just now.”** Check that the Resend domain is verified, the API key is valid, the sender is `calculator@notifications.sa-bpo.com`, and the Resend log for the request.
-- **The details-only path works but calculator submission fails:** Check the Resend logs for the combined-email request. The modal displays an error and remains open if the automatic estimate email is rejected; retry by closing the calculator again.
+- **The calculator closes without a notification:** Close it using its controls (Close calculator, X, backdrop, or Escape). Closing the browser tab directly can interrupt an in-flight send.
 - **The API key is lost or exposed:** Create a new key in Resend, update the encrypted Cloudflare secret, redeploy, and revoke the old key in Resend.
 
 ## Local development
