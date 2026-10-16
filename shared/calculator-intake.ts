@@ -8,9 +8,7 @@ export type CalculatorLead = {
 };
 
 export type CalculatorEmailEnvironment = {
-  CF_ACCOUNT_ID?: string;
-  CF_EMAIL_API_TOKEN?: string;
-  CF_EMAIL_FROM?: string;
+  RESEND_API_KEY?: string;
 };
 
 export type CalculatorIntakeResult = {
@@ -19,18 +17,11 @@ export type CalculatorIntakeResult = {
 };
 
 type RateWindow = { startedAt: number; count: number };
-type CloudflareSendResult = {
-  delivered?: string[];
-  queued?: string[];
-  permanent_bounces?: string[];
-};
-type CloudflareApiResponse = {
-  success?: boolean;
-  result?: CloudflareSendResult | null;
-};
+type ResendApiResponse = { id?: string };
 
-const RECIPIENT = "admin@sa-bpo.co.za";
-const DEFAULT_SENDER = "calculator@sa-bpo.co.za";
+// Temporary trial destination. Replace with SA-BPO's final inbox after testing.
+const RECIPIENT = "serge@mediabeyondvision.com";
+const SENDER = "SA-BPO Calculator <calculator@notifications.sa-bpo.co.za>";
 const RATE_WINDOW_MS = 15 * 60 * 1000;
 const RATE_WINDOW_MAX = 5;
 const MAX_BODY_LENGTH = 12 * 1024;
@@ -106,11 +97,9 @@ function isRateLimited(clientAddress: string): boolean {
 }
 
 async function sendLeadEmail(lead: CalculatorLead, env: CalculatorEmailEnvironment): Promise<void> {
-  const accountId = env.CF_ACCOUNT_ID?.trim();
-  const apiToken = env.CF_EMAIL_API_TOKEN?.trim();
-  const from = env.CF_EMAIL_FROM?.trim() || DEFAULT_SENDER;
+  const apiKey = env.RESEND_API_KEY?.trim();
 
-  if (!accountId || !apiToken || !EMAIL_PATTERN.test(from)) {
+  if (!apiKey) {
     throw new Error("Email service is not configured");
   }
 
@@ -128,35 +117,23 @@ async function sendLeadEmail(lead: CalculatorLead, env: CalculatorEmailEnvironme
     "Consent to follow up: Yes",
   ].join("\n");
 
-  const response = await fetch(
-    `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(accountId)}/email/sending/send`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiToken}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        to: RECIPIENT,
-        from,
-        reply_to: lead.email,
-        subject: `BPO calculator access request — ${safeCompany}`,
-        text,
-      }),
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
     },
-  );
+    body: JSON.stringify({
+      from: SENDER,
+      to: [RECIPIENT],
+      reply_to: lead.email,
+      subject: `BPO calculator access request — ${safeCompany}`,
+      text,
+    }),
+  });
 
-  const apiResult = (await response.json().catch(() => null)) as CloudflareApiResponse | null;
-  const delivery = apiResult?.result;
-  const deliveredOrQueued = [...(delivery?.delivered ?? []), ...(delivery?.queued ?? [])].map((address) => address.toLowerCase());
-  const permanentlyBounced = (delivery?.permanent_bounces ?? []).map((address) => address.toLowerCase());
-
-  if (
-    !response.ok ||
-    apiResult?.success !== true ||
-    permanentlyBounced.includes(RECIPIENT) ||
-    !deliveredOrQueued.includes(RECIPIENT)
-  ) {
+  const apiResult = (await response.json().catch(() => null)) as ResendApiResponse | null;
+  if (!response.ok || !apiResult?.id) {
     throw new Error("Email service did not accept the calculator lead");
   }
 }
@@ -179,7 +156,7 @@ export async function processCalculatorIntake(
     return { status: 429, body: { error: "Too many requests. Please wait a few minutes and try again." } };
   }
 
-  if (!env.CF_ACCOUNT_ID?.trim() || !env.CF_EMAIL_API_TOKEN?.trim()) {
+  if (!env.RESEND_API_KEY?.trim()) {
     return {
       status: 503,
       body: { error: "The secure email service is not configured yet. Please try again later or contact SA-BPO directly." },
