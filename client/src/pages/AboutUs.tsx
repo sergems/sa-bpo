@@ -42,8 +42,8 @@ const aboutSections: AboutSection[] = [
       "SA-BPO is a South African outsourcing company that partners with global businesses to deliver world-class customer experiences across the omnichannel space.",
       "Every customer interaction is supported by people who care about getting the details right.",
     ],
-    image: "/assets/sabpo-our-home-welcome.jpg",
-    alt: "People gathered at the SA-BPO reception",
+    image: "/assets/sabpo-about-section-01.jpg",
+    alt: "SA-BPO team members smiling and waving from a balcony above the company signage",
   },
   {
     id: "client-requirements",
