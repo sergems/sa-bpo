@@ -1331,3 +1331,116 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 .bpo-phone-prefix{display:flex;align-items:center;justify-content:center;min-width:42px;padding:8px 7px;border:1px solid #d4ddd7;border-radius:2px;background:#f2f5f2;color:#34413a;font-size:.8rem;font-weight:700}
 .bpo-intake-form .bpo-phone-control input{flex:1;min-width:0}
 @media(max-width:480px){.bpo-phone-control{gap:7px}.bpo-country-trigger{width:50px}.bpo-country-popover{width:min(280px,calc(100vw - 40px))}}
+
+
+/* Contact page application handoff: replace the enquiry form with one clear action. */
+.contact-premium-enquiry--application{display:flex;align-items:center;justify-content:center;padding:clamp(36px,5vw,60px) 20px}
+.contact-premium-enquiry__submit{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;margin:0;padding:13px 22px;background:var(--yellow);color:var(--ink);font:700 .78rem "Poppins",sans-serif;text-decoration:none;transition:background .2s ease,transform .18s ease}
+.contact-premium-enquiry__submit:hover{gap:10px;background:#ffd05a;color:var(--ink);transform:translateY(-1px)}
+
+
+/* Contact cards: clear local presence paired with a high-contrast social panel. */
+.contact-premium-info{grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);align-items:stretch;gap:18px;padding:clamp(38px,5.5vw,76px) clamp(20px,8vw,120px)}
+.contact-info-card{position:relative;isolation:isolate;min-height:270px;overflow:hidden;padding:clamp(25px,3.6vw,42px);border:1px solid rgba(12,12,11,.08);border-top:3px solid var(--green);border-radius:2px 26px 2px 26px;box-shadow:0 16px 40px rgba(12,12,11,.055)}
+.contact-premium-location{display:flex;flex-direction:column;justify-content:space-between;padding-top:clamp(25px,3.6vw,42px);background:#fff}
+.contact-info-card .contact-premium-kicker{position:relative;z-index:1;display:flex;align-items:center;gap:11px;margin:0 0 28px;color:var(--green);font-size:.68rem;letter-spacing:.16em}
+.contact-info-card .contact-premium-kicker span{display:grid;place-items:center;width:28px;height:28px;border:1px solid rgba(0,122,77,.18);border-radius:50%;color:var(--green);font-size:.59rem;letter-spacing:0}
+.contact-premium-location__title{position:relative;z-index:1;align-items:flex-start;gap:17px}
+.contact-premium-location__icon{display:grid;place-items:center;flex:none;width:48px;height:48px;border-radius:2px 15px 2px 15px;background:#e9f2ed;color:var(--green)}
+.contact-premium-location__title h2{max-width:440px;margin:0 0 9px;font-size:clamp(1.85rem,3.1vw,2.8rem);line-height:1.02;font-weight:600;letter-spacing:-.06em}
+.contact-premium-location__title p{margin:0;color:var(--muted);font-family:var(--body-copy-font);font-size:.94rem;line-height:1.55}
+.contact-premium-location__actions{position:relative;z-index:1;display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:30px}
+.contact-premium-location__map,.contact-premium-location .contact-premium-phone{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;margin:0;padding:11px 15px;border:1px solid transparent;border-radius:2px 12px 2px 12px;font-size:.7rem;font-weight:700;letter-spacing:.015em;text-decoration:none}
+.contact-premium-location__map{background:var(--green);color:#fff}
+.contact-premium-location__map:hover{background:#006940;color:#fff}
+.contact-premium-location .contact-premium-phone{border-color:#dce4de;background:#f6f8f5;color:var(--ink)}
+.contact-premium-location .contact-premium-phone:hover{border-color:var(--green);background:#edf4ef;color:var(--green)}
+.contact-premium-location__watermark{position:absolute;z-index:-1;right:12px;bottom:-68px;color:rgba(0,91,58,.045);font:700 220px/.9 "Space Grotesk",sans-serif;letter-spacing:-.1em;pointer-events:none}
+.contact-info-card--social{border-top-color:var(--yellow);background:var(--ink);color:#fff}
+.contact-info-card--social .contact-premium-kicker{color:var(--yellow)}
+.contact-info-card--social .contact-premium-kicker span{border-color:rgba(247,183,25,.35);color:var(--yellow)}
+.contact-premium-social h2{position:relative;z-index:1;max-width:400px;margin:0;color:#fff;font-size:clamp(2.2rem,4vw,3.45rem);line-height:.97;font-weight:550;letter-spacing:-.06em}
+.contact-premium-social h2 em{color:var(--yellow);font-style:normal}
+.contact-premium-social__note{margin:13px 0 0;color:rgba(255,255,255,.68);font-family:var(--body-copy-font);font-size:.86rem;line-height:1.5}
+.contact-premium-social__links{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+.contact-premium-social__links a{display:flex;align-items:center;gap:10px;min-height:54px;padding:10px 12px;border:1px solid rgba(255,255,255,.15);border-radius:2px 12px 2px 12px;background:rgba(255,255,255,.055);color:#fff;font-size:.74rem;font-weight:700;text-decoration:none;transition:transform .18s ease,border-color .18s ease,background .18s ease}
+.contact-premium-social__links a:hover{transform:translateY(-2px);border-color:rgba(247,183,25,.65);background:rgba(247,183,25,.1);color:#fff}
+.contact-premium-social__icon{display:grid;place-items:center;flex:none;width:32px;height:32px;border-radius:9px;background:#fff;color:#1877f2}
+.contact-premium-social__links a:nth-child(2) .contact-premium-social__icon{color:#0a66c2}
+.contact-premium-social__links a>svg:last-child{margin-left:auto;color:var(--yellow)}
+.contact-info-card a:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+@media(max-width:720px){.contact-premium-info{grid-template-columns:1fr;gap:14px;padding:38px 20px}.contact-info-card{min-height:0;padding:25px 22px;border-radius:2px 20px 2px 20px}.contact-info-card .contact-premium-kicker{margin-bottom:23px}.contact-premium-location__title h2{font-size:clamp(1.85rem,7vw,2.5rem)}.contact-premium-location__actions{margin-top:24px}.contact-premium-social h2{font-size:clamp(2.35rem,9vw,3.1rem)}}
+@media(max-width:390px){.contact-premium-social__links{grid-template-columns:1fr}.contact-premium-location__actions{align-items:stretch;flex-direction:column}.contact-premium-location__actions a{justify-content:center}}
+
+.contact-premium-social .contact-premium-social__links a:first-child,.contact-premium-social .contact-premium-social__links a:nth-child(2){color:#fff}
+
+
+/* Enquiry routes: continue the numbered white/dark card system below the contact details. */
+.contact-premium-routes{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;padding:0 clamp(20px,8vw,120px) clamp(42px,5.5vw,76px)}
+.contact-premium-route{display:flex;min-height:285px;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:18px;padding:clamp(25px,3.6vw,42px);border-top-width:3px}
+.contact-premium-route--jobs{border-top-color:var(--green);background:#fff}
+.contact-premium-route--business.contact-info-card--social{border-top-color:var(--yellow);background:var(--ink);color:#fff}
+.contact-premium-route .contact-premium-kicker{display:flex;align-items:center;gap:11px;margin:0;color:var(--green);font-size:.68rem;letter-spacing:.14em}
+.contact-premium-route .contact-premium-kicker span{display:grid;place-items:center;width:28px;height:28px;border:1px solid rgba(0,122,77,.18);border-radius:50%;color:var(--green);font-size:.59rem;letter-spacing:0}
+.contact-premium-route--business .contact-premium-kicker{color:var(--yellow)}
+.contact-premium-route--business .contact-premium-kicker span{border-color:rgba(247,183,25,.35);color:var(--yellow)}
+.contact-premium-route__content{width:100%}
+.contact-premium-route__content h2{max-width:520px;margin:0 0 12px;color:var(--ink);font-size:clamp(2rem,3.4vw,3.1rem);line-height:.98;font-weight:560;letter-spacing:-.06em}
+.contact-premium-route--jobs .contact-premium-route__content h2 em{color:var(--green);font-style:normal}
+.contact-premium-route--business .contact-premium-route__content h2{color:#fff}
+.contact-premium-route--business .contact-premium-route__content h2 em{color:var(--yellow);font-style:normal}
+.contact-premium-route__content>p{max-width:510px;margin:0;color:#555750;font-family:var(--body-copy-font);font-size:var(--body-copy-size);line-height:var(--body-copy-leading)}
+.contact-premium-route--business .contact-premium-route__content>p{color:rgba(255,255,255,.7)}
+.contact-premium-route__action{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:44px;padding:11px 15px;border:1px solid transparent;border-radius:2px 12px 2px 12px;font-size:.7rem;font-weight:700;text-decoration:none;transition:transform .18s ease,background .18s ease,color .18s ease}
+.contact-premium-route__action:hover{transform:translateY(-2px)}
+.contact-premium-route__action--jobs{background:var(--green);color:#fff}
+.contact-premium-route__action--jobs:hover{background:#006940;color:#fff}
+.contact-premium-route__action--business{background:var(--yellow);color:var(--ink)}
+.contact-premium-route__action--business:hover{background:#ffd05a;color:var(--ink)}
+.contact-premium-route__action:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+@media(max-width:720px){.contact-premium-routes{grid-template-columns:1fr;gap:14px;padding:0 20px 42px}.contact-premium-route{min-height:260px;padding:25px 22px;border-radius:2px 20px 2px 20px}.contact-premium-route__content h2{font-size:clamp(2.1rem,8vw,2.8rem)}}
+
+/* Keep both enquiry cards light; distinguish Business enquiries with SA-BPO blue accents. */
+.contact-premium-route--business{border-top-color:var(--blue);background:#fff;color:var(--ink)}
+.contact-premium-route--business .contact-premium-kicker{color:var(--blue)}
+.contact-premium-route--business .contact-premium-kicker span{border-color:rgba(18,59,146,.2);color:var(--blue)}
+.contact-premium-route--business .contact-premium-route__content h2{color:var(--ink)}
+.contact-premium-route--business .contact-premium-route__content h2 em{color:var(--blue)}
+.contact-premium-route--business .contact-premium-route__content>p{color:#555750}
+
+/* Keep in touch now shares the light contact-card treatment used by Find us. */
+.contact-premium-social{border-top-color:var(--blue);background:#fff;color:var(--ink)}
+.contact-premium-social .contact-premium-kicker{color:var(--blue)}
+.contact-premium-social .contact-premium-kicker span{border-color:rgba(18,59,146,.2);color:var(--blue)}
+.contact-premium-social h2{color:var(--ink)}
+.contact-premium-social h2 em{color:var(--blue)}
+.contact-premium-social__note{color:var(--muted)}
+.contact-premium-social .contact-premium-social__links a:first-child,.contact-premium-social .contact-premium-social__links a:nth-child(2){border-color:#dce4de;background:#f6f8f5;color:var(--ink)}
+.contact-premium-social .contact-premium-social__links a:first-child:hover,.contact-premium-social .contact-premium-social__links a:nth-child(2):hover{border-color:var(--blue);background:#edf2f9;color:var(--ink)}
+.contact-premium-social__links a>svg:last-child{color:var(--blue)}
+
+
+/* Normalize all four Contact Us cards to the same column width and minimum height. */
+.contact-premium-info,.contact-premium-routes{grid-template-columns:repeat(2,minmax(0,1fr))}
+.contact-premium-info>.contact-info-card,.contact-premium-routes>.contact-premium-route{width:100%;min-height:320px;box-sizing:border-box}
+@media(max-width:720px){.contact-premium-info>.contact-info-card,.contact-premium-routes>.contact-premium-route{min-height:340px}}
+
+
+/* Elevated application CTA: a bold, unmistakable handoff to the recruitment form. */
+.contact-premium-enquiry--application{position:relative;isolation:isolate;min-height:190px;overflow:hidden;padding:44px 20px;background:linear-gradient(115deg,#005b3a 0%,var(--green) 58%,#006542 100%)}
+.contact-premium-enquiry--application::before{position:absolute;z-index:-1;top:50%;right:9%;width:230px;height:230px;border:1px solid rgba(255,255,255,.11);border-radius:50%;box-shadow:0 0 0 22px rgba(255,255,255,.035),0 0 0 46px rgba(255,255,255,.025);content:"";transform:translateY(-50%);pointer-events:none}
+.contact-premium-enquiry__submit{position:relative;display:inline-flex;align-items:center;justify-content:space-between;gap:24px;width:min(100%,370px);min-height:74px;margin:0;padding:12px 14px 12px 26px;border:1px solid rgba(255,255,255,.36);border-radius:3px 19px 3px 19px;background:linear-gradient(120deg,#ffd25c 0%,var(--yellow) 100%);box-shadow:0 13px 28px rgba(0,0,0,.22),0 0 0 6px rgba(247,183,25,.12);color:var(--ink);font:700 1rem "Poppins",sans-serif;letter-spacing:-.015em;text-decoration:none;transition:transform .22s ease,box-shadow .22s ease,background .22s ease}
+.contact-premium-enquiry__submit:hover{transform:translateY(-4px);box-shadow:0 19px 34px rgba(0,0,0,.29),0 0 0 8px rgba(247,183,25,.17);color:var(--ink)}
+.contact-premium-enquiry__submit:focus-visible{outline:3px solid #fff;outline-offset:6px}
+.contact-premium-enquiry__arrow{display:grid;place-items:center;flex:none;width:46px;height:46px;border-radius:2px 14px 2px 14px;background:var(--ink);color:var(--yellow);transition:transform .22s ease,background .22s ease,color .22s ease}
+.contact-premium-enquiry__submit:hover .contact-premium-enquiry__arrow{transform:translate(2px,-2px);background:#123b92;color:#fff}
+@media(max-width:480px){.contact-premium-enquiry--application{min-height:160px;padding:34px 20px}.contact-premium-enquiry--application::before{right:-100px;width:200px;height:200px}.contact-premium-enquiry__submit{min-height:68px;padding-left:20px;font-size:.94rem}.contact-premium-enquiry__arrow{width:42px;height:42px}}
+
+
+/* Completed estimate actions: submit first, with composing an optional separate draft. */
+.bpo-result-actions__main{display:grid;gap:10px;min-width:0}
+.bpo-result-actions__main>.bpo-form-status,.bpo-result-actions__main>.bpo-form-error{margin:0;grid-column:1/-1}
+.bpo-result-actions__main>.button{width:100%}
+.bpo-result-actions__main>.bpo-compose-email-button{border:1px solid #cfd9d1;background:#fff;color:var(--green-dark)}
+.bpo-result-actions__main>.bpo-compose-email-button:hover{border-color:var(--green);background:#f1f7f2;color:var(--green-dark)}
+.bpo-result-actions__main>.bpo-compose-email-button:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}

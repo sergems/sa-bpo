@@ -28,7 +28,7 @@ export type CalculatorIntakeResult = {
 type RateWindow = { startedAt: number; count: number };
 type ResendApiResponse = { id?: string };
 
-const RECIPIENT = "admin@sa-bpo.co.za";
+const RECIPIENT = "partnerships@sa-bpo.co.za";
 const SENDER = "SA-BPO Calculator <calculator@notifications.sa-bpo.com>";
 const RATE_WINDOW_MS = 15 * 60 * 1000;
 const RATE_WINDOW_MAX = 5;
@@ -149,6 +149,7 @@ async function sendLeadEmail(
   lead: CalculatorLead,
   env: CalculatorEmailEnvironment,
   calculator?: CalculatorSelection,
+  sendCopyToCustomer = false,
 ): Promise<void> {
   const apiKey = env.RESEND_API_KEY?.trim();
 
@@ -167,7 +168,7 @@ async function sendLeadEmail(
     ? calculateBpoEstimate(calculator.currency, calculator.serviceId, calculator.advisorCount)
     : null;
   const text = [
-    calculator ? "Completed BPO calculator estimate" : "New BPO calculator access request",
+    calculator ? "Completed BPO calculator estimate submission" : "New BPO calculator access request",
     "",
     `Name: ${lead.firstName} ${lead.surname}`,
     `Company: ${lead.company}`,
@@ -209,7 +210,7 @@ async function sendLeadEmail(
     ["Hourly rate per advisor", formatCurrency(estimate.hourlyRate, calculator.currency)],
     ["Monthly rate per advisor", formatCurrency(estimate.monthlyPerAdvisor, calculator.currency)],
   ].map(([label, value]) => emailDetailRow(label, value)).join("") : "";
-  const title = calculator ? "Calculator estimate received" : "New calculator enquiry";
+  const title = calculator ? "Calculator estimate submitted" : "New calculator enquiry";
   const html = `<!doctype html>
 <html lang="en">
   <head>
@@ -219,7 +220,7 @@ async function sendLeadEmail(
     <title>${escapeHtml(title)}</title>
   </head>
   <body style="margin:0;padding:0;background-color:#f5f3ee;font-family:Arial,Helvetica,sans-serif;color:#0c0c0b;">
-    <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">${calculator ? "A new BPO estimate and contact details are ready for review." : "A new BPO calculator enquiry is ready for review."}</div>
+    <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">${calculator ? "A completed BPO calculator estimate has been submitted." : "A new BPO calculator enquiry is ready for review."}</div>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;background-color:#f5f3ee;">
       <tr><td align="center" style="padding:28px 14px;">
         <table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:640px;background-color:#fffdfa;border:1px solid #e2e0d8;border-radius:16px;overflow:hidden;">
@@ -231,7 +232,7 @@ async function sendLeadEmail(
           <tr><td style="padding:30px 30px 12px;">
             <p style="margin:0 0 9px;color:#007a4d;font-size:11px;line-height:16px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">${calculator ? "Estimate ready" : "New enquiry"}</p>
             <h1 style="margin:0;color:#0c0c0b;font-size:27px;line-height:34px;font-weight:700;letter-spacing:-0.6px;">${escapeHtml(title)}</h1>
-            <p style="margin:12px 0 0;color:#686963;font-size:15px;line-height:23px;">${calculator ? "A visitor has completed the calculator. Their contact details and selected estimate are summarised below." : "A visitor has submitted their details through the SA-BPO calculator."}</p>
+            <p style="margin:12px 0 0;color:#686963;font-size:15px;line-height:23px;">${calculator ? "The completed estimate and contact details are summarised below." : "A visitor has submitted their details through the SA-BPO calculator."}</p>
           </td></tr>
           <tr><td style="padding:20px 30px 8px;">
             <h2 style="margin:0 0 10px;color:#0c0c0b;font-size:15px;line-height:21px;font-weight:700;">Contact details</h2>
@@ -267,8 +268,9 @@ async function sendLeadEmail(
     body: JSON.stringify({
       from: SENDER,
       to: [RECIPIENT],
-      reply_to: lead.email,
-      subject: `${calculator ? "BPO calculator estimate" : "BPO calculator access request"} — ${safeCompany}`,
+      ...(sendCopyToCustomer && calculator ? { cc: [lead.email] } : {}),
+      reply_to: RECIPIENT,
+      subject: `${calculator ? "BPO calculator estimate submitted" : "BPO calculator access request"} — ${safeCompany}`,
       text,
       html,
     }),
@@ -299,6 +301,12 @@ export async function processCalculatorIntake(
   if (calculator === null) {
     return { status: 400, body: { error: "Check your calculator selections and try again." } };
   }
+  if (
+    (Object.prototype.hasOwnProperty.call(body, "sendCopyToCustomer") && typeof body.sendCopyToCustomer !== "boolean") ||
+    (body.sendCopyToCustomer === true && !calculator)
+  ) {
+    return { status: 400, body: { error: "A customer copy is available only for a completed calculator submission." } };
+  }
 
   if (isRateLimited(clientAddress)) {
     return { status: 429, body: { error: "Too many requests. Please wait a few minutes and try again." } };
@@ -312,7 +320,7 @@ export async function processCalculatorIntake(
   }
 
   try {
-    await sendLeadEmail(lead, env, calculator);
+    await sendLeadEmail(lead, env, calculator, body.sendCopyToCustomer === true);
     return { status: 200, body: { ok: true } };
   } catch {
     // Do not log lead data, API credentials, or provider responses.

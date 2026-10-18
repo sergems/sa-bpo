@@ -2,18 +2,18 @@
 
 ## Current notification configuration
 
-The calculator uses the Cloudflare Pages Function at `/api/calculator-intake` and Resend for outbound notifications. Automatic calculator notifications are sent from **SA-BPO Calculator <calculator@notifications.sa-bpo.com>** to **`admin@sa-bpo.co.za`**. Replies go to the visitor's company email.
+The calculator uses the Cloudflare Pages Function at `/api/calculator-intake` and Resend for outbound notifications. Automatic calculator notifications are sent from **SA-BPO Calculator <calculator@notifications.sa-bpo.com>** to **`partnerships@sa-bpo.co.za`**. Replies to all calculator messages go to **`partnerships@sa-bpo.co.za`**.
 
-When a visitor continues to the calculator, their contact details are held with the calculator session. **One combined automatic email** is sent when they close the calculator or choose **Compose estimate email**. It contains their name, surname, company, position, company email, telephone, selected service, currency, advisor count, rate tier, hourly rate, monthly rate per advisor, total estimate, and working assumptions. They do not need to compose or send an email draft for the automatic notification to go out.
+If a visitor gives consent and closes the calculator while still on the details step, a details-only notification is sent to Partnerships. If they continue to the estimate, closing the calculator or choosing **Compose estimate email** sends their contact details and current selections to Partnerships only. Neither close path nor the compose action sends a copy to the visitor.
 
-The **Compose estimate email** action also opens a separate draft addressed to **`admin@sa-bpo.co.za`**. The visitor must choose to send that draft in their email application. The automatic notification remains a single email to admin; sending the draft themselves creates an additional message from the visitor.
+The **Submit calculator** action sends the completed contact details and estimate to Partnerships and CCs the visitor's company email with a copy. The confirmation copy is sent only when the visitor explicitly submits a completed calculator. The **Compose estimate email** action instead opens a separate draft addressed to **`partnerships@sa-bpo.co.za`**. The visitor must choose to send that draft in their email application; its automatic notification goes to Partnerships only.
 
-The automatic notification and the optional estimate-email draft both use `admin@sa-bpo.co.za`. The automatic notification is sent by the site; the separate draft is sent only if the visitor chooses to send it from their email application.
+The notification recipient, reply-to address, and optional estimate-email draft recipient are all `partnerships@sa-bpo.co.za`. If the visitor does not submit the completed calculator, only Partnerships receives the automatic notification. When the visitor submits the completed calculator, their company email is copied on that submission.
 
 ## Domain roles
 
 - `sa-bpo.com` is managed in Cloudflare and provides the verified Resend sending subdomain `notifications.sa-bpo.com`.
-- `sa-bpo.co.za` is the Microsoft 365 / Exchange email domain. The automatic calculator notification and optional estimate draft are addressed to `admin@sa-bpo.co.za`.
+- `sa-bpo.co.za` is the Microsoft 365 / Exchange email domain. The automatic calculator notification and optional estimate draft are addressed to `partnerships@sa-bpo.co.za`.
 
 Resend only sends email. Do not change the Microsoft 365 MX records or other DNS for `sa-bpo.co.za` as part of this setup.
 
@@ -68,10 +68,11 @@ Resend only sends email. Do not change the Microsoft 365 MX records or other DNS
 
 1. Ensure Cloudflare Pages has deployed the latest code from the connected GitHub `main` branch. If you save or change the secret after a deployment, start a new deployment.
 2. Open the deployed SA-BPO site, launch the calculator, enter the required contact details and consent, and continue to the calculator.
-3. Change the service focus, currency, and advisor count, then close the calculator. One combined email should arrive at **`admin@sa-bpo.co.za`**. Check its junk folder too.
-4. Confirm that the email includes both the visitor's details and the final estimate selections, including the pricing tier and monthly total.
-5. Try **Compose estimate email**. It opens a draft addressed to `admin@sa-bpo.co.za`; the automatic email is also sent to that inbox independently. Sending the draft is optional and creates an additional visitor-sent message.
-6. If needed, inspect **Emails** / **Logs** in Resend. Resend accepting an API request means it accepted the message for processing, not necessarily that the recipient's mailbox placed it in the inbox.
+3. Enter valid details and consent, then close the calculator before continuing. A details-only email should arrive at **`partnerships@sa-bpo.co.za`**, with no user copy.
+4. Reopen the calculator, continue, and change the service focus, currency, and advisor count. Close the calculator without submitting; the full estimate should arrive at Partnerships only.
+5. Repeat the calculator flow and click **Submit calculator** after completing the estimate. The full submission should arrive at Partnerships with the visitor's company email CC'd. The visitor should also receive the copy, and replying to it should address Partnerships.
+6. Try **Compose estimate email**. It opens a draft addressed to `partnerships@sa-bpo.co.za`; the automatic notification goes to Partnerships only. The visitor must send the draft from their email application if they want to send that additional message.
+7. If needed, inspect **Emails** / **Logs** in Resend. Resend accepting an API request means it accepted the message for processing, not necessarily that the recipient's mailbox placed it in the inbox.
 
 ## If something goes wrong
 

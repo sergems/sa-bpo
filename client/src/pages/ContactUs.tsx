@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import BrandLockupContent from "@/components/BrandLockupContent";
 import { setPageMetadata } from "@/lib/seo";
 import { ArrowDownRight, ArrowRight, ArrowUp, ArrowUpRight, Facebook, Linkedin, MapPin, Menu, PhoneCall, X } from "lucide-react";
@@ -17,21 +17,6 @@ export default function ContactUs() {
   }, []);
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = () => setMenuOpen(false);
-
-  const submitEnquiry = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const subject = `BPO enquiry from ${data.get("company") || data.get("name") || "a prospective client"}`;
-    const body = [
-      `Name: ${data.get("name") || ""}`,
-      `Surname: ${data.get("surname") || ""}`,
-      `Company: ${data.get("company") || ""}`,
-      `Position: ${data.get("position") || ""}`,
-      `Company email: ${data.get("email") || ""}`,
-      `Telephone: ${data.get("telephone") || ""}`,
-    ].join("\n");
-    window.location.href = `mailto:admin@sa-bpo.co.za?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  };
 
   return (
     <main id="top" className="about-page contact-page contact-premium">
@@ -52,30 +37,54 @@ export default function ContactUs() {
       </section>
 
       <section className="contact-premium-info">
-        <div className="contact-premium-location"><p className="contact-premium-kicker">Find us</p><div className="contact-premium-location__title"><MapPin size={21} /><h2>{address}</h2></div><p>Durban North, South Africa</p><a className="contact-premium-link" href={mapUrl} target="_blank" rel="noreferrer">Open location on map <ArrowUpRight size={16} /></a><a className="contact-premium-link contact-premium-phone" href="tel:+27310026554" aria-label="Call SA-BPO on 031 002 6554"><PhoneCall size={16} aria-hidden="true" /> Call SA-BPO: 031 002 6554</a></div>
-        <div className="contact-premium-social"><p className="contact-premium-kicker">Keep in touch</p><h2>Follow the conversation.</h2><div><a href={facebookUrl} target="_blank" rel="noreferrer" aria-label="SA-BPO on Facebook"><Facebook size={18} /> Facebook <ArrowUpRight size={14} /></a><a href={linkedinUrl} target="_blank" rel="noreferrer" aria-label="SA-BPO on LinkedIn"><Linkedin size={18} /> LinkedIn <ArrowUpRight size={14} /></a></div></div>
+        <article className="contact-premium-location contact-info-card contact-info-card--location">
+          <p className="contact-premium-kicker"><span>01</span> Find us</p>
+          <div className="contact-premium-location__title">
+            <span className="contact-premium-location__icon"><MapPin size={22} aria-hidden="true" /></span>
+            <div><h2>{address}</h2><p>Durban North, South Africa</p></div>
+          </div>
+          <div className="contact-premium-location__actions">
+            <a className="contact-premium-link contact-premium-location__map" href={mapUrl} target="_blank" rel="noreferrer">Open location on map <ArrowUpRight size={16} aria-hidden="true" /></a>
+            <a className="contact-premium-link contact-premium-phone" href="tel:+27310026554" aria-label="Call SA-BPO on 031 002 6554"><PhoneCall size={16} aria-hidden="true" /> 031 002 6554</a>
+          </div>
+          <span className="contact-premium-location__watermark" aria-hidden="true">SA</span>
+        </article>
+        <article className="contact-premium-social contact-info-card">
+          <p className="contact-premium-kicker"><span>02</span> Keep in touch</p>
+          <h2>Follow the<br /><em>conversation.</em></h2>
+          <p className="contact-premium-social__note">Find SA-BPO on your preferred network.</p>
+          <div className="contact-premium-social__links">
+            <a href={facebookUrl} target="_blank" rel="noreferrer" aria-label="SA-BPO on Facebook"><span className="contact-premium-social__icon"><Facebook size={19} aria-hidden="true" /></span><span>Facebook</span><ArrowUpRight size={15} aria-hidden="true" /></a>
+            <a href={linkedinUrl} target="_blank" rel="noreferrer" aria-label="SA-BPO on LinkedIn"><span className="contact-premium-social__icon"><Linkedin size={19} aria-hidden="true" /></span><span>LinkedIn</span><ArrowUpRight size={15} aria-hidden="true" /></a>
+          </div>
+        </article>
       </section>
 
       <section className="contact-premium-routes">
-        <article className="contact-premium-route contact-premium-route--jobs">
-          <div>
-            <p className="contact-premium-kicker">Applications / Looking for jobs</p>
-            <h2>Bring your best work.</h2>
+        <article className="contact-premium-route contact-premium-route--jobs contact-info-card">
+          <p className="contact-premium-kicker"><span>03</span> Applications / Looking for jobs</p>
+          <div className="contact-premium-route__content">
+            <h2>Bring your best <em>work.</em></h2>
             <p>We are always interested in hearing from people who care about customers, teamwork, and doing meaningful work. Send your CV to our recruitment team.</p>
-            <a className="contact-premium-link contact-premium-link--button" href="https://referral.recruitment.sa-bpo.net" target="_blank" rel="noreferrer">Join Our Team <ArrowUpRight size={16} /></a>
           </div>
+          <a className="contact-premium-route__action contact-premium-route__action--jobs" href="https://referral.recruitment.sa-bpo.net/" target="_blank" rel="noreferrer">Join Our Team <ArrowUpRight size={16} aria-hidden="true" /></a>
         </article>
-        <article className="contact-premium-route contact-premium-route--business">
-          <div>
-            <p className="contact-premium-kicker">Business enquiries</p>
-            <h2>Build a clearer BPO model.</h2>
+        <article className="contact-premium-route contact-premium-route--business contact-info-card">
+          <p className="contact-premium-kicker"><span>04</span> Business enquiries</p>
+          <div className="contact-premium-route__content">
+            <h2>Build a clearer <em>BPO model.</em></h2>
             <p>Instead of waiting on proposals or calls, use our calculator to provide you with indicative rates in real time!</p>
-            <a className="contact-premium-link contact-premium-link--button" href="/?calculator=open">Use the BPO-Calculator <ArrowRight size={16} /></a>
           </div>
+          <a className="contact-premium-route__action contact-premium-route__action--business" href="/?calculator=open">Use the BPO-Calculator <ArrowRight size={16} aria-hidden="true" /></a>
         </article>
       </section>
 
-      <section className="contact-premium-enquiry"><div className="contact-premium-enquiry__intro"><p className="contact-premium-kicker">Business enquiry details</p><h2>Make the first move.</h2><p>Complete details below to submit your enquiry to admin@sa-bpo.co.za and explore potential business opportunities with our team!</p></div><form onSubmit={submitEnquiry} className="contact-premium-form"><label>Name<input name="name" required autoComplete="given-name" /></label><label>Surname<input name="surname" required autoComplete="family-name" /></label><label>Company<input name="company" required autoComplete="organization" /></label><label>Position<input name="position" required autoComplete="organization-title" /></label><label>Company email<input type="email" name="email" required autoComplete="email" /></label><label>Telephone number<input type="tel" name="telephone" required autoComplete="tel" /></label><button type="submit">Prepare business enquiry <ArrowUpRight size={16} /></button></form></section>
+      <section className="contact-premium-enquiry contact-premium-enquiry--application">
+        <a className="contact-premium-enquiry__submit" href="https://referral.recruitment.sa-bpo.net/" target="_blank" rel="noreferrer" aria-label="Open the SA-BPO application form">
+          <span>Submit application</span>
+          <span className="contact-premium-enquiry__arrow"><ArrowUpRight size={20} aria-hidden="true" /></span>
+        </a>
+      </section>
 
       <footer className="site-footer about-site-footer"><div><a className="site-footer-brand" href="/" aria-label="SA-BPO home"><BrandLockupContent /></a><p>Our people speak for your brand.</p><a className="site-footer-phone" href="tel:+27310026554" aria-label="Call SA-BPO on 031 002 6554">031 002 6554</a></div><div className="footer-right"><div className="footer-nav"><a href="/#about">Explore SA-BPO</a><a href="/#confidence">Why SA-BPO</a><a href="/about-us">About SA-BPO</a><a href="/contact-us">Contact Us</a><a href="/privacy-policy">Privacy Policy</a><a className="footer-social-link" href={facebookUrl} target="_blank" rel="noreferrer" aria-label="SA-BPO on Facebook" title="Facebook"><Facebook size={16} aria-hidden="true" /></a><a className="footer-social-link" href={linkedinUrl} target="_blank" rel="noreferrer" aria-label="SA-BPO on LinkedIn" title="LinkedIn"><Linkedin size={16} aria-hidden="true" /></a><a className="footer-top-link" href="#top" aria-label="Back to top" title="Back to top"><ArrowUp size={16} aria-hidden="true" /></a></div><img className="footer-bpo-graphic" src="/assets/footer-compliance-latest.png" alt="SA-BPO compliance and quality accreditations" /></div><small>© 2026 SA-BPO. South Africa / Global conversations.</small></footer>
     </main>

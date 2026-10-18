@@ -11,11 +11,11 @@ const policySections = [
   },
   {
     title: "Information we may receive",
-    body: "We may receive contact details, company information, service requirements, correspondence, and any other information you choose to provide when you contact SA-BPO. If you use the BPO calculator, your contact details and final service focus, currency, advisor count, and estimate are sent together in one automatic email to admin@sa-bpo.co.za when you close the calculator or choose to compose an estimate email. You do not need to send the separate email draft for this automatic notification to be sent. We may also receive limited technical information that helps us keep the website secure and understand how it is used.",
+    body: "We may receive contact details, company information, service requirements, correspondence, and any other information you choose to provide when you contact SA-BPO. Calculator details and, when selected, estimate information are sent to partnerships@sa-bpo.co.za when you close the calculator or choose to compose an estimate email. If you submit a completed calculator estimate, a copy of the submission is also sent to your company email. Replies to calculator emails are directed to partnerships@sa-bpo.co.za. We may also receive limited technical information that helps us keep the website secure and understand how it is used.",
   },
   {
     title: "How we use information",
-    body: "SA-BPO uses information to prepare indicative calculator estimates, respond to enquiries, discuss and deliver services, maintain professional relationships, improve our website and operating model, and meet applicable legal or contractual obligations. The separate estimate-email draft is addressed to admin@sa-bpo.co.za and is sent only if you send it from your email application. We use information only where there is a clear business, legal, or service-related reason to do so.",
+    body: "SA-BPO uses information to prepare indicative calculator estimates, respond to enquiries, discuss and deliver services, maintain professional relationships, improve our website and operating model, and meet applicable legal or contractual obligations. The separate estimate-email draft is addressed to partnerships@sa-bpo.co.za and is sent only if you send it from your email application. We use information only where there is a clear business, legal, or service-related reason to do so.",
   },
   {
     title: "When information is shared",
@@ -55,7 +55,7 @@ export default function PrivacyPolicy() {
           <aside className="privacy-aside"><strong>Last updated</strong><p>21 August 2026</p><p>This is a working website draft. Review it with qualified legal counsel before publication or reliance.</p></aside>
           <article className="privacy-article">
             {policySections.map((section, index) => <section className="privacy-section" key={section.title}><span className="privacy-section-number">0{index + 1}</span><div><h2>{section.title}</h2><p>{section.body}</p></div></section>)}
-            <section className="privacy-contact"><p className="privacy-kicker">Questions or requests</p><h2>Talk to our team.</h2><p>For privacy questions or requests about personal information, contact SA-BPO at <a href="mailto:hello@sa-bpo.com">hello@sa-bpo.com</a> or call <a href="tel:+27310026554" aria-label="Call SA-BPO on 031 002 6554">031 002 6554</a>.</p></section>
+            <section className="privacy-contact"><p className="privacy-kicker">Questions or requests</p><h2>Talk to our team.</h2><p>For privacy questions or requests about personal information, contact SA-BPO at <a href="mailto:partnerships@sa-bpo.co.za">partnerships@sa-bpo.co.za</a> or call <a href="tel:+27310026554" aria-label="Call SA-BPO on 031 002 6554">031 002 6554</a>.</p></section>
           </article>
         </div>
       </section>
