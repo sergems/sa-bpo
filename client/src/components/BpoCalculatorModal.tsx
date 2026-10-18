@@ -179,7 +179,6 @@ export default function BpoCalculatorModal({ onClose }: Props) {
   const [formError, setFormError] = useState("");
   const [estimateSending, setEstimateSending] = useState(false);
   const [estimateSendError, setEstimateSendError] = useState("");
-  const [estimateSubmitted, setEstimateSubmitted] = useState(false);
   const [previewOnly, setPreviewOnly] = useState(sessionSeed?.previewOnly ?? false);
   const [currency, setCurrency] = useState<Currency>(sessionSeed?.currency ?? "USD");
   const [serviceId, setServiceId] = useState(sessionSeed?.serviceId ?? serviceOptions[0].id);
@@ -300,7 +299,10 @@ export default function BpoCalculatorModal({ onClose }: Props) {
   };
 
   const sendIntakeSnapshot = async (payload: Record<string, unknown>, sendCopyToCustomer = false): Promise<boolean> => {
-    if (previewOnly) return true;
+    if (previewOnly) {
+      if (sendCopyToCustomer) setEstimateSendError("Calculator submission cannot be sent from this local preview because email delivery is not configured.");
+      return !sendCopyToCustomer;
+    }
     const requestPayload = { ...payload, sendCopyToCustomer };
     const snapshot = JSON.stringify(requestPayload);
     if (sentEstimateSnapshotRef.current === snapshot) return true;
@@ -318,12 +320,15 @@ export default function BpoCalculatorModal({ onClose }: Props) {
         const result = await response.json().catch(() => ({})) as { error?: string };
         if (!response.ok && import.meta.env.DEV && response.status === 503) {
           setPreviewOnly(true);
+          if (sendCopyToCustomer) {
+            setEstimateSendError("Calculator submission cannot be sent from this local preview because email delivery is not configured.");
+            return false;
+          }
           sentEstimateSnapshotRef.current = snapshot;
           return true;
         }
         if (!response.ok) throw new Error(result.error || "We couldn't send your estimate selections.");
         sentEstimateSnapshotRef.current = snapshot;
-        if (sendCopyToCustomer) setEstimateSubmitted(true);
         return true;
       } catch {
         setEstimateSendError("We couldn't send your calculator selections to SA-BPO. Please try again or use the compose button to send the estimate yourself.");
@@ -341,6 +346,13 @@ export default function BpoCalculatorModal({ onClose }: Props) {
     if (!lead) return Promise.resolve(true);
     const calculator = { serviceId, currency, advisorCount, moreThanThirty };
     return sendIntakeSnapshot({ ...lead, consent, website: draft.website, calculator }, sendCopyToCustomer);
+  };
+
+  const submitCompletedEstimate = async () => {
+    const sent = await sendEstimateSnapshot(true);
+    if (!sent) return;
+    clearCalculatorSession();
+    onClose();
   };
 
   const sendLeadOnlySnapshot = (): Promise<boolean> => {
@@ -362,7 +374,7 @@ export default function BpoCalculatorModal({ onClose }: Props) {
   };
 
   const closeCalculator = async () => {
-    if (step === "calculator" && lead && !previewOnly && !estimateSubmitted) {
+    if (step === "calculator" && lead && !previewOnly) {
       const sent = await sendEstimateSnapshot();
       if (!sent) return;
     } else if (step === "lead" && !previewOnly) {
@@ -418,18 +430,18 @@ export default function BpoCalculatorModal({ onClose }: Props) {
               <div className={`bpo-calculator-welcome${previewOnly ? " bpo-calculator-welcome--preview" : ""}`}><div><p className="bpo-welcome-label">Welcome</p><h2 id="bpo-calculator-title">{lead?.firstName}, let's shape your <em>first estimate.</em></h2></div></div>
               <div className="bpo-calculator-controls">
                 <label className="bpo-service-picker" htmlFor="bpo-service-focus">Service focus
-                  <select className="bpo-service-select" id="bpo-service-focus" name="bpo-service" value={serviceId} disabled={estimateSending || estimateSubmitted} onChange={(event) => setServiceId(event.target.value)}>
+                  <select className="bpo-service-select" id="bpo-service-focus" name="bpo-service" value={serviceId} disabled={estimateSending} onChange={(event) => setServiceId(event.target.value)}>
                     {serviceOptions.map((service) => <option key={service.id} value={service.id}>{service.label}</option>)}
                   </select>
                   <small className="bpo-service-help">Select a service focus from the dropdown to view its estimate.</small>
                 </label>
                 <div className="bpo-calc-settings">
                   <fieldset className="bpo-currency-fieldset"><legend>Currency</legend><div className="bpo-currency-switch">
-                    {(["USD", "GBP"] as const).map((option) => <label className={currency === option ? "is-selected" : ""} key={option}><input type="radio" name="bpo-currency" value={option} checked={currency === option} disabled={estimateSending || estimateSubmitted} onChange={() => setCurrency(option)} /><span>{option === "USD" ? "$ USD" : "£ GBP"}</span></label>)}
+                    {(["USD", "GBP"] as const).map((option) => <label className={currency === option ? "is-selected" : ""} key={option}><input type="radio" name="bpo-currency" value={option} checked={currency === option} disabled={estimateSending} onChange={() => setCurrency(option)} /><span>{option === "USD" ? "$ USD" : "£ GBP"}</span></label>)}
                   </div></fieldset>
-                  <div className="bpo-advisor-control"><label htmlFor="bpo-advisor-range">Advisors required for launch <output>{moreThanThirty ? `${advisorCount}+` : advisors}</output></label><input id="bpo-advisor-range" type="range" min="1" max="30" value={advisors} disabled={moreThanThirty || estimateSending || estimateSubmitted} onChange={(event) => setAdvisors(Number(event.target.value))} /><div className="bpo-range-labels"><span>1 advisor</span><span>30 advisors</span></div></div>
-                  <label className="bpo-over-thirty"><input type="checkbox" checked={moreThanThirty} disabled={estimateSending || estimateSubmitted} onChange={(event) => setMoreThanThirty(event.target.checked)} /><span>I need more than 30 advisors</span></label>
-                  {moreThanThirty && <label className="bpo-large-count" htmlFor="bpo-large-advisors">Advisor count<input id="bpo-large-advisors" type="number" min={31} max={1000} step={1} value={largeAdvisorCount} disabled={estimateSending || estimateSubmitted} onChange={(event) => setLargeAdvisorCount(event.target.value)} onBlur={() => setLargeAdvisorCount(String(Math.min(1000, Math.max(31, Math.round(Number(largeAdvisorCount) || 31)))))} /></label>}
+                  <div className="bpo-advisor-control"><label htmlFor="bpo-advisor-range">Advisors required for launch <output>{moreThanThirty ? `${advisorCount}+` : advisors}</output></label><input id="bpo-advisor-range" type="range" min="1" max="30" value={advisors} disabled={moreThanThirty || estimateSending} onChange={(event) => setAdvisors(Number(event.target.value))} /><div className="bpo-range-labels"><span>1 advisor</span><span>30 advisors</span></div></div>
+                  <label className="bpo-over-thirty"><input type="checkbox" checked={moreThanThirty} disabled={estimateSending} onChange={(event) => setMoreThanThirty(event.target.checked)} /><span>I need more than 30 advisors</span></label>
+                  {moreThanThirty && <label className="bpo-large-count" htmlFor="bpo-large-advisors">Advisor count<input id="bpo-large-advisors" type="number" min={31} max={1000} step={1} value={largeAdvisorCount} disabled={estimateSending} onChange={(event) => setLargeAdvisorCount(event.target.value)} onBlur={() => setLargeAdvisorCount(String(Math.min(1000, Math.max(31, Math.round(Number(largeAdvisorCount) || 31)))))} /></label>}
                 </div>
               </div>
               <section className="bpo-estimate" aria-live="polite" aria-labelledby="bpo-estimate-heading">
@@ -446,16 +458,10 @@ export default function BpoCalculatorModal({ onClose }: Props) {
               <p className="bpo-disclaimer">These prices are indicative and intended to provide an initial guide. Our associates will gather more information to create a tailored quote for your business requirements.</p>
               <div className="bpo-result-actions">
                 <div className="bpo-result-actions__main">
-                  {estimateSubmitted ? (
-                    <p className="bpo-form-status" role="status">Your estimate has been submitted to SA-BPO Partnerships. A copy was sent to {lead?.email}; replies go to partnerships@sa-bpo.co.za.</p>
-                  ) : (
-                    <>
-                      {estimateSending && <p className="bpo-form-status" role="status">Sending your completed estimate to SA-BPO and preparing your copy…</p>}
-                      {estimateSendError && <p className="bpo-form-error" role="alert">{estimateSendError}</p>}
-                      <button className="button button--green button--full" type="button" disabled={estimateSending} onClick={() => { void sendEstimateSnapshot(true); }}>Submit calculator <ArrowRight size={17} /></button>
-                      <a className="button bpo-compose-email-button button--full" href={emailDraft} aria-disabled={estimateSending} onClick={(event) => { if (estimateSending) { event.preventDefault(); return; } void sendEstimateSnapshot(); }}><Mail size={17} /> Compose estimate email <ArrowRight size={17} /></a>
-                    </>
-                  )}
+                  {estimateSending && <p className="bpo-form-status" role="status">Sending your completed estimate to SA-BPO and preparing your copy…</p>}
+                  {estimateSendError && <p className="bpo-form-error" role="alert">{estimateSendError}</p>}
+                  <button className="button button--green button--full" type="button" disabled={estimateSending} onClick={() => { void submitCompletedEstimate(); }}>Submit calculator <ArrowRight size={17} /></button>
+                  <a className="button bpo-compose-email-button button--full" href={emailDraft} aria-disabled={estimateSending} onClick={(event) => { if (estimateSending) { event.preventDefault(); return; } void sendEstimateSnapshot(); }}><Mail size={17} /> Compose estimate email <ArrowRight size={17} /></a>
                 </div>
                 <button className="bpo-close-button" type="button" onClick={() => { void closeCalculator(); }} disabled={estimateSending}>{estimateSending ? "Sending estimate…" : "Close calculator"}</button>
               </div>
