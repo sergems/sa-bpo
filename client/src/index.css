@@ -192,8 +192,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 /* Human Circuit section hierarchy: every non-slider section title uses the operating-culture “Values that matter” scale. */
 .section-top h2,.location-content h2,.calculator-section h2,.contact-section h2,.our-home-story h2,.our-home-benefits h3{font-size:clamp(2.3rem,2.95vw,3.55rem);line-height:.94}@media(max-width:720px){.section-top h2,.location-content h2,.calculator-section h2,.contact-section h2,.our-home-story h2,.our-home-benefits h3{font-size:clamp(2.25rem,10vw,3.1rem);line-height:.94}}
 
-/* Human Circuit footer asset: the supplied BPO capability graphic sits below the right-aligned footer menu. */
-.footer-right{display:grid;justify-items:end;gap:18px}.footer-bpo-graphic{display:block;height:auto;opacity:.94}@media(max-width:720px){.footer-right{justify-items:start;margin-top:35px}}
+/* Human Circuit footer layout: navigation stays right-aligned on desktop. */
+.footer-right{display:grid;justify-items:end;gap:18px}@media(max-width:720px){.footer-right{justify-items:start;margin-top:35px}}
 
 /* Human Circuit footer navigation: the policy route reads like the rest of the practical footer menu. */
 .footer-nav a{padding:0;color:rgba(255,255,255,.7);font-size:.7rem;text-decoration:none}.footer-nav a:hover{color:#fff}
@@ -234,8 +234,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 @media(max-width:720px){.hero-trust{justify-content:start;text-align:left}.hero-trust .trust-caption{justify-self:start}.hero-slider-controls{right:20px;left:auto}}
 
 
-/* Human Circuit mobile footer: centered brand, compliance mark, copyright, and one-line navigation. */
-@media(max-width:720px){.site-footer{text-align:center}.site-footer>div:first-child{display:grid;justify-items:center}.site-footer .footer-right{justify-items:center;margin-top:28px}.site-footer .footer-nav{display:flex;flex-wrap:nowrap;justify-content:center;align-items:center;gap:clamp(7px,2.4vw,12px);margin-top:0}.site-footer .footer-nav button,.site-footer .footer-nav a{flex:0 0 auto;white-space:nowrap;font-size:clamp(.46rem,2vw,.58rem)}.site-footer .footer-bpo-graphic{margin-inline:auto}.site-footer small{margin-top:30px;text-align:center}}
+/* Human Circuit mobile footer: centered brand, copyright, and one-line navigation. */
+@media(max-width:720px){.site-footer{text-align:center}.site-footer>div:first-child{display:grid;justify-items:center}.site-footer .footer-right{justify-items:center;margin-top:28px}.site-footer .footer-nav{display:flex;flex-wrap:nowrap;justify-content:center;align-items:center;gap:clamp(7px,2.4vw,12px);margin-top:0}.site-footer .footer-nav button,.site-footer .footer-nav a{flex:0 0 auto;white-space:nowrap;font-size:clamp(.46rem,2vw,.58rem)}.site-footer small{margin-top:30px;text-align:center}}
 
 /* Editorial hero slider: layered cross-fades preserve visual continuity while copy and photography move as one composition. */
 :root{--ease-out:cubic-bezier(.23,1,.32,1);--ease-in-out:cubic-bezier(.77,0,.175,1)}
@@ -871,9 +871,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
   .hero-trust span:not(.trust-caption){font-size:.44rem}
 }
 
-/* Footer compliance mark: preserve its supplied 263 × 59 px artwork at 1:1 scale with no crop or enlargement. */
-.site-footer .footer-bpo-graphic{display:block;width:263px!important;height:auto!important;max-width:100%;aspect-ratio:263 / 59;object-fit:contain;transform:none!important}
-@media(max-width:720px){.site-footer .footer-bpo-graphic{width:min(263px,100%)!important;height:auto!important}}
 
 /* Desktop hero hierarchy: a distinct top eyebrow and a full-width Trusted delivery strip anchored above the slider controls. */
 @media(min-width:721px){
@@ -1316,6 +1313,9 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{-webkit-font-smoot
 @keyframes hero-image-enter-people-lower{from{opacity:0;transform:translateY(3.5%) scale(1.06)}to{opacity:1;transform:translateY(3.5%) scale(1.04)}}
 .site-footer-phone{display:inline-flex;align-items:center;gap:8px;margin-top:12px;color:rgba(255,255,255,.82);font-size:.78rem;font-weight:700;letter-spacing:.04em;text-decoration:none;transition:color .2s ease}
 .site-footer-phone:hover{color:var(--yellow)}
+
+/* Copyright stays centered beneath the footer columns at every breakpoint. */
+.site-footer small{text-align:center}
 
 /* BPO calculator international telephone field: flag/calling-code picker before the local number. */
 .bpo-phone-field{display:grid;gap:6px;color:#343b37;font-size:.7rem;font-weight:700;line-height:1.3}
