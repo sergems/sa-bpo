@@ -8,6 +8,7 @@ import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import Home from "./pages/Home";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import PrivacyConsent from "./components/PrivacyConsent";
 
 
 function Router() {
@@ -39,6 +40,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <Router />
+          <PrivacyConsent />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

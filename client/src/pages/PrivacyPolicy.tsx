@@ -11,7 +11,7 @@ const policySections = [
   },
   {
     title: "Information we may receive",
-    body: "We may receive contact details, company information, service requirements, correspondence, and any other information you choose to provide when you contact SA-BPO. Calculator details and, when selected, estimate information are sent to partnerships@sa-bpo.co.za when you close the calculator or choose to compose an estimate email. If you submit a completed calculator estimate, a copy of the submission is also sent to your company email. Replies to calculator emails are directed to partnerships@sa-bpo.co.za. We may also receive limited technical information that helps us keep the website secure and understand how it is used.",
+    body: "We may receive contact details, company information, service requirements, correspondence, and any other information you choose to provide when you contact SA-BPO. Calculator details and, when selected, estimate information are sent to partnerships@sa-bpo.co.za when you close the calculator or choose to compose an estimate email. If you submit a completed calculator estimate, a copy of the submission is also sent to your company email. Replies to calculator emails are directed to partnerships@sa-bpo.co.za. We may also receive limited technical information that helps us keep the website secure and understand how it is used. Optional Snitcher data is collected only after you choose to allow business identification.",
   },
   {
     title: "How we use information",
@@ -19,7 +19,7 @@ const policySections = [
   },
   {
     title: "When information is shared",
-    body: "We do not sell personal information. Information may be shared with trusted service providers, professional advisers, or partners where this is necessary to operate our business, provide a requested service, protect SA-BPO, or comply with a legal obligation. Those parties should handle information only for the agreed purpose and with appropriate safeguards.",
+    body: "We do not sell personal information. Information may be shared with trusted service providers, professional advisers, or partners where this is necessary to operate our business, provide a requested service, protect SA-BPO, or comply with a legal obligation. Those parties should handle information only for the agreed purpose and with appropriate safeguards. If you opt in, Snitcher processes tracker data on our behalf in EU-hosted infrastructure and reports activity to us at company level. We do not configure this trial to send form contents, named-person details, email-recipient identifiers, or identity integrations to Snitcher.",
   },
   {
     title: "Security and retention",
@@ -27,7 +27,11 @@ const policySections = [
   },
   {
     title: "Your choices",
-    body: "You may ask us about the personal information we hold about you, request that we correct inaccurate information, or ask us to delete information where appropriate. Some requests may be limited where SA-BPO needs to retain information for legal, contractual, security, or record-keeping reasons.",
+    body: "You may reject optional Snitcher tracking and still use this website. If you previously allowed it, select Privacy settings and withdraw your choice; we will deny further Snitcher consent, remove the Snitcher device, session, and trait identifiers that this site can remove, and stop loading the tracker for future visits. You may also ask us about the personal information we hold about you, request that we correct inaccurate information, or ask us to delete information where appropriate. Some requests may be limited where SA-BPO needs to retain information for legal, contractual, security, or record-keeping reasons.",
+  },
+  {
+    title: "Cookies, storage and retention",
+    body: "Snitcher uses a first-party snitcher_device_id cookie and matching local storage identifier for up to one year, plus a snitcher_session local-storage entry that expires 30 minutes after the last activity. A snitcher_user_traits entry is used only for optional visitor details; this site does not enable the features that create it. Snitcher may briefly use a technical __sn_tld_probe cookie while checking the correct cookie domain. SA-BPO's other records are kept only as long as needed for their stated purpose, our relationship, security, or legal and operational requirements. Snitcher company-level retention is subject to the current Snitcher account and contractual retention settings; we will review those settings before relying on the trial for longer-term records.",
   },
 ];
 
@@ -48,13 +52,18 @@ export default function PrivacyPolicy() {
       <section className="privacy-main">
         <div className="privacy-hero">
           <div><p className="privacy-kicker">SA-BPO / Privacy and data</p><h1>Privacy, with<br /><em>clarity.</em></h1></div>
-          <p className="privacy-summary">We treat personal information with the same practical care we bring to customer conversations: clearly, responsibly, and for a defined purpose.</p>
+          <p className="privacy-summary">We treat personal information and optional business intelligence with the same practical care we bring to customer conversations: clearly, responsibly, and for a defined purpose.</p>
         </div>
 
         <div className="privacy-layout">
-          <aside className="privacy-aside"><strong>Last updated</strong><p>21 August 2026</p><p>This is a working website draft. Review it with qualified legal counsel before publication or reliance.</p></aside>
           <article className="privacy-article">
-            {policySections.map((section, index) => <section className="privacy-section" key={section.title}><span className="privacy-section-number">0{index + 1}</span><div><h2>{section.title}</h2><p>{section.body}</p></div></section>)}
+            {policySections.map((section, index) => <section className="privacy-section" key={section.title}>
+                <span className="privacy-section-number">{String(index + 1).padStart(2, "0")}</span>
+                <div className="privacy-section__content">
+                  <h2>{section.title}</h2>
+                  <p>{section.body}</p>
+                </div>
+              </section>)}
             <section className="privacy-contact"><p className="privacy-kicker">Questions or requests</p><h2>Talk to our team.</h2><p>For privacy questions or requests about personal information, contact SA-BPO at <a href="mailto:partnerships@sa-bpo.co.za">partnerships@sa-bpo.co.za</a> or call <a href="tel:+27310026554" aria-label="Call SA-BPO on 031 002 6554">031 002 6554</a>.</p></section>
           </article>
         </div>
