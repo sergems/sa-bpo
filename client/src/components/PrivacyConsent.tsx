@@ -71,6 +71,13 @@ export default function PrivacyConsent() {
     if (storedChoice === "denied") stopSnitcher();
   }, []);
 
+  useEffect(() => {
+    const isBlocking = choice === null || isSettingsOpen;
+    const previousOverflow = document.body.style.overflow;
+    if (isBlocking) document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previousOverflow; };
+  }, [choice, isSettingsOpen]);
+
   const deny = useCallback(() => { saveChoice("denied"); stopSnitcher(); setChoice("denied"); setIsSettingsOpen(false); }, []);
   const grant = useCallback(() => { saveChoice("granted"); startSnitcher(); setChoice("granted"); setIsSettingsOpen(false); }, []);
 
@@ -81,12 +88,12 @@ export default function PrivacyConsent() {
           <section className="privacy-consent" role="dialog" aria-modal="true" aria-labelledby="privacy-consent-title">
             <div className="privacy-consent__copy">
               <p className="privacy-consent__eyebrow">Your privacy, your choice</p>
-              <h2 id="privacy-consent-title">Help us understand business interest.</h2>
+              <h2 id="privacy-consent-title">Cookies &amp; privacy</h2>
               <p>With your permission, SA-BPO uses Snitcher to process your IP address and website activity, estimate which business your visit relates to, and help our sales team prioritise businesses to contact. This uses cookies and browser storage. You can browse without this tracking and change your choice at any time.</p>
               <a href="/privacy-policy" className="privacy-consent__link">Read our privacy and cookie notice</a>
             </div>
             <div className="privacy-consent__actions">
-              <button type="button" className="privacy-consent__button privacy-consent__button--primary" onClick={grant}>Allow business identification</button>
+              <button type="button" className="privacy-consent__button privacy-consent__button--primary" onClick={grant}>Allow optional tracking</button>
               <button type="button" className="privacy-consent__button privacy-consent__button--secondary" onClick={deny}>Reject optional tracking</button>
               {choice !== null ? <button type="button" className="privacy-consent__text-button" onClick={() => setIsSettingsOpen(false)}>Close</button> : null}
             </div>

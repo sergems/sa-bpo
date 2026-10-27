@@ -292,7 +292,7 @@ export default function BpoCalculatorModal({ onClose }: Props) {
       company: draft.company.trim(),
       position: draft.position.trim(),
       email: draft.email.trim().toLowerCase(),
-      telephone: toInternationalTelephone(draft.telephone, phoneCountry),
+      telephone: draft.telephone.trim() ? toInternationalTelephone(draft.telephone, phoneCountry) : "",
     };
     const phoneDigits = cleanLead.telephone.replace(/\D/g, "");
     const errors: LeadFieldErrors = {};
@@ -309,9 +309,7 @@ export default function BpoCalculatorModal({ onClose }: Props) {
     if (cleanLead.email && !emailPattern.test(cleanLead.email)) {
       errors.email = "Enter a valid company email address.";
     }
-    if (!draft.telephone.trim()) {
-      errors.telephone = "Telephone number is required.";
-    } else if (phoneDigits.length < 7 || phoneDigits.length > 15) {
+    if (draft.telephone.trim() && (phoneDigits.length < 7 || phoneDigits.length > 15)) {
       errors.telephone = "Enter a valid telephone number with 7 to 15 digits.";
     }
     if (!consent) {
@@ -394,11 +392,12 @@ export default function BpoCalculatorModal({ onClose }: Props) {
       company: draft.company.trim(),
       position: draft.position.trim(),
       email: draft.email.trim().toLowerCase(),
-      telephone: toInternationalTelephone(draft.telephone, phoneCountry),
+      telephone: draft.telephone.trim() ? toInternationalTelephone(draft.telephone, phoneCountry) : "",
     };
     const phoneDigits = leadFromDraft.telephone.replace(/\D/g, "");
-    const hasAllDetails = Object.values(leadFromDraft).every(Boolean);
-    if (!hasAllDetails || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(leadFromDraft.email) || phoneDigits.length < 7 || phoneDigits.length > 15) {
+    const requiredDetails = [leadFromDraft.firstName, leadFromDraft.surname, leadFromDraft.company, leadFromDraft.position, leadFromDraft.email];
+    const hasValidTelephone = !leadFromDraft.telephone || (phoneDigits.length >= 7 && phoneDigits.length <= 15);
+    if (requiredDetails.some((detail) => !detail) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(leadFromDraft.email) || !hasValidTelephone) {
       return Promise.resolve(true);
     }
     return sendIntakeSnapshot({ ...leadFromDraft, consent, website: draft.website });
@@ -434,13 +433,13 @@ export default function BpoCalculatorModal({ onClose }: Props) {
                   <label htmlFor="bpo-company"><span>Company <small className="bpo-required-indicator">Required</small></span><input id="bpo-company" name="company" autoComplete="organization" value={draft.company} onChange={(event) => updateDraft("company", event.target.value)} maxLength={120} required aria-invalid={Boolean(fieldErrors.company)} aria-describedby={fieldErrors.company ? "bpo-company-error" : undefined} />{fieldErrors.company && <span className="bpo-field-error" id="bpo-company-error" role="alert">{fieldErrors.company}</span>}</label>
                   <label htmlFor="bpo-position"><span>Position <small className="bpo-required-indicator">Required</small></span><input id="bpo-position" name="position" autoComplete="organization-title" value={draft.position} onChange={(event) => updateDraft("position", event.target.value)} maxLength={100} required aria-invalid={Boolean(fieldErrors.position)} aria-describedby={fieldErrors.position ? "bpo-position-error" : undefined} />{fieldErrors.position && <span className="bpo-field-error" id="bpo-position-error" role="alert">{fieldErrors.position}</span>}</label>
                   <label htmlFor="bpo-company-email"><span>Company email <small className="bpo-required-indicator">Required</small></span><input id="bpo-company-email" name="email" type="email" autoComplete="email" value={draft.email} onChange={(event) => updateDraft("email", event.target.value)} maxLength={254} required aria-invalid={Boolean(fieldErrors.email)} aria-describedby={fieldErrors.email ? "bpo-company-email-error" : undefined} />{fieldErrors.email && <span className="bpo-field-error" id="bpo-company-email-error" role="alert">{fieldErrors.email}</span>}</label>
-                  <div className="bpo-phone-field"><label htmlFor="bpo-telephone"><span>Telephone number <small className="bpo-required-indicator">Required</small></span></label><div className="bpo-phone-control"><div className="bpo-country-picker" ref={phoneCountryPickerRef}>
+                  <div className="bpo-phone-field"><label htmlFor="bpo-telephone"><span>Telephone number <small className="bpo-required-indicator">Optional</small></span></label><div className="bpo-phone-control"><div className="bpo-country-picker" ref={phoneCountryPickerRef}>
                     <button className="bpo-country-trigger" type="button" aria-label={`Choose country flag; selected ${selectedPhoneCountry.name}, +${selectedPhoneCountry.callingCode}`} aria-expanded={countryPickerOpen} aria-haspopup="dialog" onClick={() => { setCountrySearch(""); setCountryPickerOpen((open) => !open); }}>{SelectedCountryFlag && <SelectedCountryFlag title="" />}<ChevronDown size={12} aria-hidden="true" /></button>
                     {countryPickerOpen && <div className="bpo-country-popover" role="dialog" aria-label="Choose a country flag"><input className="bpo-country-search" type="search" placeholder="Search flags or calling code" aria-label="Search countries by name or calling code" value={countrySearch} onChange={(event) => setCountrySearch(event.target.value)} autoFocus /><div className="bpo-country-flag-grid" role="group" aria-label="Available country flags" onKeyDown={(event) => { if (!["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"].includes(event.key)) return; const buttons = Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>(".bpo-country-flag-option")); const currentIndex = buttons.indexOf(document.activeElement as HTMLButtonElement); if (currentIndex < 0 || buttons.length === 0) return; event.preventDefault(); const direction = event.key === "ArrowRight" || event.key === "ArrowDown" ? 1 : -1; buttons[(currentIndex + direction + buttons.length) % buttons.length]?.focus(); }}>{filteredPhoneCountries.map((option, index) => {
                       const CountryFlag = countryFlags[option.country];
                       return <button className={`bpo-country-flag-option${option.country === phoneCountry ? " is-selected" : ""}`} type="button" key={option.country} aria-label={`${option.name}, +${option.callingCode}`} aria-pressed={option.country === phoneCountry} tabIndex={index === 0 ? 0 : -1} onClick={() => { setPhoneCountry(option.country); setCountryPickerOpen(false); setCountrySearch(""); setFieldErrors((current) => ({ ...current, telephone: undefined })); }}>{CountryFlag && <CountryFlag title="" />}</button>;
                     })}</div>{filteredPhoneCountries.length === 0 && <p className="bpo-country-empty">No matching flags.</p>}</div>}
-                  </div><span className="bpo-phone-prefix">+{getCountryCallingCode(phoneCountry)}</span><input id="bpo-telephone" name="telephone" type="tel" autoComplete="tel-national" inputMode="tel" placeholder="Phone number" value={draft.telephone} onChange={(event) => updateDraft("telephone", event.target.value)} maxLength={30} required aria-invalid={Boolean(fieldErrors.telephone)} aria-describedby={fieldErrors.telephone ? "bpo-telephone-error" : undefined} /></div>{fieldErrors.telephone && <span className="bpo-field-error" id="bpo-telephone-error" role="alert">{fieldErrors.telephone}</span>}</div>
+                  </div><span className="bpo-phone-prefix">+{getCountryCallingCode(phoneCountry)}</span><input id="bpo-telephone" name="telephone" type="tel" autoComplete="tel-national" inputMode="tel" placeholder="Phone number" value={draft.telephone} onChange={(event) => updateDraft("telephone", event.target.value)} maxLength={30} aria-invalid={Boolean(fieldErrors.telephone)} aria-describedby={fieldErrors.telephone ? "bpo-telephone-error" : undefined} /></div>{fieldErrors.telephone && <span className="bpo-field-error" id="bpo-telephone-error" role="alert">{fieldErrors.telephone}</span>}</div>
                 </div>
                 <label className="bpo-honeypot" aria-hidden="true">Leave this field empty<input name="website" tabIndex={-1} autoComplete="off" value={draft.website} onChange={(event) => updateDraft("website", event.target.value)} /></label>
                 <label className="bpo-consent"><input type="checkbox" checked={consent} onChange={(event) => {

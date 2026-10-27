@@ -68,7 +68,6 @@ function readLead(body: unknown): CalculatorLead | null {
     !lead.company ||
     !lead.position ||
     !lead.email ||
-    !lead.telephone ||
     lead.firstName.length > limits.firstName ||
     lead.surname.length > limits.surname ||
     lead.company.length > limits.company ||
@@ -76,13 +75,13 @@ function readLead(body: unknown): CalculatorLead | null {
     lead.email.length > limits.email ||
     lead.telephone.length > limits.telephone ||
     !EMAIL_PATTERN.test(lead.email) ||
-    !PHONE_PATTERN.test(lead.telephone)
+    (lead.telephone.length > 0 && !PHONE_PATTERN.test(lead.telephone))
   ) {
     return null;
   }
 
   const phoneDigits = lead.telephone.replace(/\D/g, "");
-  return phoneDigits.length >= 7 && phoneDigits.length <= 15 ? lead : null;
+  return !lead.telephone || (phoneDigits.length >= 7 && phoneDigits.length <= 15) ? lead : null;
 }
 
 function readCalculatorSelection(value: unknown): CalculatorSelection | null {
